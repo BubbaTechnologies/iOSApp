@@ -7,13 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9214DEA92A0B574A000A5A2D /* WixMadeforText-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9214DE9F2A0B5749000A5A2D /* WixMadeforText-MediumItalic.ttf */; };
+		9214DEAA2A0B574A000A5A2D /* WixMadeforText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9214DEA02A0B5749000A5A2D /* WixMadeforText-Bold.ttf */; };
+		9214DEAB2A0B574A000A5A2D /* WixMadeforText-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9214DEA12A0B5749000A5A2D /* WixMadeforText-SemiBoldItalic.ttf */; };
+		9214DEAC2A0B574A000A5A2D /* WixMadeforText-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9214DEA22A0B574A000A5A2D /* WixMadeforText-Medium.ttf */; };
+		9214DEAD2A0B574A000A5A2D /* WixMadeforText-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9214DEA32A0B574A000A5A2D /* WixMadeforText-Italic.ttf */; };
+		9214DEAE2A0B574A000A5A2D /* WixMadeforText-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9214DEA42A0B574A000A5A2D /* WixMadeforText-ExtraBoldItalic.ttf */; };
+		9214DEAF2A0B574A000A5A2D /* WixMadeforText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9214DEA52A0B574A000A5A2D /* WixMadeforText-Regular.ttf */; };
+		9214DEB02A0B574A000A5A2D /* WixMadeforText-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9214DEA62A0B574A000A5A2D /* WixMadeforText-SemiBold.ttf */; };
+		9214DEB12A0B574A000A5A2D /* WixMadeforText-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9214DEA72A0B574A000A5A2D /* WixMadeforText-ExtraBold.ttf */; };
+		9214DEB22A0B574A000A5A2D /* WixMadeforText-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9214DEA82A0B574A000A5A2D /* WixMadeforText-BoldItalic.ttf */; };
 		9234A97B2A0B245600EC036A /* PeachSconeMarketApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A97A2A0B245600EC036A /* PeachSconeMarketApp.swift */; };
-		9234A97D2A0B245600EC036A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A97C2A0B245600EC036A /* ContentView.swift */; };
+		9234A97D2A0B245600EC036A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A97C2A0B245600EC036A /* LoadingView.swift */; };
 		9234A97F2A0B245A00EC036A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9234A97E2A0B245A00EC036A /* Assets.xcassets */; };
 		9234A9822A0B245A00EC036A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9234A9812A0B245A00EC036A /* Preview Assets.xcassets */; };
 		9234A98C2A0B245A00EC036A /* PeachSconeMarketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A98B2A0B245A00EC036A /* PeachSconeMarketTests.swift */; };
 		9234A9962A0B245A00EC036A /* PeachSconeMarketUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A9952A0B245A00EC036A /* PeachSconeMarketUITests.swift */; };
 		9234A9982A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A9972A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift */; };
+		9234A9A72A0B278200EC036A /* CustomFontFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A9A62A0B278200EC036A /* CustomFontFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,9 +45,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9214DE9F2A0B5749000A5A2D /* WixMadeforText-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WixMadeforText-MediumItalic.ttf"; sourceTree = "<group>"; };
+		9214DEA02A0B5749000A5A2D /* WixMadeforText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WixMadeforText-Bold.ttf"; sourceTree = "<group>"; };
+		9214DEA12A0B5749000A5A2D /* WixMadeforText-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WixMadeforText-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		9214DEA22A0B574A000A5A2D /* WixMadeforText-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WixMadeforText-Medium.ttf"; sourceTree = "<group>"; };
+		9214DEA32A0B574A000A5A2D /* WixMadeforText-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WixMadeforText-Italic.ttf"; sourceTree = "<group>"; };
+		9214DEA42A0B574A000A5A2D /* WixMadeforText-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WixMadeforText-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		9214DEA52A0B574A000A5A2D /* WixMadeforText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WixMadeforText-Regular.ttf"; sourceTree = "<group>"; };
+		9214DEA62A0B574A000A5A2D /* WixMadeforText-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WixMadeforText-SemiBold.ttf"; sourceTree = "<group>"; };
+		9214DEA72A0B574A000A5A2D /* WixMadeforText-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WixMadeforText-ExtraBold.ttf"; sourceTree = "<group>"; };
+		9214DEA82A0B574A000A5A2D /* WixMadeforText-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WixMadeforText-BoldItalic.ttf"; sourceTree = "<group>"; };
 		9234A9772A0B245600EC036A /* PeachSconeMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeachSconeMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9234A97A2A0B245600EC036A /* PeachSconeMarketApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeachSconeMarketApp.swift; sourceTree = "<group>"; };
-		9234A97C2A0B245600EC036A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9234A97C2A0B245600EC036A /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		9234A97E2A0B245A00EC036A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9234A9812A0B245A00EC036A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9234A9872A0B245A00EC036A /* PeachSconeMarketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeachSconeMarketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +65,7 @@
 		9234A9912A0B245A00EC036A /* PeachSconeMarketUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeachSconeMarketUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9234A9952A0B245A00EC036A /* PeachSconeMarketUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeachSconeMarketUITests.swift; sourceTree = "<group>"; };
 		9234A9972A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeachSconeMarketUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		9234A9A62A0B278200EC036A /* CustomFontFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFontFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +93,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9214DE8A2A0B56AE000A5A2D /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				9214DEA02A0B5749000A5A2D /* WixMadeforText-Bold.ttf */,
+				9214DEA82A0B574A000A5A2D /* WixMadeforText-BoldItalic.ttf */,
+				9214DEA72A0B574A000A5A2D /* WixMadeforText-ExtraBold.ttf */,
+				9214DEA42A0B574A000A5A2D /* WixMadeforText-ExtraBoldItalic.ttf */,
+				9214DEA32A0B574A000A5A2D /* WixMadeforText-Italic.ttf */,
+				9214DEA22A0B574A000A5A2D /* WixMadeforText-Medium.ttf */,
+				9214DE9F2A0B5749000A5A2D /* WixMadeforText-MediumItalic.ttf */,
+				9214DEA52A0B574A000A5A2D /* WixMadeforText-Regular.ttf */,
+				9214DEA62A0B574A000A5A2D /* WixMadeforText-SemiBold.ttf */,
+				9214DEA12A0B5749000A5A2D /* WixMadeforText-SemiBoldItalic.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		9214DEB32A0B57DB000A5A2D /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		9234A96E2A0B245600EC036A = {
 			isa = PBXGroup;
 			children = (
@@ -94,8 +140,9 @@
 		9234A9792A0B245600EC036A /* PeachSconeMarket */ = {
 			isa = PBXGroup;
 			children = (
+				9214DE8A2A0B56AE000A5A2D /* Fonts */,
+				9234A9A42A0B25B500EC036A /* Views */,
 				9234A97A2A0B245600EC036A /* PeachSconeMarketApp.swift */,
-				9234A97C2A0B245600EC036A /* ContentView.swift */,
 				9234A97E2A0B245A00EC036A /* Assets.xcassets */,
 				9234A9802A0B245A00EC036A /* Preview Content */,
 			);
@@ -125,6 +172,24 @@
 				9234A9972A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift */,
 			);
 			path = PeachSconeMarketUITests;
+			sourceTree = "<group>";
+		};
+		9234A9A42A0B25B500EC036A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9214DEB32A0B57DB000A5A2D /* Subviews */,
+				9234A9A52A0B25D000EC036A /* Models */,
+				9234A97C2A0B245600EC036A /* LoadingView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9234A9A52A0B25D000EC036A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9234A9A62A0B278200EC036A /* CustomFontFactory.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,7 +296,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9214DEB22A0B574A000A5A2D /* WixMadeforText-BoldItalic.ttf in Resources */,
+				9214DEAB2A0B574A000A5A2D /* WixMadeforText-SemiBoldItalic.ttf in Resources */,
+				9214DEAA2A0B574A000A5A2D /* WixMadeforText-Bold.ttf in Resources */,
+				9214DEAD2A0B574A000A5A2D /* WixMadeforText-Italic.ttf in Resources */,
+				9214DEB12A0B574A000A5A2D /* WixMadeforText-ExtraBold.ttf in Resources */,
+				9214DEAC2A0B574A000A5A2D /* WixMadeforText-Medium.ttf in Resources */,
+				9214DEA92A0B574A000A5A2D /* WixMadeforText-MediumItalic.ttf in Resources */,
+				9214DEAE2A0B574A000A5A2D /* WixMadeforText-ExtraBoldItalic.ttf in Resources */,
+				9214DEB02A0B574A000A5A2D /* WixMadeforText-SemiBold.ttf in Resources */,
 				9234A9822A0B245A00EC036A /* Preview Assets.xcassets in Resources */,
+				9214DEAF2A0B574A000A5A2D /* WixMadeforText-Regular.ttf in Resources */,
 				9234A97F2A0B245A00EC036A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,7 +332,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9234A97D2A0B245600EC036A /* ContentView.swift in Sources */,
+				9234A9A72A0B278200EC036A /* CustomFontFactory.swift in Sources */,
+				9234A97D2A0B245600EC036A /* LoadingView.swift in Sources */,
 				9234A97B2A0B245600EC036A /* PeachSconeMarketApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -420,6 +496,7 @@
 				DEVELOPMENT_TEAM = 29M3BZ9YYL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PeachSconeMarket/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -449,6 +526,7 @@
 				DEVELOPMENT_TEAM = 29M3BZ9YYL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PeachSconeMarket/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
