@@ -8,18 +8,16 @@
 import SwiftUI
 
 struct LoadingView: View {
-    static let backgroundColor = Color("BackgroundColor")
     var body: some View {
         ZStack{
-            LoadingView.backgroundColor.ignoresSafeArea()
+            Color("BackgroundColor").ignoresSafeArea()
             VStack(alignment: .center){
                 Spacer()
-                Text("Peach Scone Market")
-                    .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.13))
+                TitleView()
                     .padding(.bottom, 5)
                 //TODO: Integrate progess bar with loading
                 ProgressView(value: 0.5)
-                    .accentColor(.black)
+                    .accentColor(Color("DarkText"))
                     .frame(width: UIScreen.main.bounds.width * 0.8)
                 Spacer()
             }
@@ -30,8 +28,8 @@ struct LoadingView: View {
 struct LoadingView_Previews: PreviewProvider {
     static var previews: some View {
         LoadingView()
-        LoadingView()
-            .previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro Max"))
-            .previewDisplayName("iPhone 14 Pro Max")
+//        LoadingView()
+//            .previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro Max"))
+//            .previewDisplayName("iPhone 14 Pro Max")
     }
 }

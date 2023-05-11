@@ -17,6 +17,15 @@
 		9214DEB02A0B574A000A5A2D /* WixMadeforText-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9214DEA62A0B574A000A5A2D /* WixMadeforText-SemiBold.ttf */; };
 		9214DEB12A0B574A000A5A2D /* WixMadeforText-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9214DEA72A0B574A000A5A2D /* WixMadeforText-ExtraBold.ttf */; };
 		9214DEB22A0B574A000A5A2D /* WixMadeforText-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9214DEA82A0B574A000A5A2D /* WixMadeforText-BoldItalic.ttf */; };
+		9214DEB72A0B5D15000A5A2D /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214DEB62A0B5D15000A5A2D /* LoginView.swift */; };
+		9214DEB92A0B5D33000A5A2D /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214DEB82A0B5D33000A5A2D /* TitleView.swift */; };
+		9214DEBB2A0B5ECB000A5A2D /* TextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214DEBA2A0B5ECB000A5A2D /* TextInputView.swift */; };
+		9214DEBD2A0B6474000A5A2D /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214DEBC2A0B6474000A5A2D /* ButtonView.swift */; };
+		9214DEBF2A0B6B65000A5A2D /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214DEBE2A0B6B65000A5A2D /* SignUpView.swift */; };
+		9214DEC12A0B6CC8000A5A2D /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214DEC02A0B6CC8000A5A2D /* SwipeView.swift */; };
+		9214DEC32A0B6CDB000A5A2D /* InlineTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214DEC22A0B6CDB000A5A2D /* InlineTitleView.swift */; };
+		9214DEC52A0B72FD000A5A2D /* ClothingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214DEC42A0B72FD000A5A2D /* ClothingItem.swift */; };
+		9214DEC72A0B741F000A5A2D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214DEC62A0B741F000A5A2D /* CardView.swift */; };
 		9234A97B2A0B245600EC036A /* PeachSconeMarketApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A97A2A0B245600EC036A /* PeachSconeMarketApp.swift */; };
 		9234A97D2A0B245600EC036A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A97C2A0B245600EC036A /* LoadingView.swift */; };
 		9234A97F2A0B245A00EC036A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9234A97E2A0B245A00EC036A /* Assets.xcassets */; };
@@ -25,6 +34,11 @@
 		9234A9962A0B245A00EC036A /* PeachSconeMarketUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A9952A0B245A00EC036A /* PeachSconeMarketUITests.swift */; };
 		9234A9982A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A9972A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift */; };
 		9234A9A72A0B278200EC036A /* CustomFontFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A9A62A0B278200EC036A /* CustomFontFactory.swift */; };
+		9286DB2F2A0C953D007FA46E /* NavigationButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB2E2A0C953D007FA46E /* NavigationButtonsView.swift */; };
+		9286DB312A0C9B39007FA46E /* CardCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB302A0C9B39007FA46E /* CardCollectionView.swift */; };
+		9286DB332A0C9BBF007FA46E /* MiniCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB322A0C9BBF007FA46E /* MiniCardView.swift */; };
+		9286DB352A0CA280007FA46E /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB342A0CA280007FA46E /* CollectionView.swift */; };
+		9286DB372A0CA28F007FA46E /* LikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB362A0CA28F007FA46E /* LikesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +69,15 @@
 		9214DEA62A0B574A000A5A2D /* WixMadeforText-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WixMadeforText-SemiBold.ttf"; sourceTree = "<group>"; };
 		9214DEA72A0B574A000A5A2D /* WixMadeforText-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WixMadeforText-ExtraBold.ttf"; sourceTree = "<group>"; };
 		9214DEA82A0B574A000A5A2D /* WixMadeforText-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WixMadeforText-BoldItalic.ttf"; sourceTree = "<group>"; };
+		9214DEB62A0B5D15000A5A2D /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		9214DEB82A0B5D33000A5A2D /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		9214DEBA2A0B5ECB000A5A2D /* TextInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputView.swift; sourceTree = "<group>"; };
+		9214DEBC2A0B6474000A5A2D /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
+		9214DEBE2A0B6B65000A5A2D /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		9214DEC02A0B6CC8000A5A2D /* SwipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
+		9214DEC22A0B6CDB000A5A2D /* InlineTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineTitleView.swift; sourceTree = "<group>"; };
+		9214DEC42A0B72FD000A5A2D /* ClothingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingItem.swift; sourceTree = "<group>"; };
+		9214DEC62A0B741F000A5A2D /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		9234A9772A0B245600EC036A /* PeachSconeMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeachSconeMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9234A97A2A0B245600EC036A /* PeachSconeMarketApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeachSconeMarketApp.swift; sourceTree = "<group>"; };
 		9234A97C2A0B245600EC036A /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -66,6 +89,11 @@
 		9234A9952A0B245A00EC036A /* PeachSconeMarketUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeachSconeMarketUITests.swift; sourceTree = "<group>"; };
 		9234A9972A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeachSconeMarketUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9234A9A62A0B278200EC036A /* CustomFontFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFontFactory.swift; sourceTree = "<group>"; };
+		9286DB2E2A0C953D007FA46E /* NavigationButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButtonsView.swift; sourceTree = "<group>"; };
+		9286DB302A0C9B39007FA46E /* CardCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionView.swift; sourceTree = "<group>"; };
+		9286DB322A0C9BBF007FA46E /* MiniCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniCardView.swift; sourceTree = "<group>"; };
+		9286DB342A0CA280007FA46E /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
+		9286DB362A0CA28F007FA46E /* LikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +141,14 @@
 		9214DEB32A0B57DB000A5A2D /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				9214DEB82A0B5D33000A5A2D /* TitleView.swift */,
+				9214DEBA2A0B5ECB000A5A2D /* TextInputView.swift */,
+				9214DEBC2A0B6474000A5A2D /* ButtonView.swift */,
+				9214DEC22A0B6CDB000A5A2D /* InlineTitleView.swift */,
+				9214DEC62A0B741F000A5A2D /* CardView.swift */,
+				9286DB2E2A0C953D007FA46E /* NavigationButtonsView.swift */,
+				9286DB302A0C9B39007FA46E /* CardCollectionView.swift */,
+				9286DB322A0C9BBF007FA46E /* MiniCardView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -180,6 +216,11 @@
 				9214DEB32A0B57DB000A5A2D /* Subviews */,
 				9234A9A52A0B25D000EC036A /* Models */,
 				9234A97C2A0B245600EC036A /* LoadingView.swift */,
+				9214DEB62A0B5D15000A5A2D /* LoginView.swift */,
+				9214DEBE2A0B6B65000A5A2D /* SignUpView.swift */,
+				9214DEC02A0B6CC8000A5A2D /* SwipeView.swift */,
+				9286DB342A0CA280007FA46E /* CollectionView.swift */,
+				9286DB362A0CA28F007FA46E /* LikesView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -188,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				9234A9A62A0B278200EC036A /* CustomFontFactory.swift */,
+				9214DEC42A0B72FD000A5A2D /* ClothingItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -332,9 +374,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9214DEB92A0B5D33000A5A2D /* TitleView.swift in Sources */,
 				9234A9A72A0B278200EC036A /* CustomFontFactory.swift in Sources */,
+				9286DB312A0C9B39007FA46E /* CardCollectionView.swift in Sources */,
+				9214DEC52A0B72FD000A5A2D /* ClothingItem.swift in Sources */,
+				9286DB332A0C9BBF007FA46E /* MiniCardView.swift in Sources */,
+				9214DEC32A0B6CDB000A5A2D /* InlineTitleView.swift in Sources */,
+				9286DB352A0CA280007FA46E /* CollectionView.swift in Sources */,
+				9214DEBB2A0B5ECB000A5A2D /* TextInputView.swift in Sources */,
 				9234A97D2A0B245600EC036A /* LoadingView.swift in Sources */,
+				9214DEBF2A0B6B65000A5A2D /* SignUpView.swift in Sources */,
+				9214DEB72A0B5D15000A5A2D /* LoginView.swift in Sources */,
+				9214DEC12A0B6CC8000A5A2D /* SwipeView.swift in Sources */,
 				9234A97B2A0B245600EC036A /* PeachSconeMarketApp.swift in Sources */,
+				9286DB2F2A0C953D007FA46E /* NavigationButtonsView.swift in Sources */,
+				9214DEC72A0B741F000A5A2D /* CardView.swift in Sources */,
+				9286DB372A0CA28F007FA46E /* LikesView.swift in Sources */,
+				9214DEBD2A0B6474000A5A2D /* ButtonView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
