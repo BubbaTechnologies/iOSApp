@@ -8,15 +8,19 @@
 import SwiftUI
 
 struct LoadingView: View {
+    @Binding var progress: Double
+    
     var body: some View {
         ZStack{
             Color("BackgroundColor").ignoresSafeArea()
             VStack(alignment: .center){
+                Text(String(data: KeychainHelper.standard.read(service: "access-token", account: "peachSconeMarket")!,encoding: .utf8)!)
+                
                 Spacer()
                 TitleView()
                     .padding(.bottom, 5)
-                //TODO: Integrate progess bar with loading
-                ProgressView(value: 0.5)
+                
+                ProgressView(value: progress)
                     .accentColor(Color("DarkText"))
                     .frame(width: UIScreen.main.bounds.width * 0.8)
                 Spacer()
@@ -27,7 +31,7 @@ struct LoadingView: View {
 
 struct LoadingView_Previews: PreviewProvider {
     static var previews: some View {
-        LoadingView()
+        LoadingView(progress: .constant(0.5))
 //        LoadingView()
 //            .previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro Max"))
 //            .previewDisplayName("iPhone 14 Pro Max")

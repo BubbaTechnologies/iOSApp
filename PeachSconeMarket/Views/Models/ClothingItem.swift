@@ -20,11 +20,13 @@ struct ClothingItem: Identifiable, Codable, Equatable {
         self.productURL = productURL
     }
     
-    static func loadItem(token:String, completion:@escaping (ClothingItem)->()) {
+    static func loadItem(completion:@escaping (ClothingItem)->()) {
+        let token: String = String(data: KeychainHelper.standard.read(service: "access-token", account: "peachSconeMarket")!,encoding: .utf8)!
         let url = URL(string:"https://api.bubba-app.com/app/card")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+        request.setValue("gzip,defalte,br", forHTTPHeaderField: "Accept-Encoding")
             
         URLSession.shared.dataTask(with: request) { data, response, error in
                 if let data = data {

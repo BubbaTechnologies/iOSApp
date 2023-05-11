@@ -34,11 +34,13 @@
 		9234A9962A0B245A00EC036A /* PeachSconeMarketUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A9952A0B245A00EC036A /* PeachSconeMarketUITests.swift */; };
 		9234A9982A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A9972A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift */; };
 		9234A9A72A0B278200EC036A /* CustomFontFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A9A62A0B278200EC036A /* CustomFontFactory.swift */; };
+		9273B0852A0D6077002140C4 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9273B0842A0D6077002140C4 /* KeychainHelper.swift */; };
 		9286DB2F2A0C953D007FA46E /* NavigationButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB2E2A0C953D007FA46E /* NavigationButtonsView.swift */; };
 		9286DB312A0C9B39007FA46E /* CardCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB302A0C9B39007FA46E /* CardCollectionView.swift */; };
 		9286DB332A0C9BBF007FA46E /* MiniCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB322A0C9BBF007FA46E /* MiniCardView.swift */; };
 		9286DB352A0CA280007FA46E /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB342A0CA280007FA46E /* CollectionView.swift */; };
 		9286DB372A0CA28F007FA46E /* LikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB362A0CA28F007FA46E /* LikesView.swift */; };
+		9286DB392A0CBE47007FA46E /* LoginStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB382A0CBE47007FA46E /* LoginStruct.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,11 +91,14 @@
 		9234A9952A0B245A00EC036A /* PeachSconeMarketUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeachSconeMarketUITests.swift; sourceTree = "<group>"; };
 		9234A9972A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeachSconeMarketUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9234A9A62A0B278200EC036A /* CustomFontFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFontFactory.swift; sourceTree = "<group>"; };
+		9273B0832A0D5EDA002140C4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		9273B0842A0D6077002140C4 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		9286DB2E2A0C953D007FA46E /* NavigationButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButtonsView.swift; sourceTree = "<group>"; };
 		9286DB302A0C9B39007FA46E /* CardCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionView.swift; sourceTree = "<group>"; };
 		9286DB322A0C9BBF007FA46E /* MiniCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniCardView.swift; sourceTree = "<group>"; };
 		9286DB342A0CA280007FA46E /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		9286DB362A0CA28F007FA46E /* LikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesView.swift; sourceTree = "<group>"; };
+		9286DB382A0CBE47007FA46E /* LoginStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginStruct.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +161,7 @@
 		9234A96E2A0B245600EC036A = {
 			isa = PBXGroup;
 			children = (
+				9273B0832A0D5EDA002140C4 /* README.md */,
 				9234A9792A0B245600EC036A /* PeachSconeMarket */,
 				9234A98A2A0B245A00EC036A /* PeachSconeMarketTests */,
 				9234A9942A0B245A00EC036A /* PeachSconeMarketUITests */,
@@ -230,6 +236,8 @@
 			children = (
 				9234A9A62A0B278200EC036A /* CustomFontFactory.swift */,
 				9214DEC42A0B72FD000A5A2D /* ClothingItem.swift */,
+				9286DB382A0CBE47007FA46E /* LoginStruct.swift */,
+				9273B0842A0D6077002140C4 /* KeychainHelper.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -378,12 +386,14 @@
 				9234A9A72A0B278200EC036A /* CustomFontFactory.swift in Sources */,
 				9286DB312A0C9B39007FA46E /* CardCollectionView.swift in Sources */,
 				9214DEC52A0B72FD000A5A2D /* ClothingItem.swift in Sources */,
+				9273B0852A0D6077002140C4 /* KeychainHelper.swift in Sources */,
 				9286DB332A0C9BBF007FA46E /* MiniCardView.swift in Sources */,
 				9214DEC32A0B6CDB000A5A2D /* InlineTitleView.swift in Sources */,
 				9286DB352A0CA280007FA46E /* CollectionView.swift in Sources */,
 				9214DEBB2A0B5ECB000A5A2D /* TextInputView.swift in Sources */,
 				9234A97D2A0B245600EC036A /* LoadingView.swift in Sources */,
 				9214DEBF2A0B6B65000A5A2D /* SignUpView.swift in Sources */,
+				9286DB392A0CBE47007FA46E /* LoginStruct.swift in Sources */,
 				9214DEB72A0B5D15000A5A2D /* LoginView.swift in Sources */,
 				9214DEC12A0B6CC8000A5A2D /* SwipeView.swift in Sources */,
 				9234A97B2A0B245600EC036A /* PeachSconeMarketApp.swift in Sources */,
