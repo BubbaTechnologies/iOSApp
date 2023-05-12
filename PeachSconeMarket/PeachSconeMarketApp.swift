@@ -16,26 +16,25 @@ struct PeachSconeMarketApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if loggedIn {
+            if loadingProgress == 1 {
+                SwipeView(items: $items)
+            } else if loggedIn {
                 LoadingView(progress: $loadingProgress).task{
                     checkToken()
                     for var i in 1...preLoadAmount {
                         ClothingItem.loadItem() { item in
                             if (!items.contains(item)) {
                                 items.append(item)
-                                loadingProgress += (Double) (1.0 / Double(preLoadAmount))
+                                loadingProgress += (Double) (1.0 / Double(preLoadAmount - 2))
                             } else {
                                 i -= 1
                             }
-                            
-                            if (items.count >= preLoadAmount) {
+                            if (items.count >= (preLoadAmount - 2)) {
                                 loadingProgress = 1
                             }
                         }
                     }
                 }
-            } else if loadingProgress == 1 {
-              //TODO: Swipe View
             } else {
                 LoginView(loggedIn: $loggedIn)
             }
@@ -46,20 +45,18 @@ struct PeachSconeMarketApp: App {
 extension PeachSconeMarketApp {
     func checkToken() {
         let token: String = String(data: KeychainHelper.standard.read(service: "access-token", account: "peachSconeMarket")!,encoding: .utf8)!
-        let url = URL(string:"https://api.bubba-app.com/app/card")!
+        let url = URL(string:"https://api.peachsconemarket.com/app/card")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
             
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let response = response as? HTTPURLResponse {
-                print(response.statusCode)
                 if response.statusCode == 403 {
                     //Removes token from keychain
                     loggedIn = false
-                    return
                 }
             }
-        }
+        }.resume()
     }
 }

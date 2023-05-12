@@ -1,28 +1,32 @@
 //
-//  LoginStruct.swift
+//  SignUpStruct.swift
 //  PeachSconeMarket
 //
-//  Created by Matt Groholski on 5/10/23.
+//  Created by Matt Groholski on 5/11/23.
 //
 
 import Foundation
 
-struct LoginStruct: Codable {
+struct SignUpStruct: Codable {
     let username: String
     let password: String
+    let gender: String
+    let name: String
     
-    init(username: String, password: String) {
+    init(username: String, password: String, gender:String, name:String) {
         self.username = username
         self.password = password
+        self.gender = gender.lowercased()
+        self.name = name
     }
     
-    static func loginRequest(loginData: LoginStruct) throws ->String {
+    static func signUpRequest(signUpData: SignUpStruct) throws -> String {
         let sem = DispatchSemaphore.init(value: 0)
         
-        let url = URL(string:"https://api.peachsconemarket.com/login")!
+        let url = URL(string:"https://api.peachsconemarket.com/create")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.httpBody = try JSONEncoder().encode(loginData)
+        request.httpBody = try JSONEncoder().encode(signUpData)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("api.peachsconemarket.com", forHTTPHeaderField: "Host")
         
@@ -48,32 +52,15 @@ struct LoginStruct: Codable {
         sem.wait()
         
         if token.count == 3 {
-            print(token)
             switch token {
-            case "403":
-                print("Here1")
-                throw HttpError.runtimeError("Invalid username and/or password.")
+            case "400":
+                throw HttpError.runtimeError("User Already Exists.")
             default:
-                print("Here2")
                 throw HttpError.runtimeError("Connection Error.")
             }
         }
         
         return token
     }
-}
-
-enum HttpError: Error {
-    case runtimeError(String)
-}
-
-struct LoginResponseStruct:Codable{
-    let jwt: String
-    let name: String
-    let username: String
-    init(jwt: String, name: String, username: String) {
-        self.jwt = jwt
-        self.name = name
-        self.username = username
-    }
+    
 }

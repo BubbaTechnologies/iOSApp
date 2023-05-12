@@ -32,8 +32,6 @@ struct SuperTextField: View {
     
     var placeholder: Text
     @Binding var text: String
-    var editingChanged: (Bool)->() = { _ in }
-    var commit: ()->() = { }
     var secure: Bool
     
     var body: some View {

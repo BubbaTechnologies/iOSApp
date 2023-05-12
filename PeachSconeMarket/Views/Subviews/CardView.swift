@@ -21,14 +21,17 @@ struct CardView: View {
             AsyncImage(url: URL(string: item.imageURL[currentImageIndex])) { phase in
                 switch phase {
                 case .empty:
-                    //TODO: Deal with empty image
-                    Text("Loading Error for image: " + String(currentImageIndex))
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .black))
+                        .scaleEffect(3)
                         .overlay(
                             RoundedRectangle(cornerRadius: 50)
                                 .stroke(.black)
                                 .frame(width: UIScreen.main.bounds.height * widthFactor, height: UIScreen.main.bounds.height * (widthFactor * heightToWidthRatio), alignment: .center)
                         )
                         .frame(width: UIScreen.main.bounds.height * widthFactor, height: UIScreen.main.bounds.height * (widthFactor * heightToWidthRatio), alignment: .center)
+                        .background(Color("LightText"))
+                        .cornerRadius(50)
                 case .success(let image):
                     ZStack{
                         image.resizable()
@@ -65,7 +68,16 @@ struct CardView: View {
                     }
                 case .failure:
                     //TODO: Handle failure to load
-                    Text("Failure")
+                    Text("Failure to Load")
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 50)
+                                .stroke(.black)
+                                .frame(width: UIScreen.main.bounds.height * widthFactor, height: UIScreen.main.bounds.height * (widthFactor * heightToWidthRatio), alignment: .center)
+                        )
+                        .foregroundColor(.black)
+                        .frame(width: UIScreen.main.bounds.height * widthFactor, height: UIScreen.main.bounds.height * (widthFactor * heightToWidthRatio), alignment: .center)
+                        .background(Color("LightText"))
+                        .cornerRadius(50)
                 @unknown default:
                     EmptyView()
                 }

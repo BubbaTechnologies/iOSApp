@@ -14,6 +14,7 @@ struct LoginView: View {
     @State private var signUpActive: Bool = false
     @State private var errorMessage: String  = ""
     @Binding var loggedIn: Bool
+    @State private var loginDisabled: Bool = false
     
     var body: some View {
         switch signUpActive {
@@ -27,17 +28,27 @@ struct LoginView: View {
                     TextInputView(promptText: "Email", input: $email, secure: false)
                     TextInputView(promptText: "Password", input: $password, secure: true)
                     ButtonView(text: "Sign In", action: SignIn)
-                    if errorMessage != "" {
+                        .disabled(loginDisabled)
+                        .onTapGesture {
+                            errorMessage = ""
+                            loginDisabled = true
+                        }
                         Text("\(errorMessage)")
                             .font(CustomFontFactory.getFont(style: "Bold", size: 15))
                             .foregroundColor(.red)
-                    }
                     Spacer()
                     ButtonView(text: "Sign Up", action: {signUpActive.toggle()})
+                        .disabled(loginDisabled)
+                }
+                
+                if loginDisabled {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .scaleEffect(3)
                 }
             }
         case true:
-            SignUpView(active: $signUpActive)
+            SignUpView(active: $signUpActive, loggedIn: $loggedIn)
         }
     }
 }
@@ -45,12 +56,18 @@ struct LoginView: View {
 extension LoginView{
     func SignIn()->Void {
         //Resets error message
-        errorMessage = ""
+        
+        if (email.isEmpty || password.isEmpty) {
+            errorMessage = "Fill in the above fields!"
+            loginDisabled = false
+            return
+        }
         
         //Checks email format
         let emailRegex = /.+@.+\..+/
         if !email.contains(emailRegex) {
             errorMessage = "Invalid Email!"
+            loginDisabled = false
             return
         }
         
@@ -59,11 +76,13 @@ extension LoginView{
             let token: String = try LoginStruct.loginRequest(loginData: loginStruct)
             KeychainHelper.standard.save(Data(token.utf8), service: "access-token", account:"peachSconeMarket")
             loggedIn = true
+        } catch HttpError.runtimeError(let message){
+            errorMessage = "\(message)"
         } catch {
-            errorMessage = "Connection Error!"
-            return
+            errorMessage = "\(error)"
         }
-        
+        loginDisabled = false
+        return
     }
 }
 

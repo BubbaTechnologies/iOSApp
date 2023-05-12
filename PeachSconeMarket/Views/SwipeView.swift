@@ -14,12 +14,12 @@ struct SwipeView: View {
         ZStack{
             Color("BackgroundColor").ignoresSafeArea()
             VStack{
+                Spacer()
                 InlineTitleView()
                     .frame(alignment: .top)
-                    .padding(.top, UIScreen.main.bounds.height * 0.06)
                     .padding(.bottom, 2)
                 ZStack{
-                    ForEach(items.reversed()) { item in
+                    ForEach(items.reversed()) { item in 
                         CardView(items: $items, item: item)
                     }
                 }
@@ -31,11 +31,11 @@ struct SwipeView: View {
                         .frame(width: 350)
                         .foregroundColor(Color("DarkText"))
                         .lineLimit(3)
-                        .padding(.bottom, -1)
+                        .padding(.bottom)
                 }
+                Spacer()
                 NavigationButtonView()
                     .frame(height: UIScreen.main.bounds.height * 0.05)
-                Spacer()
             }
         }
     }

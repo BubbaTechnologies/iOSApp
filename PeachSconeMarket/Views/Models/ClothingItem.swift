@@ -22,19 +22,27 @@ struct ClothingItem: Identifiable, Codable, Equatable {
     
     static func loadItem(completion:@escaping (ClothingItem)->()) {
         let token: String = String(data: KeychainHelper.standard.read(service: "access-token", account: "peachSconeMarket")!,encoding: .utf8)!
-        let url = URL(string:"https://api.bubba-app.com/app/card")!
+        let url = URL(string:"https://api.peachsconemarket.com/app/card")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
-        request.setValue("gzip,defalte,br", forHTTPHeaderField: "Accept-Encoding")
+        request.allHTTPHeaderFields = [
+            "Authorization":"Bearer " + token,
+            "Host":"api.peachsconemarket.com"
+        ]
             
         URLSession.shared.dataTask(with: request) { data, response, error in
-                if let data = data {
-                    let item = try! JSONDecoder().decode(ClothingItem.self, from: data)
-                    DispatchQueue.main.async {
-                        completion(item)
-                    }
+            if let response=response as? HTTPURLResponse {
+                print(response.statusCode)
+            }
+            
+            if let data = data {
+                let item = try! JSONDecoder().decode(ClothingItem.self, from: data)
+                DispatchQueue.main.async {
+                    completion(item)
                 }
+            } else if let error = error {
+                print("HTTP Request Failed \(error)")
+            }
         }.resume()
     }
 }

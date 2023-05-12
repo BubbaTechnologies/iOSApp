@@ -13,13 +13,10 @@ struct LoadingView: View {
     var body: some View {
         ZStack{
             Color("BackgroundColor").ignoresSafeArea()
-            VStack(alignment: .center){
-                Text(String(data: KeychainHelper.standard.read(service: "access-token", account: "peachSconeMarket")!,encoding: .utf8)!)
-                
+            VStack(alignment: .center){                
                 Spacer()
                 TitleView()
                     .padding(.bottom, 5)
-                
                 ProgressView(value: progress)
                     .accentColor(Color("DarkText"))
                     .frame(width: UIScreen.main.bounds.width * 0.8)
