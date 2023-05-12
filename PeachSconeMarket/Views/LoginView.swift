@@ -33,9 +33,11 @@ struct LoginView: View {
                             errorMessage = ""
                             loginDisabled = true
                         }
+                    if !errorMessage.isEmpty {
                         Text("\(errorMessage)")
                             .font(CustomFontFactory.getFont(style: "Bold", size: 15))
                             .foregroundColor(.red)
+                    }
                     Spacer()
                     ButtonView(text: "Sign Up", action: {signUpActive.toggle()})
                         .disabled(loginDisabled)

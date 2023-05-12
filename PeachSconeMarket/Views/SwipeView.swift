@@ -11,8 +11,6 @@ struct SwipeView: View {
     @Binding var items: [ClothingItem]
     
     var body: some View {
-        ZStack{
-            Color("BackgroundColor").ignoresSafeArea()
             VStack{
                 Spacer()
                 InlineTitleView()
@@ -33,11 +31,7 @@ struct SwipeView: View {
                         .lineLimit(3)
                         .padding(.bottom)
                 }
-                Spacer()
-                NavigationButtonView()
-                    .frame(height: UIScreen.main.bounds.height * 0.05)
             }
-        }
     }
 }
 

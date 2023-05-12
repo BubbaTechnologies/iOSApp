@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct LikesView: View {
-    @State var items: [ClothingItem]
+    @State var items: [ClothingItem] = []
+    @State var errorMessage: String = ""
     
     var body: some View {
         ZStack{
-            Color("BackgroundColor").ignoresSafeArea()
             VStack(alignment: .center){
                 ScrollView(showsIndicators: false) {
                     InlineTitleView()
@@ -23,11 +23,37 @@ struct LikesView: View {
                         .foregroundColor(Color("DarkText"))
                     CardCollectionView(items: $items)
                 }
-                Spacer()
-                NavigationButtonView()
-                    .frame(height: UIScreen.main.bounds.height * 0.05)
             }
+            if items.count == 0 && errorMessage.isEmpty {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                    .scaleEffect(3)
+            }
+            if !errorMessage.isEmpty {
+                Text("\(errorMessage)")
+                    .font(CustomFontFactory.getFont(style: "Bold", size: 15))
+                    .foregroundColor(.red)
+            }
+        }.onAppear{
+            if items.isEmpty {
+                items = LoadItems()
+            }
+        }.onDisappear{
+            items = []
         }
+    }
+}
+
+extension LikesView{
+    func LoadItems() -> [ClothingItem] {
+        do {
+            return try CollectionStruct.collectionRequest(type: "likes")
+        } catch HttpError.runtimeError(let message) {
+            errorMessage = "\(message)"
+        } catch {
+            errorMessage = "\(error)"
+        }
+        return []
     }
 }
 

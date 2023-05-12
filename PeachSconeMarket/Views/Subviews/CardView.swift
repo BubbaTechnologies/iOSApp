@@ -109,12 +109,12 @@ extension CardView{
         case -500...(-150):
             offset = CGSize(width: -500, height: 0)
             Task{
-                await removeCard(rating: 5)
+                await removeCard(rating: 0)
             }
         case 150...500:
             offset = CGSize(width: 500, height: 0)
             Task {
-                await removeCard(rating: 0)
+                await removeCard(rating: 5)
             }
         default:
             offset = .zero
@@ -122,8 +122,16 @@ extension CardView{
     }
     
     func removeCard(rating:Int) async {
-        //TODO: Implement function to send like
         items.removeFirst()
+        
+        //Create LikeStruct
+        let likeStruct:LikeStruct = LikeStruct(clothingId: String(item.id), rating: String(rating))
+        do {
+           try LikeStruct.createLikeRequest(likeStruct: likeStruct)
+            print("LIKED!")
+        } catch  {
+            print("\(error)")
+        }
     }
 }
 

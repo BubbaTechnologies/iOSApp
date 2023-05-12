@@ -38,9 +38,11 @@ struct SignUpView: View {
                         errorMessage = ""
                     }
                     .disabled(signUpDisabled)
-                Text("\(errorMessage)")
-                    .font(CustomFontFactory.getFont(style: "Bold", size: 15))
-                    .foregroundColor(.red)
+                if !errorMessage.isEmpty {
+                    Text("\(errorMessage)")
+                        .font(CustomFontFactory.getFont(style: "Bold", size: 15))
+                        .foregroundColor(.red)
+                }
                 Spacer()
             }
             VStack(alignment: .leading){

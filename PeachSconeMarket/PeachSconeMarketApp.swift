@@ -17,7 +17,7 @@ struct PeachSconeMarketApp: App {
     var body: some Scene {
         WindowGroup {
             if loadingProgress == 1 {
-                SwipeView(items: $items)
+                MainView(items: $items)
             } else if loggedIn {
                 LoadingView(progress: $loadingProgress).task{
                     checkToken()

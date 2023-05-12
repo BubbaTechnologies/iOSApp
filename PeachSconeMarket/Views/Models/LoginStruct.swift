@@ -8,8 +8,8 @@
 import Foundation
 
 struct LoginStruct: Codable {
-    let username: String
-    let password: String
+    private let username: String
+    private let password: String
     
     init(username: String, password: String) {
         self.username = username
@@ -22,9 +22,11 @@ struct LoginStruct: Codable {
         let url = URL(string:"https://api.peachsconemarket.com/login")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
+        request.allHTTPHeaderFields = [
+            "Content-Type":"application/json",
+            "Host":"api.peachsconemarket.com"
+        ]
         request.httpBody = try JSONEncoder().encode(loginData)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("api.peachsconemarket.com", forHTTPHeaderField: "Host")
         
         var token: String = ""
         
@@ -51,11 +53,9 @@ struct LoginStruct: Codable {
             print(token)
             switch token {
             case "403":
-                print("Here1")
                 throw HttpError.runtimeError("Invalid username and/or password.")
             default:
-                print("Here2")
-                throw HttpError.runtimeError("Connection Error.")
+                throw HttpError.runtimeError("Connection Error: Status Code " + token)
             }
         }
         

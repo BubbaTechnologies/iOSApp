@@ -8,10 +8,10 @@
 import Foundation
 
 struct SignUpStruct: Codable {
-    let username: String
-    let password: String
-    let gender: String
-    let name: String
+    private let username: String
+    private let password: String
+    private let gender: String
+    private let name: String
     
     init(username: String, password: String, gender:String, name:String) {
         self.username = username
@@ -27,8 +27,11 @@ struct SignUpStruct: Codable {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = try JSONEncoder().encode(signUpData)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("api.peachsconemarket.com", forHTTPHeaderField: "Host")
+        request.allHTTPHeaderFields = [
+            "Content-Type":"application/json",
+            "Host":"api.peachsconemarket.com"
+        ]
+        
         
         var token: String = ""
         
@@ -56,7 +59,7 @@ struct SignUpStruct: Codable {
             case "400":
                 throw HttpError.runtimeError("User Already Exists.")
             default:
-                throw HttpError.runtimeError("Connection Error.")
+                throw HttpError.runtimeError("Connection Error: Status Code " + token)
             }
         }
         

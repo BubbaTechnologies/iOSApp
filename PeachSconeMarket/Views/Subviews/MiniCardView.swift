@@ -16,8 +16,16 @@ struct MiniCardView: View {
             AsyncImage(url: URL(string: item.imageURL[0])) { phase in
                 switch phase {
                 case .empty:
-                    //TODO: Deal with empty text
-                    Text("Empty")
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .black))
+                        .scaleEffect(3)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 15)
+                                .stroke(Color("DarkText"))
+                        )
+                        .frame(width: UIScreen.main.bounds.height * imageWidthScale, height: UIScreen.main.bounds.height * (imageWidthScale/0.5714285714), alignment: .center)
+                        .background(Color("LightText"))
+                        .cornerRadius(20)
                 case .success(let image):
                     image.resizable()
                         .scaledToFill()
@@ -27,8 +35,13 @@ struct MiniCardView: View {
                         .overlay(
                             //Width to cornerRadius ratio is 125x
                             RoundedRectangle(cornerRadius: 15)
-                                .stroke(.black)
+                                .stroke(Color("DarkText"))
                         )
+                        .onTapGesture {
+                            if let url = URL(string: item.productURL) {
+                                UIApplication.shared.open(url)
+                            }
+                        }
                 case .failure:
                     //TODO: Handle failure to load
                     Text("Failure")

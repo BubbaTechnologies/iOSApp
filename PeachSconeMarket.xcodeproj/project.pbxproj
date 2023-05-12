@@ -43,6 +43,9 @@
 		9286DB352A0CA280007FA46E /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB342A0CA280007FA46E /* CollectionView.swift */; };
 		9286DB372A0CA28F007FA46E /* LikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB362A0CA28F007FA46E /* LikesView.swift */; };
 		9286DB392A0CBE47007FA46E /* LoginStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB382A0CBE47007FA46E /* LoginStruct.swift */; };
+		92C623D52A0EB1AB006B5940 /* LikeStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C623D42A0EB1AB006B5940 /* LikeStruct.swift */; };
+		92C623D72A0EE53C006B5940 /* CollectionStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C623D62A0EE53C006B5940 /* CollectionStruct.swift */; };
+		92C623D92A0EECB5006B5940 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C623D82A0EECB5006B5940 /* MainView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +106,9 @@
 		9286DB342A0CA280007FA46E /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		9286DB362A0CA28F007FA46E /* LikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesView.swift; sourceTree = "<group>"; };
 		9286DB382A0CBE47007FA46E /* LoginStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginStruct.swift; sourceTree = "<group>"; };
+		92C623D42A0EB1AB006B5940 /* LikeStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeStruct.swift; sourceTree = "<group>"; };
+		92C623D62A0EE53C006B5940 /* CollectionStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionStruct.swift; sourceTree = "<group>"; };
+		92C623D82A0EECB5006B5940 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +238,7 @@
 				9214DEC02A0B6CC8000A5A2D /* SwipeView.swift */,
 				9286DB342A0CA280007FA46E /* CollectionView.swift */,
 				9286DB362A0CA28F007FA46E /* LikesView.swift */,
+				92C623D82A0EECB5006B5940 /* MainView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -244,6 +251,8 @@
 				9286DB382A0CBE47007FA46E /* LoginStruct.swift */,
 				9273B0842A0D6077002140C4 /* KeychainHelper.swift */,
 				9266D3942A0E03A200976757 /* SignUpStruct.swift */,
+				92C623D42A0EB1AB006B5940 /* LikeStruct.swift */,
+				92C623D62A0EE53C006B5940 /* CollectionStruct.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -389,6 +398,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9266D3952A0E03A200976757 /* SignUpStruct.swift in Sources */,
+				92C623D92A0EECB5006B5940 /* MainView.swift in Sources */,
 				9214DEB92A0B5D33000A5A2D /* TitleView.swift in Sources */,
 				9234A9A72A0B278200EC036A /* CustomFontFactory.swift in Sources */,
 				9286DB312A0C9B39007FA46E /* CardCollectionView.swift in Sources */,
@@ -403,6 +413,8 @@
 				9214DEBF2A0B6B65000A5A2D /* SignUpView.swift in Sources */,
 				9286DB392A0CBE47007FA46E /* LoginStruct.swift in Sources */,
 				9214DEB72A0B5D15000A5A2D /* LoginView.swift in Sources */,
+				92C623D52A0EB1AB006B5940 /* LikeStruct.swift in Sources */,
+				92C623D72A0EE53C006B5940 /* CollectionStruct.swift in Sources */,
 				9214DEC12A0B6CC8000A5A2D /* SwipeView.swift in Sources */,
 				9234A97B2A0B245600EC036A /* PeachSconeMarketApp.swift in Sources */,
 				9286DB2F2A0C953D007FA46E /* NavigationButtonsView.swift in Sources */,
