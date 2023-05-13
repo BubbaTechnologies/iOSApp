@@ -24,26 +24,11 @@ struct CardView: View {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: .black))
                         .scaleEffect(3)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 50)
-                                .stroke(.black)
-                                .frame(width: UIScreen.main.bounds.height * widthFactor, height: UIScreen.main.bounds.height * (widthFactor * heightToWidthRatio), alignment: .center)
-                        )
-                        .frame(width: UIScreen.main.bounds.height * widthFactor, height: UIScreen.main.bounds.height * (widthFactor * heightToWidthRatio), alignment: .center)
-                        .background(Color("LightText"))
-                        .cornerRadius(50)
                 case .success(let image):
                     ZStack{
                         image.resizable()
                             .scaledToFill()
-                            .padding(.horizontal, 20)
-                            .frame(width: UIScreen.main.bounds.height * widthFactor, height: UIScreen.main.bounds.height * (widthFactor * heightToWidthRatio), alignment: .center)
-                            .cornerRadius(50)
                             .clipped()
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 50)
-                                    .stroke(.black)
-                            )
                         HStack{
                             ForEach(0...item.imageURL.count-1, id:\.self) {index in
                                 ZStack{
@@ -74,31 +59,36 @@ struct CardView: View {
                                 .stroke(.black)
                                 .frame(width: UIScreen.main.bounds.height * widthFactor, height: UIScreen.main.bounds.height * (widthFactor * heightToWidthRatio), alignment: .center)
                         )
-                        .foregroundColor(.black)
-                        .frame(width: UIScreen.main.bounds.height * widthFactor, height: UIScreen.main.bounds.height * (widthFactor * heightToWidthRatio), alignment: .center)
-                        .background(Color("LightText"))
-                        .cornerRadius(50)
+                        .foregroundColor(Color("DarkText"))
                 @unknown default:
                     EmptyView()
                 }
             }
-                .offset(x: offset.width)
-                .rotationEffect(.degrees(Double(offset.width / 50)))
-                .gesture(
-                    DragGesture()
-                        .onChanged{ gesture in
-                            offset = gesture.translation
+            .overlay(
+                RoundedRectangle(cornerRadius: 50)
+                    .stroke(Color("DarkText"))
+                    .frame(width: UIScreen.main.bounds.height * widthFactor, height: UIScreen.main.bounds.height * (widthFactor * heightToWidthRatio), alignment: .center)
+            )
+            .padding(.horizontal, 20)
+            .frame(width: UIScreen.main.bounds.height * widthFactor, height: UIScreen.main.bounds.height * (widthFactor * heightToWidthRatio), alignment: .center)
+            .background(Color("LightText"))
+            .cornerRadius(50)
+            .offset(x: offset.width)
+            .rotationEffect(.degrees(Double(offset.width / 50)))
+            .gesture(
+                DragGesture()
+                    .onChanged{ gesture in
+                        offset = gesture.translation
+                    }
+                    .onEnded { _ in
+                        withAnimation {
+                            swipeCard(width: offset.width)
                         }
-                        .onEnded { _ in
-                            withAnimation {
-                                swipeCard(width: offset.width)
-                            }
-                        }
-                )
-                .onTapGesture{
-                    //TODO: Change circles color when tapped
-                    currentImageIndex = (currentImageIndex + 1) % item.imageURL.count
-                }
+                    }
+            )
+            .onTapGesture{
+                currentImageIndex = (currentImageIndex + 1) % item.imageURL.count
+            }
         }
     }
 }
@@ -130,6 +120,17 @@ extension CardView{
            try LikeStruct.createLikeRequest(likeStruct: likeStruct)
         } catch  {
             print("\(error)")
+        }
+        
+        //Loads new items
+        for var i in 0...(PeachSconeMarketApp.preLoadAmount - items.count) {
+            ClothingItem.loadItem() { item in
+                if (!items.contains(item)) {
+                    items.append(item)
+                } else {
+                    i -= 1
+                }
+            }
         }
     }
 }

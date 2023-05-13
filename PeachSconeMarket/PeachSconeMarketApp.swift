@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct PeachSconeMarketApp: App {
     @State var loadingProgress: Double = 0.0
-    let preLoadAmount: Int = 20
+    static let preLoadAmount: Int = 20
     @State var items:[ClothingItem] = []
     @State var loggedIn: Bool = (KeychainHelper.standard.read(service: "access-token", account: "peachSconeMarket") != nil)
     
@@ -21,15 +21,15 @@ struct PeachSconeMarketApp: App {
             } else if loggedIn {
                 LoadingView(progress: $loadingProgress).task{
                     checkToken()
-                    for var i in 1...preLoadAmount {
+                    for var i in 1...PeachSconeMarketApp.preLoadAmount {
                         ClothingItem.loadItem() { item in
                             if (!items.contains(item)) {
                                 items.append(item)
-                                loadingProgress += (Double) (1.0 / Double(preLoadAmount - 2))
+                                loadingProgress += (Double) (1.0 / Double(PeachSconeMarketApp.preLoadAmount - 2))
                             } else {
                                 i -= 1
                             }
-                            if (items.count >= (preLoadAmount - 2)) {
+                            if (items.count >= (PeachSconeMarketApp.preLoadAmount - 2)) {
                                 loadingProgress = 1
                             }
                         }

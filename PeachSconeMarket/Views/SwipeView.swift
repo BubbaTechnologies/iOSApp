@@ -14,8 +14,7 @@ struct SwipeView: View {
             VStack{
                 Spacer()
                 InlineTitleView()
-                    .frame(alignment: .top)
-                    .padding(.bottom, 2)
+                    Spacer()
                 ZStack{
                     ForEach(items.reversed()) { item in 
                         CardView(items: $items, item: item)
@@ -29,7 +28,7 @@ struct SwipeView: View {
                         .frame(width: 350)
                         .foregroundColor(Color("DarkText"))
                         .lineLimit(3)
-                        .padding(.bottom)
+                        .padding(.bottom, 15)
                 }
             }
     }
