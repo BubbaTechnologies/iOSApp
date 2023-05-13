@@ -128,7 +128,6 @@ extension CardView{
         let likeStruct:LikeStruct = LikeStruct(clothingId: String(item.id), rating: String(rating))
         do {
            try LikeStruct.createLikeRequest(likeStruct: likeStruct)
-            print("LIKED!")
         } catch  {
             print("\(error)")
         }

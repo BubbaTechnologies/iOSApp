@@ -60,5 +60,8 @@ extension LikesView{
 struct LikesView_Previews: PreviewProvider {
     static var previews: some View {
         LikesView(items: ClothingItem.sampleItems)
+        LikesView(items: ClothingItem.sampleItems)
+                .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro"))
+                .previewDisplayName("iPhone 13 Pro")
     }
 }

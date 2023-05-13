@@ -25,12 +25,12 @@ struct MiniCardView: View {
                         )
                         .frame(width: UIScreen.main.bounds.height * imageWidthScale, height: UIScreen.main.bounds.height * (imageWidthScale/0.5714285714), alignment: .center)
                         .background(Color("LightText"))
-                        .cornerRadius(20)
+                        .cornerRadius(15)
                 case .success(let image):
                     image.resizable()
                         .scaledToFill()
                         .frame(width: UIScreen.main.bounds.height * imageWidthScale, height: UIScreen.main.bounds.height * (imageWidthScale/0.5714285714), alignment: .center)
-                        .cornerRadius(20)
+                        .cornerRadius(15)
                         .clipped()
                         .overlay(
                             //Width to cornerRadius ratio is 125x
@@ -43,19 +43,29 @@ struct MiniCardView: View {
                             }
                         }
                 case .failure:
-                    //TODO: Handle failure to load
-                    Text("Failure")
+                    Text("Failure to Load")
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 15)
+                                .stroke(.black)
+                                .frame(width: UIScreen.main.bounds.height * imageWidthScale, height: UIScreen.main.bounds.height * (imageWidthScale/0.5714285714), alignment: .center)
+                        )
+                        .foregroundColor(.black)
+                        .frame(width: UIScreen.main.bounds.height * imageWidthScale, height: UIScreen.main.bounds.height * (imageWidthScale/0.5714285714), alignment: .center)
+                        .background(Color("LightText"))
+                        .cornerRadius(15)
                 @unknown default:
                     //TODO: Handle default case
                     EmptyView()
                 }
-                Text("\(item.name)")
-                    .font(CustomFontFactory.getFont(style: "Regular", size: 18))
-                    .multilineTextAlignment(TextAlignment.leading)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .frame(width: UIScreen.main.bounds.height * (imageWidthScale + 0.01))
-                    .foregroundColor(Color("DarkText"))
-                    .lineLimit(5)
+                VStack(alignment: .center){
+                    Text("\(item.name)")
+                        .font(CustomFontFactory.getFont(style: "Regular", size: 18))
+                        .multilineTextAlignment(TextAlignment.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .foregroundColor(Color("DarkText"))
+                        .lineLimit(4)
+                    Spacer()
+                }.frame(width: UIScreen.main.bounds.height * (imageWidthScale + 0.01), height: UIScreen.main.bounds.height * (imageWidthScale/0.5714285714) * 0.4)
             }
         }
     }
