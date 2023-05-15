@@ -14,7 +14,6 @@ struct TitleView: View {
             .minimumScaleFactor(0.25)
             .lineLimit(2)
             .foregroundColor(Color("DarkText"))
-            .frame(width: UIScreen.main.bounds.width * 0.9)
     }
 }
 

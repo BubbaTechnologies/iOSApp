@@ -17,6 +17,7 @@ struct LoadingView: View {
                 Spacer()
                 TitleView()
                     .padding(.bottom, 5)
+                    .frame(width: UIScreen.main.bounds.width * 0.85)
                 ProgressView(value: progress)
                     .accentColor(Color("DarkText"))
                     .frame(width: UIScreen.main.bounds.width * 0.8)

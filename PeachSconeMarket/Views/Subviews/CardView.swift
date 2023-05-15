@@ -118,7 +118,7 @@ extension CardView{
         }
         
         //Loads new items
-        for var i in 0...(PeachSconeMarketApp.preLoadAmount - items.count) {
+        for var i in 0...max((PeachSconeMarketApp.preLoadAmount - items.count),0) {
             ClothingItem.loadItem() { item in
                 if (!items.contains(item)) {
                     items.append(item)
