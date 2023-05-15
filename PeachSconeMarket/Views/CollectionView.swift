@@ -12,7 +12,6 @@ struct CollectionView: View {
     
     var body: some View {
         ZStack{
-            Color("BackgroundColor").ignoresSafeArea()
 //            VStack(alignment: .center){
 //                ScrollView(showsIndicators: false) {
 //                    InlineTitleView()
@@ -30,7 +29,7 @@ struct CollectionView: View {
             VStack(alignment: .center){
                 InlineTitleView()
                     .frame(alignment: .top)
-                    .padding(.bottom, 1)
+                    .padding(.bottom, 0.75)
                 Text("Collection")
                     .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.08))
                     .foregroundColor(Color("DarkText"))

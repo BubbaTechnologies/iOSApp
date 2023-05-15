@@ -40,5 +40,8 @@ enum pageState {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView(items: .constant(ClothingItem.sampleItems))
+        MainView(items: .constant(ClothingItem.sampleItems))
+                .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro"))
+                .previewDisplayName("iPhone 13 Pro")
     }
 }

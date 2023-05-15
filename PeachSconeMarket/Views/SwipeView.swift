@@ -15,8 +15,10 @@ struct SwipeView: View {
     var body: some View {
             VStack{
                 Spacer()
+                    .frame(maxHeight: UIScreen.main.bounds.height * 0.0025)
                 InlineTitleView()
                 Spacer()
+                    .frame(maxHeight: UIScreen.main.bounds.height * 0.023)
                 ZStack{
                     ForEach(items.reversed()) { item in 
                         CardView(items: $items, item: item)
@@ -25,10 +27,10 @@ struct SwipeView: View {
                 if (items.count > 0) {
                     Text("\(items[0].name)")
                         .font(CustomFontFactory.getFont(style: "Regular", size: UIScreen.main.bounds.width * 0.06))
+                        .minimumScaleFactor(0.85)
                         .multilineTextAlignment(TextAlignment.center)
-                        .fixedSize(horizontal: false, vertical: true)
                         .foregroundColor(Color("DarkText"))
-                        .lineLimit(3)
+                        .lineLimit(2)
                         .padding(.bottom, 15)
                         .frame(width: UIScreen.main.bounds.width * (widthFactor + 0.06), height: UIScreen.main.bounds.height * heightFactor, alignment: .top)
                 }

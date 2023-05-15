@@ -53,27 +53,21 @@ struct CardView: View {
                         }.offset(y:UIScreen.main.bounds.height * (heightFactor) * 0.47)
                     }
                 case .failure:
-                    //TODO: Handle failure to load
                     Text("Failure to Load")
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 125 * widthFactor)
-                                .stroke(.black)
-                                .frame(width: UIScreen.main.bounds.width * widthFactor, height: UIScreen.main.bounds.height * heightFactor, alignment: .center)
-                        )
                         .foregroundColor(Color("DarkText"))
                 @unknown default:
                     EmptyView()
                 }
             }
             .overlay(
-                RoundedRectangle(cornerRadius: 50)
+                RoundedRectangle(cornerRadius: heightFactor * 38.5)
                     .stroke(Color("DarkText"))
                     .frame(width: UIScreen.main.bounds.width * widthFactor, height: UIScreen.main.bounds.height * heightFactor, alignment: .center)
             )
             .padding(.horizontal, 20)
             .frame(width: UIScreen.main.bounds.width * widthFactor, height: UIScreen.main.bounds.height * heightFactor, alignment: .center)
             .background(Color("LightText"))
-            .cornerRadius(50)
+            .cornerRadius(heightFactor * 38.5)
             .offset(x: offset.width)
             .rotationEffect(.degrees(Double(offset.width / 50)))
             .gesture(

@@ -17,11 +17,12 @@ struct LikesView: View {
                 ScrollView(showsIndicators: false) {
                     InlineTitleView()
                         .frame(alignment: .top)
-                        .padding(.bottom, 1)
+                        .padding(.bottom, UIScreen.main.bounds.height * 0.001)
                     Text("Likes")
                         .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.08))
                         .foregroundColor(Color("DarkText"))
                     CardCollectionView(items: $items)
+                        .padding(.horizontal, UIScreen.main.bounds.width * 0.025)
                 }
             }
             if items.count == 0 && errorMessage.isEmpty {
