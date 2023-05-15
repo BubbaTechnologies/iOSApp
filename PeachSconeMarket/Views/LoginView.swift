@@ -29,10 +29,6 @@ struct LoginView: View {
                     TextInputView(promptText: "Password", input: $password, secure: true)
                     ButtonView(text: "Sign In", action: SignIn)
                         .disabled(loginDisabled)
-                        .onTapGesture {
-                            errorMessage = ""
-                            loginDisabled = true
-                        }
                     if !errorMessage.isEmpty {
                         Text("\(errorMessage)")
                             .font(CustomFontFactory.getFont(style: "Bold", size: 15))
@@ -41,11 +37,12 @@ struct LoginView: View {
                     Spacer()
                     ButtonView(text: "Sign Up", action: {signUpActive.toggle()})
                         .disabled(loginDisabled)
+                    
                 }
                 
                 if loginDisabled {
                     ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
+                        .progressViewStyle(CircularProgressViewStyle(tint: .black))
                         .scaleEffect(3)
                 }
             }
@@ -57,8 +54,9 @@ struct LoginView: View {
 
 extension LoginView{
     func SignIn()->Void {
-        //Resets error message
+        loginDisabled = true
         
+        //Resets error message
         if (email.isEmpty || password.isEmpty) {
             errorMessage = "Fill in the above fields!"
             loginDisabled = false
@@ -73,6 +71,7 @@ extension LoginView{
             return
         }
         
+        
         let loginStruct: LoginStruct = LoginStruct(username: email, password: password)
         do {
             let token: String = try LoginStruct.loginRequest(loginData: loginStruct)
@@ -83,6 +82,7 @@ extension LoginView{
         } catch {
             errorMessage = "\(error)"
         }
+        
         loginDisabled = false
         return
     }

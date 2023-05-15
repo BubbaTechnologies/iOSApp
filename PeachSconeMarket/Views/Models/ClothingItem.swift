@@ -33,7 +33,10 @@ struct ClothingItem: Identifiable, Codable, Equatable {
             
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let response=response as? HTTPURLResponse {
-                print(response.statusCode)
+                if response.statusCode != 200 {
+                    print(response.statusCode)
+                    return
+                }
             }
             
             if let data = data {
@@ -43,6 +46,7 @@ struct ClothingItem: Identifiable, Codable, Equatable {
                 }
             } else if let error = error {
                 print("HTTP Request Failed \(error)")
+                return
             }
         }.resume()
     }

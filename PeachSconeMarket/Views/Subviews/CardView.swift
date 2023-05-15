@@ -9,8 +9,9 @@ import SwiftUI
 
 struct CardView: View {
     @State private var offset = CGSize.zero
-    private let widthFactor: Double = 0.38
-    private let heightToWidthRatio: Double = 1.75
+    private let widthFactor: Double = 0.8
+    private let heightFactor: Double = 0.65
+    private let circleFactor: Double = 0.02
     @State private var currentImageIndex: Int = 0
     
     @Binding public var items: [ClothingItem]
@@ -36,28 +37,28 @@ struct CardView: View {
                                         Circle()
                                             .fill(.black)
                                             .id("Circle" + String(index))
-                                            .frame(width: UIScreen.main.bounds.height * 0.009, alignment: .center)
+                                            .frame(width: UIScreen.main.bounds.width * circleFactor, alignment: .center)
                                     } else {
                                         Circle()
                                             .fill(.white)
                                             .opacity(0.5)
                                             .id("Circle" + String(index))
-                                            .frame(width: UIScreen.main.bounds.height * 0.009, alignment: .center)
+                                            .frame(width: UIScreen.main.bounds.width * circleFactor, alignment: .center)
                                     }
                                     Circle()
                                         .strokeBorder(Color("DarkText"), lineWidth:0.5)
-                                        .frame(width: UIScreen.main.bounds.height * 0.009, alignment: .center)
+                                        .frame(width: UIScreen.main.bounds.width * circleFactor, alignment: .center)
                                 }.padding(.horizontal, -3)
                             }
-                        }.offset(y:UIScreen.main.bounds.height * (widthFactor - 0.07))
+                        }.offset(y:UIScreen.main.bounds.height * (heightFactor) * 0.47)
                     }
                 case .failure:
                     //TODO: Handle failure to load
                     Text("Failure to Load")
                         .overlay(
-                            RoundedRectangle(cornerRadius: 50)
+                            RoundedRectangle(cornerRadius: 125 * widthFactor)
                                 .stroke(.black)
-                                .frame(width: UIScreen.main.bounds.height * widthFactor, height: UIScreen.main.bounds.height * (widthFactor * heightToWidthRatio), alignment: .center)
+                                .frame(width: UIScreen.main.bounds.width * widthFactor, height: UIScreen.main.bounds.height * heightFactor, alignment: .center)
                         )
                         .foregroundColor(Color("DarkText"))
                 @unknown default:
@@ -67,10 +68,10 @@ struct CardView: View {
             .overlay(
                 RoundedRectangle(cornerRadius: 50)
                     .stroke(Color("DarkText"))
-                    .frame(width: UIScreen.main.bounds.height * widthFactor, height: UIScreen.main.bounds.height * (widthFactor * heightToWidthRatio), alignment: .center)
+                    .frame(width: UIScreen.main.bounds.width * widthFactor, height: UIScreen.main.bounds.height * heightFactor, alignment: .center)
             )
             .padding(.horizontal, 20)
-            .frame(width: UIScreen.main.bounds.height * widthFactor, height: UIScreen.main.bounds.height * (widthFactor * heightToWidthRatio), alignment: .center)
+            .frame(width: UIScreen.main.bounds.width * widthFactor, height: UIScreen.main.bounds.height * heightFactor, alignment: .center)
             .background(Color("LightText"))
             .cornerRadius(50)
             .offset(x: offset.width)

@@ -24,7 +24,8 @@ struct MainView: View {
                 }
                 Spacer()
                 NavigationButtonView(state: $state)
-                    .frame(height: UIScreen.main.bounds.height * 0.05)
+                    .frame(height: UIScreen.main.bounds.height * 0.03)
+                    .padding(.bottom, UIScreen.main.bounds.height * 0.01)
             }
         }
     }

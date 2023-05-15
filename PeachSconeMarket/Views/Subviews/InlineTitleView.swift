@@ -12,6 +12,7 @@ struct InlineTitleView: View {
         Text("Peach Scone Market")
             .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.09))
             .foregroundColor(Color("DarkText"))
+            .frame(width: UIScreen.main.bounds.width * 0.9)
     }
 }
 

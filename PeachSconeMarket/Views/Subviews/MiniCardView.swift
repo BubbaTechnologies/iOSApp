@@ -9,7 +9,8 @@ import SwiftUI
 
 struct MiniCardView: View {
     public var item: ClothingItem
-    private let imageWidthScale: Double = 0.15
+    private let widthFactor: Double = 0.35
+    private let heightFactor: Double = 0.3
     
     var body: some View {
         VStack{
@@ -23,13 +24,13 @@ struct MiniCardView: View {
                             RoundedRectangle(cornerRadius: 15)
                                 .stroke(Color("DarkText"))
                         )
-                        .frame(width: UIScreen.main.bounds.height * imageWidthScale, height: UIScreen.main.bounds.height * (imageWidthScale/0.5714285714), alignment: .center)
+                        .frame(width: UIScreen.main.bounds.width * widthFactor, height: UIScreen.main.bounds.height * heightFactor, alignment: .center)
                         .background(Color("LightText"))
                         .cornerRadius(15)
                 case .success(let image):
                     image.resizable()
                         .scaledToFill()
-                        .frame(width: UIScreen.main.bounds.height * imageWidthScale, height: UIScreen.main.bounds.height * (imageWidthScale/0.5714285714), alignment: .center)
+                        .frame(width: UIScreen.main.bounds.width * widthFactor, height: UIScreen.main.bounds.height * heightFactor, alignment: .center)
                         .cornerRadius(15)
                         .clipped()
                         .overlay(
@@ -47,10 +48,10 @@ struct MiniCardView: View {
                         .overlay(
                             RoundedRectangle(cornerRadius: 15)
                                 .stroke(.black)
-                                .frame(width: UIScreen.main.bounds.height * imageWidthScale, height: UIScreen.main.bounds.height * (imageWidthScale/0.5714285714), alignment: .center)
+                                .frame(width: UIScreen.main.bounds.width * widthFactor, height: UIScreen.main.bounds.height * heightFactor, alignment: .center)
                         )
                         .foregroundColor(.black)
-                        .frame(width: UIScreen.main.bounds.height * imageWidthScale, height: UIScreen.main.bounds.height * (imageWidthScale/0.5714285714), alignment: .center)
+                        .frame(width: UIScreen.main.bounds.width * widthFactor, height: UIScreen.main.bounds.height * heightFactor, alignment: .center)
                         .background(Color("LightText"))
                         .cornerRadius(15)
                 @unknown default:
@@ -65,7 +66,7 @@ struct MiniCardView: View {
                         .foregroundColor(Color("DarkText"))
                         .lineLimit(4)
                     Spacer()
-                }.frame(width: UIScreen.main.bounds.height * (imageWidthScale + 0.01), height: UIScreen.main.bounds.height * (imageWidthScale/0.5714285714) * 0.4)
+                }.frame(width: UIScreen.main.bounds.width * (widthFactor + 0.01), height: UIScreen.main.bounds.height * heightFactor * 0.4)
             }
         }
     }

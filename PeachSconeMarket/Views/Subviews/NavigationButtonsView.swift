@@ -9,8 +9,8 @@ import SwiftUI
 
 struct NavigationButtonView: View {
     @Binding public var state:pageState
-    private let scaleFactor: Double = 0.12
-    private let padding: Double = 3.0
+    private let scaleFactor: Double = 0.14
+    private let padding: Double = 4.0
     
     var body: some View {
         HStack{

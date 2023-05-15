@@ -31,7 +31,6 @@ struct LoginStruct: Codable {
         var token: String = ""
         
         URLSession.shared.dataTask(with: request) { data, response, error in
-            //TODO: Handle http error
             defer{ sem.signal() }
             
             if let response = response as? HTTPURLResponse {

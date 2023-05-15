@@ -50,7 +50,7 @@ struct SignUpView: View {
                     Image(systemName:"chevron.backward")
                         .resizable()
                         .scaledToFit()
-                        .padding(.leading, 20)
+                        .padding(.leading, UIScreen.main.bounds.width * 0.03)
                         .foregroundColor(Color("DarkText"))
                         .frame(width: UIScreen.main.bounds.width * 0.08)
                     Spacer()
