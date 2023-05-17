@@ -15,7 +15,7 @@ struct ButtonView: View {
         Button(text, action: action)
             .frame(width: UIScreen.main.bounds.width * 0.33, height: UIScreen.main.bounds.height * 0.06)
             .foregroundColor(Color("LightText"))
-            .font(CustomFontFactory.getFont(style: "Regular", size: UIScreen.main.bounds.width * 0.08))
+            .font(CustomFontFactory.getFont(style: "Regular", size: UIScreen.main.bounds.width * 0.08, relativeTo: .title3))
             .background(Color("DarkText"))
             .cornerRadius(5.0)
     }

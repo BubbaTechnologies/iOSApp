@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		92022FA22A146219007BE365 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92022FA12A146219007BE365 /* CoreGraphics.framework */; };
+		92022FA42A146807007BE365 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92022FA32A146807007BE365 /* SafariView.swift */; };
 		9214DEA92A0B574A000A5A2D /* WixMadeforText-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9214DE9F2A0B5749000A5A2D /* WixMadeforText-MediumItalic.ttf */; };
 		9214DEAA2A0B574A000A5A2D /* WixMadeforText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9214DEA02A0B5749000A5A2D /* WixMadeforText-Bold.ttf */; };
 		9214DEAB2A0B574A000A5A2D /* WixMadeforText-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9214DEA12A0B5749000A5A2D /* WixMadeforText-SemiBoldItalic.ttf */; };
@@ -66,6 +68,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		92022F9F2A1461EE007BE365 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		92022FA12A146219007BE365 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		92022FA32A146807007BE365 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		9214DE9F2A0B5749000A5A2D /* WixMadeforText-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WixMadeforText-MediumItalic.ttf"; sourceTree = "<group>"; };
 		9214DEA02A0B5749000A5A2D /* WixMadeforText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WixMadeforText-Bold.ttf"; sourceTree = "<group>"; };
 		9214DEA12A0B5749000A5A2D /* WixMadeforText-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WixMadeforText-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
@@ -116,6 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92022FA22A146219007BE365 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,6 +142,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		92022F9E2A1461EE007BE365 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				92022FA12A146219007BE365 /* CoreGraphics.framework */,
+				92022F9F2A1461EE007BE365 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9214DE8A2A0B56AE000A5A2D /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,6 +180,7 @@
 				9286DB302A0C9B39007FA46E /* CardCollectionView.swift */,
 				9286DB322A0C9BBF007FA46E /* MiniCardView.swift */,
 				9266D3962A0E092C00976757 /* PickerView.swift */,
+				92022FA32A146807007BE365 /* SafariView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -177,6 +193,7 @@
 				9234A98A2A0B245A00EC036A /* PeachSconeMarketTests */,
 				9234A9942A0B245A00EC036A /* PeachSconeMarketUITests */,
 				9234A9782A0B245600EC036A /* Products */,
+				92022F9E2A1461EE007BE365 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -409,6 +426,7 @@
 				9214DEC32A0B6CDB000A5A2D /* InlineTitleView.swift in Sources */,
 				9286DB352A0CA280007FA46E /* CollectionView.swift in Sources */,
 				9214DEBB2A0B5ECB000A5A2D /* TextInputView.swift in Sources */,
+				92022FA42A146807007BE365 /* SafariView.swift in Sources */,
 				9234A97D2A0B245600EC036A /* LoadingView.swift in Sources */,
 				9214DEBF2A0B6B65000A5A2D /* SignUpView.swift in Sources */,
 				9286DB392A0CBE47007FA46E /* LoginStruct.swift in Sources */,

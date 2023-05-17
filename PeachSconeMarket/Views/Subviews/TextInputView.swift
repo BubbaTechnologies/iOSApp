@@ -17,7 +17,7 @@ struct TextInputView: View {
             text: $input,
             secure: secure
         )
-        .font(CustomFontFactory.getFont(style: "Regular", size: UIScreen.main.bounds.width * 0.08))
+        .font(CustomFontFactory.getFont(style: "Regular", size: UIScreen.main.bounds.width * 0.08, relativeTo: .body))
         .foregroundColor(Color("DarkText"))
         .border(Color("DarkText"))
         .background(Color("LightBackgroundColor"))

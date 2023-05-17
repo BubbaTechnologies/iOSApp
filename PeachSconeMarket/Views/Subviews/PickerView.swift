@@ -47,7 +47,7 @@ struct SuperPicker: View {
                     }
                 } label : {
                     Text(!selected ? placeholder : selection)
-                        .font(CustomFontFactory.getFont(style: "Regular", size: UIScreen.main.bounds.width * 0.08))
+                        .font(CustomFontFactory.getFont(style: "Regular", size: UIScreen.main.bounds.width * 0.08, relativeTo: .body))
                 }
                 .foregroundColor(Color("DarkText"))
             }

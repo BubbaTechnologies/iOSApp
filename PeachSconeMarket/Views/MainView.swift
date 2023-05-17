@@ -10,6 +10,8 @@ import SwiftUI
 struct MainView: View {
     @State var state:pageState = .main
     @Binding var items:[ClothingItem]
+    @State var isPresentingSafari:Bool = false
+    @State var safariUrl: URL = URL(string: "https://www.peachsconemarket.com")!
     
     var body: some View {
         ZStack{
@@ -18,15 +20,17 @@ struct MainView: View {
                 if state == .main {
                     SwipeView(items: $items)
                 } else if state == .likes {
-                    LikesView()
+                    LikesView(isPresentingSafari: $isPresentingSafari, safariUrl: $safariUrl)
                 } else if state == .collection {
                     CollectionView()
                 }
                 Spacer()
                 NavigationButtonView(state: $state)
-                    .frame(height: UIScreen.main.bounds.height * 0.03)
-                    .padding(.bottom, UIScreen.main.bounds.height * 0.01)
+                    .padding(.bottom, UIScreen.main.bounds.height * 0.0025)
+                    .frame(height: UIScreen.main.bounds.height * 0.055)
             }
+        }.sheet(isPresented: $isPresentingSafari) {
+            SafariView(url: $safariUrl)
         }
     }
 }

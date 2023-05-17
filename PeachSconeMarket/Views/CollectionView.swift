@@ -31,11 +31,11 @@ struct CollectionView: View {
                     .frame(alignment: .top)
                     .padding(.bottom, 0.75)
                 Text("Collection")
-                    .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.08))
+                    .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.08, relativeTo: .title2))
                     .foregroundColor(Color("DarkText"))
                 Spacer()
                 Text("Coming Soon!")
-                    .font(CustomFontFactory.getFont(style: "Regular", size: UIScreen.main.bounds.width * 0.06))
+                    .font(CustomFontFactory.getFont(style: "Regular", size: UIScreen.main.bounds.width * 0.06, relativeTo: .subheadline))
                     .foregroundColor(Color("DarkText"))
                 Spacer()
             }

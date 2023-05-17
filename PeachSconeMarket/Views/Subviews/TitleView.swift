@@ -10,7 +10,7 @@ import SwiftUI
 struct TitleView: View {
     var body: some View {
         Text("Peach Scone Market")
-            .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.13))
+            .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.13, relativeTo: .title))
             .minimumScaleFactor(0.25)
             .lineLimit(2)
             .foregroundColor(Color("DarkText"))

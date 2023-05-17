@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SwipeView: View {
     @Binding var items: [ClothingItem]
-    private let widthFactor: Double = 0.75
+    private let widthFactor: Double = 0.81
     private let heightFactor: Double = 0.10
     
     var body: some View {
@@ -26,13 +26,13 @@ struct SwipeView: View {
                 }
                 if (items.count > 0) {
                     Text("\(items[0].name)")
-                        .font(CustomFontFactory.getFont(style: "Regular", size: UIScreen.main.bounds.width * 0.06))
+                        .font(CustomFontFactory.getFont(style: "Regular", size: UIScreen.main.bounds.width * 0.08, relativeTo: .body))
                         .minimumScaleFactor(0.85)
                         .multilineTextAlignment(TextAlignment.center)
                         .foregroundColor(Color("DarkText"))
-                        .lineLimit(2)
+                        .lineLimit(3)
                         .padding(.bottom, 15)
-                        .frame(width: UIScreen.main.bounds.width * (widthFactor + 0.06), height: UIScreen.main.bounds.height * heightFactor, alignment: .top)
+                        .frame(width: UIScreen.main.bounds.width * widthFactor, height: UIScreen.main.bounds.height * heightFactor, alignment: .top)
                 }
             }
     }

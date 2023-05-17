@@ -11,6 +11,8 @@ struct MiniCardView: View {
     public var item: ClothingItem
     private let widthFactor: Double = 0.35
     private let heightFactor: Double = 0.3
+    @Binding var isPresentingSafari:Bool
+    @Binding var safariUrl: URL
     
     var body: some View {
         VStack{
@@ -40,7 +42,9 @@ struct MiniCardView: View {
                         )
                         .onTapGesture {
                             if let url = URL(string: item.productURL) {
-                                UIApplication.shared.open(url)
+                                //UIApplication.shared.open(url)
+                                safariUrl = url
+                                isPresentingSafari = true
                             }
                         }
                 case .failure:
@@ -60,11 +64,10 @@ struct MiniCardView: View {
                 }
                 VStack(alignment: .center){
                     Text("\(item.name)")
-                        .font(CustomFontFactory.getFont(style: "Regular", size: 18))
-                        .multilineTextAlignment(TextAlignment.leading)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .foregroundColor(Color("DarkText"))
                         .lineLimit(4)
+                        .font(CustomFontFactory.getFont(style: "Regular", size: UIScreen.main.bounds.width * 0.05, relativeTo: .caption))
+                        .multilineTextAlignment(TextAlignment.leading)
+                        .foregroundColor(Color("DarkText"))
                     Spacer()
                 }.frame(width: UIScreen.main.bounds.width * (widthFactor + 0.01), height: UIScreen.main.bounds.height * heightFactor * 0.4)
             }
@@ -74,6 +77,6 @@ struct MiniCardView: View {
 
 struct MiniCardView_Previews: PreviewProvider {
     static var previews: some View {
-        MiniCardView(item:ClothingItem.sampleItems[0])
+        MiniCardView(item:ClothingItem.sampleItems[0], isPresentingSafari: .constant(false), safariUrl: .constant(URL(string: "https://www.peachsconemarket.com")!))
     }
 }

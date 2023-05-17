@@ -31,7 +31,7 @@ struct LoginView: View {
                         .disabled(loginDisabled)
                     if !errorMessage.isEmpty {
                         Text("\(errorMessage)")
-                            .font(CustomFontFactory.getFont(style: "Bold", size: 15))
+                            .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.04, relativeTo: .caption))
                             .foregroundColor(.red)
                     }
                     Spacer()
