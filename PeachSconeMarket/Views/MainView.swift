@@ -12,6 +12,9 @@ struct MainView: View {
     @Binding var items:[ClothingItem]
     @State var isPresentingSafari:Bool = false
     @State var safariUrl: URL = URL(string: "https://www.peachsconemarket.com")!
+    @State var editing: Bool = false
+    @State var selectedItems:[Int] = []
+    @State var collectionItems: [ClothingItem] = []
     
     var body: some View {
         ZStack{
@@ -20,12 +23,14 @@ struct MainView: View {
                 if state == .main {
                     SwipeView(items: $items)
                 } else if state == .likes {
-                    LikesView(isPresentingSafari: $isPresentingSafari, safariUrl: $safariUrl)
+                    LikesView(items: $collectionItems, selectedItems: $selectedItems ,isPresentingSafari: $isPresentingSafari, safariUrl: $safariUrl, editing: $editing)
                 } else if state == .collection {
                     CollectionView()
+                } else if state == .filter {
+                    //TODO
                 }
                 Spacer()
-                NavigationButtonView(state: $state)
+                NavigationButtonView(showEdit: false, showFilter: true, state: $state, editing: $editing, selectedItems: $selectedItems, collectionItems: $collectionItems)
                     .padding(.bottom, UIScreen.main.bounds.height * 0.0025)
                     .frame(height: UIScreen.main.bounds.height * 0.055)
             }
@@ -39,6 +44,7 @@ enum pageState {
     case likes
     case main
     case collection
+    case filter
 }
 
 struct MainView_Previews: PreviewProvider {

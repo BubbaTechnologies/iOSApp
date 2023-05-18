@@ -13,55 +13,57 @@ struct MiniCardView: View {
     private let heightFactor: Double = 0.3
     @Binding var isPresentingSafari:Bool
     @Binding var safariUrl: URL
+    @Binding var editing: Bool
+    @State var selected: Bool = false
+    @Binding var selectedItems: [Int]
     
     var body: some View {
-        VStack{
-            AsyncImage(url: URL(string: item.imageURL[0])) { phase in
-                switch phase {
-                case .empty:
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: .black))
-                        .scaleEffect(3)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 15)
-                                .stroke(Color("DarkText"))
-                        )
-                        .frame(width: UIScreen.main.bounds.width * widthFactor, height: UIScreen.main.bounds.height * heightFactor, alignment: .center)
-                        .background(Color("LightText"))
-                        .cornerRadius(15)
-                case .success(let image):
-                    image.resizable()
-                        .scaledToFill()
-                        .frame(width: UIScreen.main.bounds.width * widthFactor, height: UIScreen.main.bounds.height * heightFactor, alignment: .center)
-                        .cornerRadius(15)
-                        .clipped()
-                        .overlay(
-                            //Width to cornerRadius ratio is 125x
-                            RoundedRectangle(cornerRadius: 15)
-                                .stroke(Color("DarkText"))
-                        )
-                        .onTapGesture {
-                            if let url = URL(string: item.productURL) {
-                                //UIApplication.shared.open(url)
-                                safariUrl = url
-                                isPresentingSafari = true
+        ZStack {
+            VStack{
+                AsyncImage(url: URL(string: item.imageURL[0])) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .black))
+                            .scaleEffect(3)
+                    case .success(let image):
+                        image.resizable()
+                            .scaledToFill()
+                            .clipped()
+                            .onTapGesture {
+                                if editing {
+                                    selected.toggle()
+                                    if selected {
+                                        selectedItems.append(item.id)
+                                    } else {
+                                        selectedItems = selectedItems.filter{
+                                            $0 != item.id
+                                        }
+                                    }
+                                } else {
+                                    if let url = URL(string: item.productURL) {
+                                        //UIApplication.shared.open(url)
+                                        safariUrl = url
+                                        isPresentingSafari = true
+                                    }
+                                }
                             }
-                        }
-                case .failure:
-                    Text("Failure to Load")
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 15)
-                                .stroke(.black)
-                                .frame(width: UIScreen.main.bounds.width * widthFactor, height: UIScreen.main.bounds.height * heightFactor, alignment: .center)
-                        )
-                        .foregroundColor(.black)
-                        .frame(width: UIScreen.main.bounds.width * widthFactor, height: UIScreen.main.bounds.height * heightFactor, alignment: .center)
-                        .background(Color("LightText"))
-                        .cornerRadius(15)
-                @unknown default:
-                    //TODO: Handle default case
-                    EmptyView()
+                    case .failure:
+                        Text("Failure to Load")
+                    @unknown default:
+                        //TODO: Handle default case
+                        EmptyView()
+                    }
                 }
+                .overlay(
+                    RoundedRectangle(cornerRadius: 15)
+                        .stroke(Color("DarkText"))
+                        .frame(width: UIScreen.main.bounds.width * widthFactor, height: UIScreen.main.bounds.height * heightFactor, alignment: .center)
+                    
+                )
+                .frame(width: UIScreen.main.bounds.width * widthFactor, height: UIScreen.main.bounds.height * heightFactor, alignment: .center)
+                .background(Color("LightText"))
+                .cornerRadius(15)
                 VStack(alignment: .center){
                     Text("\(item.name)")
                         .lineLimit(4)
@@ -71,12 +73,16 @@ struct MiniCardView: View {
                     Spacer()
                 }.frame(width: UIScreen.main.bounds.width * (widthFactor + 0.01), height: UIScreen.main.bounds.height * heightFactor * 0.4)
             }
+            if (editing) {
+                SelectedView(selected: $selected)
+                    .offset(x:UIScreen.main.bounds.width * (widthFactor - 0.51), y: UIScreen.main.bounds.height * ((heightFactor * 0.4) - 0.325))
+            }
         }
     }
 }
 
 struct MiniCardView_Previews: PreviewProvider {
     static var previews: some View {
-        MiniCardView(item:ClothingItem.sampleItems[0], isPresentingSafari: .constant(false), safariUrl: .constant(URL(string: "https://www.peachsconemarket.com")!))
+        MiniCardView(item:ClothingItem.sampleItems[0], isPresentingSafari: .constant(false), safariUrl: .constant(URL(string: "https://www.peachsconemarket.com")!), editing: .constant(true), selectedItems: .constant([]))
     }
 }

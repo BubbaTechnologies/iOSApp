@@ -31,7 +31,7 @@ struct CollectionView: View {
                     .frame(alignment: .top)
                     .padding(.bottom, 0.75)
                 Text("Collection")
-                    .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.08, relativeTo: .title2))
+                    .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.075, relativeTo: .title3))
                     .foregroundColor(Color("DarkText"))
                 Spacer()
                 Text("Coming Soon!")

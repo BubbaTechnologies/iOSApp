@@ -38,4 +38,27 @@ struct LikeStruct: Codable {
             }
         }.resume()
     }
+    
+    static func updateLikeRequest(likeStruct: LikeStruct) throws {
+        let token: String = String(data: KeychainHelper.standard.read(service: "access-token", account: "peachSconeMarket")!,encoding: .utf8)!
+        var request = URLRequest(url: URL(string: "https://api.peachsconemarket.com/app/like")!)
+        request.httpMethod = "PUT"
+        request.allHTTPHeaderFields = [
+            "Authorization":"Bearer " + token,
+            "Host":"api.peachsconemarket.com",
+            "Content-Type":"application/json"
+        ]
+        
+        request.httpBody = try JSONEncoder().encode(likeStruct)
+        
+        URLSession.shared.dataTask(with: request) { _, response, error in
+            if let response = response as? HTTPURLResponse {
+                if response.statusCode != 200 {
+                    print(response.statusCode)
+                } else if let error = error {
+                    print("HTTP Request Failed \(error)")
+                }
+            }
+        }.resume()
+    }
 }

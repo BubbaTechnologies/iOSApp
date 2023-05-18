@@ -36,6 +36,7 @@
 		9234A9962A0B245A00EC036A /* PeachSconeMarketUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A9952A0B245A00EC036A /* PeachSconeMarketUITests.swift */; };
 		9234A9982A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A9972A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift */; };
 		9234A9A72A0B278200EC036A /* CustomFontFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A9A62A0B278200EC036A /* CustomFontFactory.swift */; };
+		92524A7B2A14A45F00CE0FD4 /* SelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92524A7A2A14A45F00CE0FD4 /* SelectedView.swift */; };
 		9266D3952A0E03A200976757 /* SignUpStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9266D3942A0E03A200976757 /* SignUpStruct.swift */; };
 		9266D3972A0E092C00976757 /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9266D3962A0E092C00976757 /* PickerView.swift */; };
 		9273B0852A0D6077002140C4 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9273B0842A0D6077002140C4 /* KeychainHelper.swift */; };
@@ -101,6 +102,7 @@
 		9234A9952A0B245A00EC036A /* PeachSconeMarketUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeachSconeMarketUITests.swift; sourceTree = "<group>"; };
 		9234A9972A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeachSconeMarketUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9234A9A62A0B278200EC036A /* CustomFontFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFontFactory.swift; sourceTree = "<group>"; };
+		92524A7A2A14A45F00CE0FD4 /* SelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedView.swift; sourceTree = "<group>"; };
 		9266D3942A0E03A200976757 /* SignUpStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpStruct.swift; sourceTree = "<group>"; };
 		9266D3962A0E092C00976757 /* PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
 		9273B0832A0D5EDA002140C4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				9286DB322A0C9BBF007FA46E /* MiniCardView.swift */,
 				9266D3962A0E092C00976757 /* PickerView.swift */,
 				92022FA32A146807007BE365 /* SafariView.swift */,
+				92524A7A2A14A45F00CE0FD4 /* SelectedView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -415,6 +418,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9266D3952A0E03A200976757 /* SignUpStruct.swift in Sources */,
+				92524A7B2A14A45F00CE0FD4 /* SelectedView.swift in Sources */,
 				92C623D92A0EECB5006B5940 /* MainView.swift in Sources */,
 				9214DEB92A0B5D33000A5A2D /* TitleView.swift in Sources */,
 				9234A9A72A0B278200EC036A /* CustomFontFactory.swift in Sources */,

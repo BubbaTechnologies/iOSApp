@@ -51,6 +51,7 @@ struct CollectionStruct: Codable {
         
         var statusCode:String = ""
         var returnList:[ClothingItem] = []
+        var errorMessage: String = ""
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             defer{ sem.signal() }
@@ -63,8 +64,13 @@ struct CollectionStruct: Codable {
             }
             
             if let data = data {
-                let responseData = try! JSONDecoder().decode(embeddedStruct.self, from: data)
-                returnList = responseData.getItems()
+                do {
+                    let responseData = try JSONDecoder().decode(embeddedStruct.self, from: data)
+                    returnList = responseData.getItems()
+                } catch {
+                    errorMessage = "\(error)"
+                    return
+                }
             }
         }.resume()
         
@@ -72,6 +78,8 @@ struct CollectionStruct: Codable {
         
         if !statusCode.isEmpty {
             throw HttpError.runtimeError("Connection Error: Status Code " + statusCode)
+        } else if returnList.isEmpty {
+            throw HttpError.runtimeError("Connection Error: \(errorMessage).")
         }
         
         return returnList
