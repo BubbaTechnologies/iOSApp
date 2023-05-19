@@ -22,7 +22,7 @@ struct PeachSconeMarketApp: App {
                 LoadingView(progress: $loadingProgress).task{
                     checkToken()
                     for var i in 1...PeachSconeMarketApp.preLoadAmount {
-                        ClothingItem.loadItem() { item in
+                        ClothingItem.loadItem(gender: "", type: []) { item in
                             if (!items.contains(item)) {
                                 items.append(item)
                                 loadingProgress += (Double) (1.0 / Double(PeachSconeMarketApp.preLoadAmount - 2))

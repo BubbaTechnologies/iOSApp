@@ -19,11 +19,48 @@ struct ClothingItem: Identifiable, Codable, Equatable {
         self.imageURL = imageURL
         self.productURL = productURL
     }
-
     
-    static func loadItem(completion:@escaping (ClothingItem)->()) {
-        let token: String = String(data: KeychainHelper.standard.read(service: "access-token", account: "peachSconeMarket")!,encoding: .utf8)!
+    static func loadItem(gender: String, type: [String], completion:@escaping (ClothingItem)->()) {
+        if (gender == "" && type == []) {
+            loadItem(completion: completion)
+            return
+        } else if (gender == "") {
+            loadItem(type: type, completion: completion)
+            return
+        } else if (type == []) {
+            loadItem(gender: gender, completion: completion)
+            return
+        }
+
+        var filterString:String = ""
+        for i in type {
+            filterString += i + ","
+        }
+        let url = URL(string:"https://api.peachsconemarket.com/app/card?gender=\(gender)&type=\(filterString.dropLast())")!
+        getItem(url: url, completion: completion)
+    }
+    
+    private static func loadItem(completion:@escaping (ClothingItem)->()) {
         let url = URL(string:"https://api.peachsconemarket.com/app/card")!
+        getItem(url: url, completion: completion)
+    }
+    
+    private static func loadItem(gender: String, completion:@escaping (ClothingItem)->()) {
+        let url = URL(string:"https://api.peachsconemarket.com/app/card?gender=\(gender)")!
+        getItem(url: url, completion: completion)
+    }
+    
+    private static func loadItem(type: [String], completion:@escaping (ClothingItem)->()) {
+        var filterString:String = ""
+        for i in type {
+            filterString += i + ","
+        }
+        let url = URL(string:"https://api.peachsconemarket.com/app/card?type=\(filterString.dropLast())")!
+        getItem(url: url, completion: completion)
+    }
+    
+    private static func getItem(url: URL, completion:@escaping (ClothingItem)->()) {
+        let token: String = String(data: KeychainHelper.standard.read(service: "access-token", account: "peachSconeMarket")!,encoding: .utf8)!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.allHTTPHeaderFields = [

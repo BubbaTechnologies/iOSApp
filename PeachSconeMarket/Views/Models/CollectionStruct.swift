@@ -30,18 +30,57 @@ struct CollectionStruct: Codable {
         return self.clothingDTOList
     }
     
-    static func collectionRequest(type:String) throws -> [ClothingItem] {
-        let token: String = String(data: KeychainHelper.standard.read(service: "access-token", account: "peachSconeMarket")!,encoding: .utf8)!
-        let sem = DispatchSemaphore.init(value: 0)
+    
+    
+    
+    static func collectionRequest(type: String, clothingType: [String], gender:String) throws -> [ClothingItem] {
+        if (gender == "" && clothingType == []) {
+            return try collectionRequest(type: type)
+        } else if (gender == "") {
+            return try collectionRequest(type: type, clothingType: clothingType)
+        } else if (clothingType == []) {
+            return try collectionRequest(type: type, gender: gender)
+        }
         
-        var request:URLRequest
+        var filterString:String = ""
+        for i in clothingType {
+            filterString += i + ","
+        }
+        
+        return try getCollectionRequest(url: URL(string: getUrlByType(type: type) + "?gender=\(gender)&type=\(filterString.dropLast())")!)
+    }
+    
+    private static func collectionRequest(type: String) throws -> [ClothingItem] {
+        return try getCollectionRequest(url: URL(string: getUrlByType(type: type))!)
+    }
+    
+    private static func collectionRequest(type: String, clothingType: [String]) throws -> [ClothingItem] {
+        var filterString:String = ""
+        for i in clothingType {
+            filterString += i + ","
+        }
+        return try getCollectionRequest(url: URL(string: getUrlByType(type: type) + "?type=\(filterString.dropLast())")!)
+    }
+    
+    private static func collectionRequest(type: String, gender: String) throws -> [ClothingItem] {
+        return try getCollectionRequest(url: URL(string: getUrlByType(type: type) + "?gender=\(gender)")!)
+    }
+    
+    private static func getUrlByType(type: String) throws -> String {
         if type.lowercased() == "likes" {
-            request = URLRequest(url: URL(string:"https://api.peachsconemarket.com/app/likes")!)
+            return "https://api.peachsconemarket.com/app/likes"
         } else if type.lowercased() == "collection" {
-            request = URLRequest(url: URL(string:"https://api.peachsconemarket.com/app/collection")!)
+                return "https://api.peachsconemarket.com/app/collection"
         } else {
             throw HttpError.runtimeError("Invalid type.")
         }
+    }
+    
+    private static func getCollectionRequest(url: URL) throws -> [ClothingItem] {
+        print(url)
+        let token: String = String(data: KeychainHelper.standard.read(service: "access-token", account: "peachSconeMarket")!,encoding: .utf8)!
+        let sem = DispatchSemaphore.init(value: 0)
+        var request = URLRequest(url: url)
         
         request.httpMethod = "GET"
         request.allHTTPHeaderFields = [

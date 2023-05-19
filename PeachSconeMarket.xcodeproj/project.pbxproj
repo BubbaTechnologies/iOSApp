@@ -49,6 +49,10 @@
 		92C623D52A0EB1AB006B5940 /* LikeStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C623D42A0EB1AB006B5940 /* LikeStruct.swift */; };
 		92C623D72A0EE53C006B5940 /* CollectionStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C623D62A0EE53C006B5940 /* CollectionStruct.swift */; };
 		92C623D92A0EECB5006B5940 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C623D82A0EECB5006B5940 /* MainView.swift */; };
+		92F1371D2A169230000C0546 /* FilterOptionsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F1371C2A169230000C0546 /* FilterOptionsStruct.swift */; };
+		92F1371F2A16D898000C0546 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F1371E2A16D898000C0546 /* FilterView.swift */; };
+		92F137212A16EE9D000C0546 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F137202A16EE9D000C0546 /* ListView.swift */; };
+		92F137232A16F508000C0546 /* ListButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F137222A16F508000C0546 /* ListButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +120,10 @@
 		92C623D42A0EB1AB006B5940 /* LikeStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeStruct.swift; sourceTree = "<group>"; };
 		92C623D62A0EE53C006B5940 /* CollectionStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionStruct.swift; sourceTree = "<group>"; };
 		92C623D82A0EECB5006B5940 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		92F1371C2A169230000C0546 /* FilterOptionsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionsStruct.swift; sourceTree = "<group>"; };
+		92F1371E2A16D898000C0546 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
+		92F137202A16EE9D000C0546 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		92F137222A16F508000C0546 /* ListButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +192,9 @@
 				9266D3962A0E092C00976757 /* PickerView.swift */,
 				92022FA32A146807007BE365 /* SafariView.swift */,
 				92524A7A2A14A45F00CE0FD4 /* SelectedView.swift */,
+				92F1371E2A16D898000C0546 /* FilterView.swift */,
+				92F137202A16EE9D000C0546 /* ListView.swift */,
+				92F137222A16F508000C0546 /* ListButtonView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -273,6 +284,7 @@
 				9266D3942A0E03A200976757 /* SignUpStruct.swift */,
 				92C623D42A0EB1AB006B5940 /* LikeStruct.swift */,
 				92C623D62A0EE53C006B5940 /* CollectionStruct.swift */,
+				92F1371C2A169230000C0546 /* FilterOptionsStruct.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -417,6 +429,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92F1371F2A16D898000C0546 /* FilterView.swift in Sources */,
 				9266D3952A0E03A200976757 /* SignUpStruct.swift in Sources */,
 				92524A7B2A14A45F00CE0FD4 /* SelectedView.swift in Sources */,
 				92C623D92A0EECB5006B5940 /* MainView.swift in Sources */,
@@ -431,8 +444,10 @@
 				9286DB352A0CA280007FA46E /* CollectionView.swift in Sources */,
 				9214DEBB2A0B5ECB000A5A2D /* TextInputView.swift in Sources */,
 				92022FA42A146807007BE365 /* SafariView.swift in Sources */,
+				92F137232A16F508000C0546 /* ListButtonView.swift in Sources */,
 				9234A97D2A0B245600EC036A /* LoadingView.swift in Sources */,
 				9214DEBF2A0B6B65000A5A2D /* SignUpView.swift in Sources */,
+				92F1371D2A169230000C0546 /* FilterOptionsStruct.swift in Sources */,
 				9286DB392A0CBE47007FA46E /* LoginStruct.swift in Sources */,
 				9214DEB72A0B5D15000A5A2D /* LoginView.swift in Sources */,
 				92C623D52A0EB1AB006B5940 /* LikeStruct.swift in Sources */,
@@ -440,6 +455,7 @@
 				9214DEC12A0B6CC8000A5A2D /* SwipeView.swift in Sources */,
 				9234A97B2A0B245600EC036A /* PeachSconeMarketApp.swift in Sources */,
 				9286DB2F2A0C953D007FA46E /* NavigationButtonsView.swift in Sources */,
+				92F137212A16EE9D000C0546 /* ListView.swift in Sources */,
 				9214DEC72A0B741F000A5A2D /* CardView.swift in Sources */,
 				9286DB372A0CA28F007FA46E /* LikesView.swift in Sources */,
 				9214DEBD2A0B6474000A5A2D /* ButtonView.swift in Sources */,

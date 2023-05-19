@@ -16,6 +16,8 @@ struct CardView: View {
     
     @Binding public var items: [ClothingItem]
     public var item: ClothingItem
+    @Binding public var typeFilter: [String]
+    @Binding public var genderFilter: String
     
     var body: some View {
         ZStack{
@@ -119,7 +121,7 @@ extension CardView{
         
         //Loads new items
         for var i in 0...max((PeachSconeMarketApp.preLoadAmount - items.count),0) {
-            ClothingItem.loadItem() { item in
+            ClothingItem.loadItem(gender: genderFilter, type: typeFilter) { item in
                 if (!items.contains(item)) {
                     items.append(item)
                 } else {
@@ -133,7 +135,7 @@ extension CardView{
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(items: .constant(ClothingItem.sampleItems), item: ClothingItem.sampleItems[0])
+        CardView(items: .constant(ClothingItem.sampleItems), item: ClothingItem.sampleItems[0], typeFilter: .constant([]), genderFilter: .constant(""))
     }
 }
 

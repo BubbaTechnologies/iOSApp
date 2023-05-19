@@ -10,11 +10,15 @@ import SwiftUI
 struct NavigationButtonView: View {
     @State public var showEdit: Bool
     @State public var showFilter: Bool
+    @State private var options: Bool = false
     
     @Binding public var state:pageState
     @Binding public var editing: Bool
     @Binding public var selectedItems: [Int]
     @Binding public var collectionItems: [ClothingItem]
+    @Binding public var filtering: Bool
+    
+    public var filterActions: (Bool,Bool)->Void
     
     private let scaleFactor: Double = 0.14
     private let padding: Double = 4.0
@@ -24,13 +28,13 @@ struct NavigationButtonView: View {
         HStack{
             Spacer()
             ZStack{
-                if (showFilter) {
+                if (showFilter || options) {
                     Button(action: switchFilterView) {
                         Circle()
                             .fill(Color("DarkBackgroundColor"))
                             .overlay(
                                 ZStack{
-                                    if editing == true {
+                                    if (options) {
                                         Text("X")
                                             .font(CustomFontFactory.getFont(style: "Regular", size: UIScreen.main.bounds.width * 0.08, relativeTo: .body))
                                             .foregroundColor(Color("DarkText"))
@@ -85,13 +89,13 @@ struct NavigationButtonView: View {
             }.frame(width: UIScreen.main.bounds.width * scaleFactor, height: UIScreen.main.bounds.height * scaleFactor)
                 .padding(.horizontal, padding)
             ZStack{
-                if (showEdit) {
+                if (showEdit || options) {
                     Button(action: switchEditView) {
                         Circle()
                             .fill(Color("DarkBackgroundColor"))
                             .overlay(
                                 ZStack{
-                                    if (editing) {
+                                    if (options) {
                                         Image(systemName:"checkmark")
                                             .resizable()
                                             .scaledToFill()
@@ -121,9 +125,17 @@ struct NavigationButtonView: View {
 
 extension NavigationButtonView {
     func switchLikesView() {
-        if state != .likes {
+        if (state != .likes) {
             editing = false
+            options = false
         }
+        
+        //Removes filtering if button clicked
+        if (!editing) {
+            filtering = false
+            options = false
+        }
+
         state = .likes
         showEdit = true
         showFilter = true
@@ -134,11 +146,20 @@ extension NavigationButtonView {
         showEdit = false
         showFilter = true
         editing = false
+        filtering = false
+        options = false
     }
     
     func switchCollectionView() {
-        if state != .collection {
+        if (state != .collection) {
             editing = false
+            options = false
+        }
+        
+        //Removes filtering if button clicked
+        if (!editing) {
+            filtering = false
+            options = false
         }
         
         state = .collection
@@ -147,15 +168,31 @@ extension NavigationButtonView {
     }
     
     func switchFilterView() {
-        if (editing) {
+        //Clicking X in edit mode
+        if (editing && options) {
             editing = false
+            options = false
             return
         }
-        editing = false
+        
+        //X in filter mode
+        if (filtering && options) {
+            filterActions(false, true)
+            filtering = false
+            options = false
+            return
+        }
+        
+        //Start filter mode
+        filterActions(false, false)
+        filtering = true
+        options = true
+        return
     }
     
     func switchEditView() {
-        if editing {
+        //Checkmark edit mode
+        if (editing && options) {
             for id in selectedItems {
                 let likeStruct:LikeStruct = LikeStruct(clothingId: String(id), rating: String(0))
                 do {
@@ -164,18 +201,32 @@ extension NavigationButtonView {
                     print("\(error)")
                 }
             }
+            
+            //Removes all selected items from the view
             collectionItems = collectionItems.filter {
                 !selectedItems.contains($0.id)
             }
             editing = false
+            options = false
             return
         }
-        editing.toggle()
+        
+        //Checkmark filter mode
+        if (filtering && options) {
+            filterActions(true, true)
+            filtering = false
+            options = false
+            return
+        }
+        
+        //Start edit view
+        editing = true
+        options = true
     }
 }
 
 struct NavigationButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationButtonView(showEdit: true, showFilter: true, state: .constant(.main), editing: .constant(false), selectedItems: .constant([]), collectionItems: .constant([]))
+        NavigationButtonView(showEdit: true, showFilter: true, state: .constant(.main), editing: .constant(false), selectedItems: .constant([]), collectionItems: .constant([]), filtering: .constant(false), filterActions: {(_, _) in return})
     }
 }
