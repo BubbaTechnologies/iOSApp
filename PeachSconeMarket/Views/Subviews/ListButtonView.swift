@@ -36,9 +36,8 @@ struct ListButtonView: View {
                 Text("\(item.capitalized.replacingOccurrences(of: "_", with: " "))")
                     .font(CustomFontFactory.getFont(style: "Regular", size: UIScreen.main.bounds.width * textScaleFactor, relativeTo: .subheadline))
                     .foregroundColor(Color("DarkText"))
-                Spacer()
             }
-            .frame(width: UIScreen.main.bounds.width * 0.5, height: UIScreen.main.bounds.height * 0.05)
+            .frame(width: UIScreen.main.bounds.width * 0.53, height: UIScreen.main.bounds.height * 0.04, alignment: .leading)
         }
     }
 }

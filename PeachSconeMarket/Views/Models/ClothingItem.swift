@@ -21,6 +21,11 @@ struct ClothingItem: Identifiable, Codable, Equatable {
     }
     
     static func loadItem(gender: String, type: [String], completion:@escaping (ClothingItem)->()) {
+        var type: [String] = type
+        for i in 0..<type.count {
+            type[i] = type[i].lowercased().replacingOccurrences(of: " ", with: "_")
+        }
+        
         if (gender == "" && type == []) {
             loadItem(completion: completion)
             return

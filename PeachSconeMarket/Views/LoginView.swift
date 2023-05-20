@@ -22,22 +22,25 @@ struct LoginView: View {
             ZStack{
                 Color("BackgroundColor").ignoresSafeArea()
                 VStack(alignment: .center){
-                    Spacer()
-                    TitleView()
-                        .padding(.bottom, 5)
-                    TextInputView(promptText: "Email", input: $email, secure: false)
-                    TextInputView(promptText: "Password", input: $password, secure: true)
-                    ButtonView(text: "Sign In", action: SignIn)
-                        .disabled(loginDisabled)
-                    if !errorMessage.isEmpty {
-                        Text("\(errorMessage)")
-                            .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.04, relativeTo: .caption))
-                            .foregroundColor(.red)
+                    ScrollView(showsIndicators: false) {
+                        Spacer(minLength: UIScreen.main.bounds.height * 0.25)
+                        TitleView()
+                            .padding(.bottom, 5)
+                        TextInputView(promptText: "Email", input: $email, secure: false)
+                            .textContentType(.username)
+                        TextInputView(promptText: "Password", input: $password, secure: true)
+                            .textContentType(.password)
+                        ButtonView(text: "Sign In", action: SignIn)
+                            .disabled(loginDisabled)
+                        if !errorMessage.isEmpty {
+                            Text("\(errorMessage)")
+                                .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.04, relativeTo: .caption))
+                                .foregroundColor(.red)
+                        }
+                        Spacer(minLength: UIScreen.main.bounds.height * 0.2)
+                        ButtonView(text: "Sign Up", action: {signUpActive.toggle()})
+                            .disabled(loginDisabled)
                     }
-                    Spacer()
-                    ButtonView(text: "Sign Up", action: {signUpActive.toggle()})
-                        .disabled(loginDisabled)
-                    
                 }
                 
                 if loginDisabled {

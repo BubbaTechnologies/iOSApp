@@ -34,6 +34,11 @@ struct CollectionStruct: Codable {
     
     
     static func collectionRequest(type: String, clothingType: [String], gender:String) throws -> [ClothingItem] {
+        var clothingType: [String] = clothingType
+        for i in 0..<clothingType.count {
+            clothingType[i] = clothingType[i].lowercased().replacingOccurrences(of: " ", with: "_")
+        }
+        
         if (gender == "" && clothingType == []) {
             return try collectionRequest(type: type)
         } else if (gender == "") {
@@ -77,7 +82,6 @@ struct CollectionStruct: Codable {
     }
     
     private static func getCollectionRequest(url: URL) throws -> [ClothingItem] {
-        print(url)
         let token: String = String(data: KeychainHelper.standard.read(service: "access-token", account: "peachSconeMarket")!,encoding: .utf8)!
         let sem = DispatchSemaphore.init(value: 0)
         var request = URLRequest(url: url)

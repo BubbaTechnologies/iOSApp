@@ -53,23 +53,17 @@ extension MainView {
             typeFilter = previousTypeFilter
             genderFilter = previousGenderFilter
         } else if (confirm && finished){            
-            switch state {
-            case .main:
-                items = []
-                for var i in 1...PeachSconeMarketApp.preLoadAmount {
-                    ClothingItem.loadItem(gender: genderFilter, type: typeFilter) { item in
-                        if (!items.contains(item)) {
-                            items.append(item)
-                        } else {
-                            i -= 1
-                        }
+            items = []
+            for var i in 1...PeachSconeMarketApp.preLoadAmount {
+                ClothingItem.loadItem(gender: genderFilter, type: typeFilter) { item in
+                    if (!items.contains(item)) {
+                        items.append(item)
+                    } else {
+                        i -= 1
                     }
                 }
-            case .likes:
-                collectionItems = []
-            case .collection:
-                break
             }
+            collectionItems = []
         } else {
             previousTypeFilter = typeFilter
             previousGenderFilter = genderFilter

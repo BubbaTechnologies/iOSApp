@@ -19,31 +19,44 @@ struct SignUpView: View {
     @State var genderSelected: Bool = false
     @State var errorMessage: String = ""
     
+    private let bottomPaddingFactor: Double = 0.001
+    
     let genderOptions = ["Male","Female","Other"]
     var body: some View {
         ZStack{
             Color("BackgroundColor").ignoresSafeArea()
             VStack(alignment: .center) {
-                Spacer()
-                TitleView()
-                    .padding(.bottom, 5)
-                TextInputView(promptText: "Name", input: $name, secure: false)
-                TextInputView(promptText: "Email", input: $email, secure: false)
-                PickerView(selection: $gender, promptText: "Gender", options: genderOptions, selected: $genderSelected)
-                TextInputView(promptText: "Password", input: $password, secure: true)
-                TextInputView(promptText: "Confirm Password", input: $confirmPassword, secure: true)
-                ButtonView(text: "Sign Up", action: SignUp)
-                    .onTapGesture {
-                        signUpDisabled = true
-                        errorMessage = ""
+                ScrollView(showsIndicators: false) {
+                    Spacer(minLength: UIScreen.main.bounds.height * 0.12)
+                    TitleView()
+                        .padding(.bottom, UIScreen.main.bounds.height * (bottomPaddingFactor + 0.005))
+                    TextInputView(promptText: "Name", input: $name, secure: false)
+                        .textContentType(.name)
+                        .padding(.bottom, UIScreen.main.bounds.height * bottomPaddingFactor)
+                    TextInputView(promptText: "Email", input: $email, secure: false)
+                        .textContentType(.emailAddress)
+                        .padding(.bottom, UIScreen.main.bounds.height * bottomPaddingFactor)
+                    PickerView(selection: $gender, promptText: "Gender", options: genderOptions, selected: $genderSelected)
+                        .padding(.bottom, UIScreen.main.bounds.height * bottomPaddingFactor)
+                    TextInputView(promptText: "Password", input: $password, secure: true)
+                        .textContentType(.newPassword)
+                        .padding(.bottom, UIScreen.main.bounds.height * bottomPaddingFactor)
+                    TextInputView(promptText: "Confirm Password", input: $confirmPassword, secure: true)
+                        .textContentType(.newPassword)
+                        .padding(.bottom, UIScreen.main.bounds.height * bottomPaddingFactor)
+                    ButtonView(text: "Sign Up", action: SignUp)
+                        .onTapGesture {
+                            signUpDisabled = true
+                            errorMessage = ""
+                        }
+                        .disabled(signUpDisabled)
+                    if !errorMessage.isEmpty {
+                        Text("\(errorMessage)")
+                            .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.04, relativeTo: .caption))
+                            .foregroundColor(.red)
                     }
-                    .disabled(signUpDisabled)
-                if !errorMessage.isEmpty {
-                    Text("\(errorMessage)")
-                        .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.04, relativeTo: .caption))
-                        .foregroundColor(.red)
+                    Spacer(minLength: UIScreen.main.bounds.height * 0.05)
                 }
-                Spacer()
             }
             VStack(alignment: .leading){
                 Button(action: {active.toggle()}) {

@@ -163,8 +163,8 @@ extension NavigationButtonView {
         }
         
         state = .collection
-        showEdit = true
-        showFilter = true
+        showEdit = false
+        showFilter = false
     }
     
     func switchFilterView() {

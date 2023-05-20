@@ -53,7 +53,7 @@ extension PeachSconeMarketApp {
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let response = response as? HTTPURLResponse {
                 if response.statusCode == 403 {
-                    //Removes token from keychain
+                    KeychainHelper.standard.delete(service: "access-token", account: "peachSconeMarket")
                     loggedIn = false
                 }
             }
