@@ -13,6 +13,7 @@ struct CardView: View {
     private let heightFactor: Double = 0.65
     private let circleFactor: Double = 0.02
     @State private var currentImageIndex: Int = 0
+    @State private var imageTapCount: Int = 0
     
     @Binding public var items: [ClothingItem]
     public var item: ClothingItem
@@ -85,6 +86,7 @@ struct CardView: View {
             )
             .onTapGesture{
                 currentImageIndex = (currentImageIndex + 1) % item.imageURL.count
+                imageTapCount += 1
             }
         }
     }
@@ -96,25 +98,25 @@ extension CardView{
         case -500...(-150):
             offset = CGSize(width: -500, height: 0)
             Task{
-                await removeCard(rating: 0)
+                await removeCard(like: false)
             }
         case 150...500:
             offset = CGSize(width: 500, height: 0)
             Task {
-                await removeCard(rating: 5)
+                await removeCard(like: true)
             }
         default:
             offset = .zero
         }
     }
     
-    func removeCard(rating:Int) async {
+    func removeCard(like: Bool) async {
         items.removeFirst()
         
         //Create LikeStruct
-        let likeStruct:LikeStruct = LikeStruct(clothingId: String(item.id), rating: String(rating))
+        let likeStruct:LikeStruct = LikeStruct(clothingId: item.id, imageTapRatio: (Double(imageTapCount) / Double(item.imageURL.count)))
         do {
-           try LikeStruct.createLikeRequest(likeStruct: likeStruct)
+            try LikeStruct.createLikeRequest(likeStruct: likeStruct, likeType: like ? .like : .dislike)
         } catch  {
             print("\(error)")
         }

@@ -92,14 +92,15 @@ struct FilterOptions: Codable {
             
             if let response = response as? HTTPURLResponse {
                 if response.statusCode != 200 {
+                    print("Here")
                     errorMessage = String(response.statusCode)
                 }
             }
             
             if let data = data {
                 do {
+                    print("Here")
                     filterOptions = try JSONDecoder().decode(FilterOptions.self, from: data)
-                    
                 } catch {
                     errorMessage = "\(error)"
                     return

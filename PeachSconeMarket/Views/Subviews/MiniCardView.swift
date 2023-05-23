@@ -42,7 +42,13 @@ struct MiniCardView: View {
                                     }
                                 } else {
                                     if let url = URL(string: item.productURL) {
-                                        //UIApplication.shared.open(url)
+                                        //Create LikeStruct
+                                        let likeStruct:LikeStruct = LikeStruct(clothingId: item.id, imageTapRatio: 0)
+                                        do {
+                                            try LikeStruct.createLikeRequest(likeStruct: likeStruct, likeType: .pageClick)
+                                        } catch  {
+                                            print("\(error)")
+                                        }
                                         safariUrl = url
                                         isPresentingSafari = true
                                     }

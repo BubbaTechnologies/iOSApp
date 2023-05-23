@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>WixMadeforText-Bold.ttf</string>
+		<string>WixMadeforText-BoldItalic.ttf</string>
+		<string>WixMadeforText-ExtraBold.ttf</string>
+		<string>WixMadeforText-ExtraBoldItalic.ttf</string>
+		<string>WixMadeforText-Italic.ttf</string>
+		<string>WixMadeforText-Medium.ttf</string>
+		<string>WixMadeforText-MediumItalic.ttf</string>
+		<string>WixMadeforText-Regular.ttf</string>
+		<string>WixMadeforText-SemiBold.ttf</string>
+		<string>WixMadeforText-SemiBoldItalic.ttf</string>
+	</array>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIColorName</key>
+		<string>BackgroundColor</string>
+		<key>UIImageName</key>
+		<string>Icon</string>
+	</dict>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+</dict>
+</plist>

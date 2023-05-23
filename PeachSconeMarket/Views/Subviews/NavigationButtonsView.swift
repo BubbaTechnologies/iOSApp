@@ -194,9 +194,9 @@ extension NavigationButtonView {
         //Checkmark edit mode
         if (editing && options) {
             for id in selectedItems {
-                let likeStruct:LikeStruct = LikeStruct(clothingId: String(id), rating: String(0))
+                let likeStruct:LikeStruct = LikeStruct(clothingId: id, imageTapRatio: 0)
                 do {
-                   try LikeStruct.updateLikeRequest(likeStruct: likeStruct)
+                    try LikeStruct.createLikeRequest(likeStruct: likeStruct, likeType: .removeLike)
                 } catch  {
                     print("\(error)")
                 }

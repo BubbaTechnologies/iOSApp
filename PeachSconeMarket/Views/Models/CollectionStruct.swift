@@ -39,37 +39,27 @@ struct CollectionStruct: Codable {
             clothingType[i] = clothingType[i].lowercased().replacingOccurrences(of: " ", with: "_")
         }
         
-        if (gender == "" && clothingType == []) {
-            return try collectionRequest(type: type)
-        } else if (gender == "") {
-            return try collectionRequest(type: type, clothingType: clothingType)
-        } else if (clothingType == []) {
-            return try collectionRequest(type: type, gender: gender)
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = "api.peachsconemarket.com"
+        urlComponents.path = "/app/card"
+        
+        var urlParameters = [URLQueryItem]()
+        if (gender != "") {
+            urlParameters.append(URLQueryItem(name: "gender", value: gender))
         }
         
-        var filterString:String = ""
-        for i in clothingType {
-            filterString += i + ","
+        if (clothingType != []) {
+            var filterString:String = ""
+            for i in clothingType {
+                filterString += i + ","
+            }
+            urlParameters.append(URLQueryItem(name: "type", value: filterString))
         }
-        
-        return try getCollectionRequest(url: URL(string: getUrlByType(type: type) + "?gender=\(gender)&type=\(filterString.dropLast())")!)
+    
+        return try getCollectionRequest(url: urlComponents.url!)
     }
     
-    private static func collectionRequest(type: String) throws -> [ClothingItem] {
-        return try getCollectionRequest(url: URL(string: getUrlByType(type: type))!)
-    }
-    
-    private static func collectionRequest(type: String, clothingType: [String]) throws -> [ClothingItem] {
-        var filterString:String = ""
-        for i in clothingType {
-            filterString += i + ","
-        }
-        return try getCollectionRequest(url: URL(string: getUrlByType(type: type) + "?type=\(filterString.dropLast())")!)
-    }
-    
-    private static func collectionRequest(type: String, gender: String) throws -> [ClothingItem] {
-        return try getCollectionRequest(url: URL(string: getUrlByType(type: type) + "?gender=\(gender)")!)
-    }
     
     private static func getUrlByType(type: String) throws -> String {
         if type.lowercased() == "likes" {
