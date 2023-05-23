@@ -41,9 +41,10 @@ struct ClothingItem: Identifiable, Codable, Equatable {
             for i in type {
                 filterString += i + ","
             }
-            urlParameters.append(URLQueryItem(name: "type", value: filterString))
+            urlParameters.append(URLQueryItem(name: "type", value: String(filterString.dropLast())))
         }
         
+        urlComponents.queryItems = urlParameters
         getItem(url: urlComponents.url!, completion: completion)
     }
     

@@ -54,8 +54,9 @@ struct CollectionStruct: Codable {
             for i in clothingType {
                 filterString += i + ","
             }
-            urlParameters.append(URLQueryItem(name: "type", value: filterString))
+            urlParameters.append(URLQueryItem(name: "type", value: String(filterString.dropLast())))
         }
+        urlComponents.queryItems = urlParameters
     
         return try getCollectionRequest(url: urlComponents.url!)
     }
