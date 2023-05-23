@@ -54,7 +54,7 @@ struct LikesView: View {
 extension LikesView{
     func LoadItems() -> [ClothingItem] {
         do {
-            return try CollectionStruct.collectionRequest(type: "likes", clothingType: typeFilter, gender: genderFilter)
+            return try CollectionStruct.collectionRequest(type: .likes, clothingType: typeFilter, gender: genderFilter)
         } catch HttpError.runtimeError(let message) {
             errorMessage = "\(message)"
         } catch {

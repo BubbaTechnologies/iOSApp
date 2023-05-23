@@ -33,7 +33,7 @@ struct CollectionStruct: Codable {
     
     
     
-    static func collectionRequest(type: String, clothingType: [String], gender:String) throws -> [ClothingItem] {
+    static func collectionRequest(type: CollectionRequestType, clothingType: [String], gender:String) throws -> [ClothingItem] {
         var clothingType: [String] = clothingType
         for i in 0..<clothingType.count {
             clothingType[i] = clothingType[i].lowercased().replacingOccurrences(of: " ", with: "_")
@@ -42,7 +42,7 @@ struct CollectionStruct: Codable {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.peachsconemarket.com"
-        urlComponents.path = "/app/card"
+        urlComponents.path = "/app/" + type.rawValue
         
         var urlParameters = [URLQueryItem]()
         if (gender != "") {
@@ -116,5 +116,10 @@ struct CollectionStruct: Codable {
         }
         
         return returnList
+    }
+    
+    enum CollectionRequestType:String {
+        case likes = "likes"
+        case collection = "collection"
     }
 }
