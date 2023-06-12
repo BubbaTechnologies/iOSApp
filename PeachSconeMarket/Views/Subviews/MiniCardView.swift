@@ -24,7 +24,7 @@ struct MiniCardView: View {
                     switch phase {
                     case .empty:
                         ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: .black))
+                            .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
                             .scaleEffect(3)
                     case .success(let image):
                         image.resizable()

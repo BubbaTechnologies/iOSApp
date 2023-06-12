@@ -17,9 +17,9 @@ struct CardCollectionView: View {
     
     var body: some View {
         ZStack{
-            VStack(alignment: .center){
+            LazyVStack(alignment: .center){
                 LazyVGrid(columns: columns) {
-                    ForEach(items.reversed()){ item in
+                    ForEach(items){ item in
                         MiniCardView(item: item, isPresentingSafari: $isPresentingSafari, safariUrl: $safariUrl, editing: $editing, selectedItems: $selectedItems)
                     }
                 }

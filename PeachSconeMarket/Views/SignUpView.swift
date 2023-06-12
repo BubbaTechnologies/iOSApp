@@ -72,7 +72,7 @@ struct SignUpView: View {
             }
             if signUpDisabled {
                 ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle())
+                    .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
                     .scaleEffect(3)
             }
         }

@@ -11,6 +11,7 @@ struct SwipeView: View {
     @Binding var items: [ClothingItem]
     @Binding var typeFilter:[String]
     @Binding var genderFilter: String
+    @Binding var preLoadAmount: Int
     private let widthFactor: Double = 0.81
     private let heightFactor: Double = 0.10
     
@@ -21,7 +22,7 @@ struct SwipeView: View {
                 InlineTitleView()
                 Spacer()
                     .frame(maxHeight: UIScreen.main.bounds.height * 0.023)
-                if (items.count < (PeachSconeMarketApp.preLoadAmount / 2)) {
+                if (items.count < (preLoadAmount / 2)) {
                     Spacer()
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
@@ -30,7 +31,7 @@ struct SwipeView: View {
                 } else {
                     ZStack{
                         ForEach(items.reversed()) { item in
-                            CardView(items: $items, item: item, typeFilter: $typeFilter, genderFilter: $genderFilter)
+                            CardView(items: $items, item: item, typeFilter: $typeFilter, genderFilter: $genderFilter, preLoadAmount: $preLoadAmount)
                         }
                     }
                     if (items.count > 0) {
@@ -50,6 +51,6 @@ struct SwipeView: View {
 
 struct SwipeView_Previews: PreviewProvider {
     static var previews: some View {
-        SwipeView(items: .constant(ClothingItem.sampleItems), typeFilter: .constant(["top"]), genderFilter: .constant("male"))
+        SwipeView(items: .constant(ClothingItem.sampleItems), typeFilter: .constant(["top"]), genderFilter: .constant("male"), preLoadAmount: .constant(5))
     }
 }

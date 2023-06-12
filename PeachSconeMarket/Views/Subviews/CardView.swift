@@ -19,6 +19,7 @@ struct CardView: View {
     public var item: ClothingItem
     @Binding public var typeFilter: [String]
     @Binding public var genderFilter: String
+    @Binding public var preLoadAmount: Int
     
     var body: some View {
         ZStack{
@@ -26,7 +27,7 @@ struct CardView: View {
                 switch phase {
                 case .empty:
                     ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: .black))
+                        .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
                         .scaleEffect(3)
                 case .success(let image):
                     ZStack{
@@ -122,7 +123,7 @@ extension CardView{
         }
         
         //Loads new items
-        for var i in 0...max((PeachSconeMarketApp.preLoadAmount - items.count),0) {
+        for var i in 0...max((preLoadAmount - items.count),0) {
             ClothingItem.loadItem(gender: genderFilter, type: typeFilter) { item in
                 if (!items.contains(item)) {
                     items.append(item)
@@ -137,7 +138,7 @@ extension CardView{
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(items: .constant(ClothingItem.sampleItems), item: ClothingItem.sampleItems[0], typeFilter: .constant([]), genderFilter: .constant(""))
+        CardView(items: .constant(ClothingItem.sampleItems), item: ClothingItem.sampleItems[0], typeFilter: .constant([]), genderFilter: .constant(""), preLoadAmount: .constant(5))
     }
 }
 

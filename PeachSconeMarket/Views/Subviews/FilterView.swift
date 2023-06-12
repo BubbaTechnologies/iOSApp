@@ -66,7 +66,7 @@ struct FilterView: View {
                 Spacer()
                 if (filterOptions == nil && errorMessage == "") {
                     ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
+                        .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
                         .scaleEffect(3)
                         .onAppear{
                             do {

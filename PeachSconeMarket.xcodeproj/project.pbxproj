@@ -46,6 +46,7 @@
 		9286DB352A0CA280007FA46E /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB342A0CA280007FA46E /* CollectionView.swift */; };
 		9286DB372A0CA28F007FA46E /* LikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB362A0CA28F007FA46E /* LikesView.swift */; };
 		9286DB392A0CBE47007FA46E /* LoginStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB382A0CBE47007FA46E /* LoginStruct.swift */; };
+		928EAC2A2A2C65E900BF3F51 /* ClothingItemPaginator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928EAC292A2C65E900BF3F51 /* ClothingItemPaginator.swift */; };
 		92C623D52A0EB1AB006B5940 /* LikeStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C623D42A0EB1AB006B5940 /* LikeStruct.swift */; };
 		92C623D72A0EE53C006B5940 /* CollectionStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C623D62A0EE53C006B5940 /* CollectionStruct.swift */; };
 		92C623D92A0EECB5006B5940 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C623D82A0EECB5006B5940 /* MainView.swift */; };
@@ -117,6 +118,7 @@
 		9286DB342A0CA280007FA46E /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		9286DB362A0CA28F007FA46E /* LikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesView.swift; sourceTree = "<group>"; };
 		9286DB382A0CBE47007FA46E /* LoginStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginStruct.swift; sourceTree = "<group>"; };
+		928EAC292A2C65E900BF3F51 /* ClothingItemPaginator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingItemPaginator.swift; sourceTree = "<group>"; };
 		92B416882A186BB4002F89DC /* PeachSconeMarket.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PeachSconeMarket.entitlements; sourceTree = "<group>"; };
 		92C623D42A0EB1AB006B5940 /* LikeStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeStruct.swift; sourceTree = "<group>"; };
 		92C623D62A0EE53C006B5940 /* CollectionStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionStruct.swift; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 				92C623D42A0EB1AB006B5940 /* LikeStruct.swift */,
 				92C623D62A0EE53C006B5940 /* CollectionStruct.swift */,
 				92F1371C2A169230000C0546 /* FilterOptionsStruct.swift */,
+				928EAC292A2C65E900BF3F51 /* ClothingItemPaginator.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -460,6 +463,7 @@
 				92F137212A16EE9D000C0546 /* ListView.swift in Sources */,
 				9214DEC72A0B741F000A5A2D /* CardView.swift in Sources */,
 				9286DB372A0CA28F007FA46E /* LikesView.swift in Sources */,
+				928EAC2A2A2C65E900BF3F51 /* ClothingItemPaginator.swift in Sources */,
 				9214DEBD2A0B6474000A5A2D /* ButtonView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -633,11 +637,12 @@
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "Bubba-Technologies-Inc.PeachSconeMarket";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -671,11 +676,12 @@
 				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "Bubba-Technologies-Inc.PeachSconeMarket";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

@@ -31,9 +31,7 @@ struct CollectionStruct: Codable {
     }
     
     
-    
-    
-    static func collectionRequest(type: CollectionRequestType, clothingType: [String], gender:String) throws -> [ClothingItem] {
+    static func collectionRequest(type: CollectionRequestType, clothingType: [String], gender:String, pageNumber: Int?) throws -> [ClothingItem] {
         var clothingType: [String] = clothingType
         for i in 0..<clothingType.count {
             clothingType[i] = clothingType[i].lowercased().replacingOccurrences(of: " ", with: "_")
@@ -45,6 +43,11 @@ struct CollectionStruct: Codable {
         urlComponents.path = "/app/" + type.rawValue
         
         var urlParameters = [URLQueryItem]()
+        
+        if let pageNumber = pageNumber {
+            urlParameters.append(URLQueryItem(name: "page", value: String(pageNumber)))
+        }
+        
         if (gender != "") {
             urlParameters.append(URLQueryItem(name: "gender", value: gender))
         }
@@ -60,17 +63,7 @@ struct CollectionStruct: Codable {
     
         return try getCollectionRequest(url: urlComponents.url!)
     }
-    
-    
-    private static func getUrlByType(type: String) throws -> String {
-        if type.lowercased() == "likes" {
-            return "https://api.peachsconemarket.com/app/likes"
-        } else if type.lowercased() == "collection" {
-                return "https://api.peachsconemarket.com/app/collection"
-        } else {
-            throw HttpError.runtimeError("Invalid type.")
-        }
-    }
+
     
     private static func getCollectionRequest(url: URL) throws -> [ClothingItem] {
         let token: String = String(data: KeychainHelper.standard.read(service: "access-token", account: "peachSconeMarket")!,encoding: .utf8)!
@@ -122,5 +115,6 @@ struct CollectionStruct: Codable {
     enum CollectionRequestType:String {
         case likes = "likes"
         case collection = "collection"
+        case cardList = "cardList"
     }
 }
