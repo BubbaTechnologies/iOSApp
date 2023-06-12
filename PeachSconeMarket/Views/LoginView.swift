@@ -45,7 +45,7 @@ struct LoginView: View {
                 
                 if loginDisabled {
                     ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: .black))
+                        .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
                         .scaleEffect(3)
                 }
             }

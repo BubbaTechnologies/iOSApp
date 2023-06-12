@@ -15,7 +15,7 @@ struct NavigationButtonView: View {
     @Binding public var state:pageState
     @Binding public var editing: Bool
     @Binding public var selectedItems: [Int]
-    @Binding public var collectionItems: [ClothingItem]
+    @ObservedObject public var paginator: ClothingItemPaginator
     @Binding public var filtering: Bool
     
     public var filterActions: (Bool,Bool)->Void
@@ -203,7 +203,7 @@ extension NavigationButtonView {
             }
             
             //Removes all selected items from the view
-            collectionItems = collectionItems.filter {
+            paginator.clothingItems = paginator.clothingItems.filter {
                 !selectedItems.contains($0.id)
             }
             editing = false
@@ -227,6 +227,6 @@ extension NavigationButtonView {
 
 struct NavigationButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationButtonView(showEdit: true, showFilter: true, state: .constant(.main), editing: .constant(false), selectedItems: .constant([]), collectionItems: .constant([]), filtering: .constant(false), filterActions: {(_, _) in return})
+        NavigationButtonView(showEdit: true, showFilter: true, state: .constant(.main), editing: .constant(false), selectedItems: .constant([]), paginator: ClothingItemPaginator(requestType: .likes, clothingItems: ClothingItem.sampleItems), filtering: .constant(false), filterActions: {(_, _) in return})
     }
 }

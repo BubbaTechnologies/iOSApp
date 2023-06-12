@@ -8,19 +8,18 @@
 import SwiftUI
 
 struct LoadingView: View {
-    @Binding var progress: Double
     
     var body: some View {
         ZStack{
             Color("BackgroundColor").ignoresSafeArea()
-            VStack(alignment: .center){                
+            VStack(alignment: .center){
                 Spacer()
                 TitleView()
-                    .padding(.bottom, 5)
+                    .padding(.bottom, 10)
                     .frame(width: UIScreen.main.bounds.width * 0.85)
-                ProgressView(value: progress)
-                    .accentColor(Color("DarkText"))
-                    .frame(width: UIScreen.main.bounds.width * 0.8)
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
+                    .scaleEffect(2)
                 Spacer()
             }
         }
@@ -29,9 +28,6 @@ struct LoadingView: View {
 
 struct LoadingView_Previews: PreviewProvider {
     static var previews: some View {
-        LoadingView(progress: .constant(0.5))
-//        LoadingView()
-//            .previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro Max"))
-//            .previewDisplayName("iPhone 14 Pro Max")
+        LoadingView()
     }
 }

@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "scone341.png",
+      "filename" : "testIcon2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "scone628.png",
+      "filename" : "testIcon2 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "scone.png",
+      "filename" : "testIcon.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
