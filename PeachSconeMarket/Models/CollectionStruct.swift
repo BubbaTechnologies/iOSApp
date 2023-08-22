@@ -27,6 +27,11 @@ struct CollectionStruct: Codable {
     private let clothingDTOList: [ClothingItem]
     var collectionRequestType: CollectionRequestType
     
+    init() {
+        self.clothingDTOList = []
+        self.collectionRequestType = .none
+    }
+    
     init(clothingDTOList: [ClothingItem]) {
         self.clothingDTOList = clothingDTOList
         self.collectionRequestType = CollectionRequestType.none

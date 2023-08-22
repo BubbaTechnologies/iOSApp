@@ -39,6 +39,12 @@ struct FilterOptionsStruct {
         }
     }
     
+    init () {
+        self.genders = []
+        self.types = []
+        self.typeDict = [:]
+    }
+    
     func getGenders()->[String] {
         return self.genders
     }
@@ -51,9 +57,9 @@ struct FilterOptionsStruct {
         return longestTypeArray
     }
     
-    static func getFilterOptions() throws -> FilterOptionsStruct {
-        FilterOptionsStruct(filterOptions: try FilterOptions.getFilterOptions())
-    }
+//    static func getFilterOptions() throws -> FilterOptionsStruct {
+//        FilterOptionsStruct(filterOptions: try FilterOptions.getFilterOptions())
+//    }
 }
 
 struct FilterOptions: Codable {
@@ -73,47 +79,47 @@ struct FilterOptions: Codable {
         return self.types
     }
     
-    static func getFilterOptions() throws -> FilterOptions {
-        let token: String = String(data: KeychainHelper.standard.read(service: "access-token", account: "peachSconeMarket")!,encoding: .utf8)!
-        let sem = DispatchSemaphore.init(value: 0)
-        
-        var request = URLRequest(url: URL(string:"https://api.peachsconemarket.com/app/filterOptions")!)
-        request.httpMethod = "GET"
-        request.allHTTPHeaderFields = [
-            "Host":"api.peachsconemarket.com",
-            "Authorization":"Bearer " + token
-        ]
-        
-        var filterOptions: FilterOptions? = nil
-        var errorMessage: String = ""
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            defer{ sem.signal() }
-            
-            if let response = response as? HTTPURLResponse {
-                if response.statusCode != 200 {
-                    errorMessage = String(response.statusCode)
-                }
-            }
-            
-            if let data = data {
-                do {
-                    filterOptions = try JSONDecoder().decode(FilterOptions.self, from: data)
-                } catch {
-                    errorMessage = "\(error)"
-                    return
-                }
-            }
-        }.resume()
-        
-        sem.wait()
-        
-        if filterOptions == nil {
-            throw HttpError.runtimeError("Connection Error: \(errorMessage)")
-        }
-        
-        return filterOptions!
-    }
+//    static func getFilterOptions() throws -> FilterOptions {
+//        let token: String = String(data: KeychainHelper.standard.read(service: "access-token", account: "peachSconeMarket")!,encoding: .utf8)!
+//        let sem = DispatchSemaphore.init(value: 0)
+//
+//        var request = URLRequest(url: URL(string:"https://api.peachsconemarket.com/app/filterOptions")!)
+//        request.httpMethod = "GET"
+//        request.allHTTPHeaderFields = [
+//            "Host":"api.peachsconemarket.com",
+//            "Authorization":"Bearer " + token
+//        ]
+//
+//        var filterOptions: FilterOptions? = nil
+//        var errorMessage: String = ""
+//
+//        URLSession.shared.dataTask(with: request) { data, response, error in
+//            defer{ sem.signal() }
+//
+//            if let response = response as? HTTPURLResponse {
+//                if response.statusCode != 200 {
+//                    errorMessage = String(response.statusCode)
+//                }
+//            }
+//
+//            if let data = data {
+//                do {
+//                    filterOptions = try JSONDecoder().decode(FilterOptions.self, from: data)
+//                } catch {
+//                    errorMessage = "\(error)"
+//                    return
+//                }
+//            }
+//        }.resume()
+//
+//        sem.wait()
+//
+//        if filterOptions == nil {
+//            throw HttpError.runtimeError("Connection Error: \(errorMessage)")
+//        }
+//
+//        return filterOptions!
+//    }
 }
 
 extension FilterOptionsStruct {

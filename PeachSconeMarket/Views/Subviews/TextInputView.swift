@@ -12,47 +12,57 @@ struct TextInputView: View {
     @Binding var input: String
     var secure: Bool
     var body: some View {
-        SuperTextField(
-            placeholder: Text(promptText),
-            text: $input,
-            secure: secure
-        )
-        .font(CustomFontFactory.getFont(style: "Regular", size: UIScreen.main.bounds.width * 0.08, relativeTo: .body))
-        .foregroundColor(Color("DarkText"))
-        .border(Color("DarkText"))
-        .background(Color("LightBackgroundColor"))
-        .disableAutocorrection(true)
-        .cornerRadius(2.5)
-        .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height * 0.06)
-        .padding(.bottom, 8)
+        GeometryReader{ reader in
+            SuperTextField(
+                placeholder: Text(promptText),
+                text: $input,
+                secure: secure
+            )
+            .frame(width: reader.size.width * 0.8)
+            .background(Color("LightBackgroundColor"))
+            .border(Color("DarkText"))
+            .cornerRadius(2.5)
+            .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.05, relativeTo: .body))
+            .position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
+        }
     }
 }
 
 struct SuperTextField: View {
-    
     var placeholder: Text
     @Binding var text: String
     var secure: Bool
+    @FocusState var focusState:Bool
     
     var body: some View {
-        ZStack(alignment: .center) {
-            if text.isEmpty { placeholder }
-            if secure {
-                SecureField("", text: $text)
-                    .minimumScaleFactor(0.5)
-                    .textInputAutocapitalization(.never)
-                    .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height * 0.06)
-                    .multilineTextAlignment(.center)
-            } else {
-                TextField("", text: $text)
-                    .minimumScaleFactor(0.5)
-                    .textInputAutocapitalization(.never)
-                    .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height * 0.06)
-                    .multilineTextAlignment(.center)
+        GeometryReader { reader in
+            ZStack {
+                ZStack{
+                    if secure {
+                        SecureField("", text: $text)
+                    } else {
+                        TextField("", text: $text)
+                    }
+                }
+                .focused($focusState)
+                .frame(width: reader.size.width * 0.9, height: reader.size.height)
+                .minimumScaleFactor(0.5)
+                .textInputAutocapitalization(.never)
+                .textFieldStyle(.plain)
+                .disableAutocorrection(true)
+                .border(.clear)
+                if text.isEmpty {
+                    placeholder
+                    .background(Color.clear)
+                    .onTapGesture {
+                        focusState = true
+                    }
+                }
             }
+            .foregroundColor(Color("DarkText"))
+            .position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
         }
     }
-    
 }
 
 struct TextInputView_Previews: PreviewProvider {

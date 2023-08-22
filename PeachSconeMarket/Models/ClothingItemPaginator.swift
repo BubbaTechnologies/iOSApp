@@ -19,7 +19,7 @@ class ClothingItemPaginator: ObservableObject {
     }
     
     func loadNextPage(api: Api) throws -> Bool {
-        var items: [ClothingItem]
+        var items: [ClothingItem] = []
         try api.loadClothingPage(collectionType: requestType, pageNumber: self.currentPage) { clothingItems in
             items = clothingItems
         }

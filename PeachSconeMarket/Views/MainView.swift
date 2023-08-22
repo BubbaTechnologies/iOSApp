@@ -17,9 +17,12 @@ struct MainView: View {
     @State var selectedItems:[Int] = []
     @State var collectionPaginator: ClothingItemPaginator = ClothingItemPaginator(requestType: .likes)
     @State var filtering: Bool = false
+    @State var typeFilter: [String] = []
+    @State var genderFilter: String = ""
     
     @State private var previousTypeFilter: [String] = []
     @State private var previousGenderFilter: String = ""
+    
     
     
     var body: some View {
@@ -53,19 +56,19 @@ extension MainView {
             genderFilter = previousGenderFilter
         } else if (confirm && finished){            
             items = []
-            do {
-                try ClothingItem.loadItems(gender: genderFilter, type: typeFilter) { clothingItems in
-                    preLoadAmount = clothingItems.count
-                    for item in clothingItems {
-                        if (!items.contains(item)) {
-                            items.append(item)
-                        }
-                    }
-                }
-            } catch {
-                exit(0)
-            }
-            collectionPaginator = ClothingItemPaginator(requestType: .likes, clothingType: typeFilter, gender: genderFilter)
+//            do {
+//                try ClothingItem.loadItems(gender: genderFilter, type: typeFilter) { clothingItems in
+//                    preLoadAmount = clothingItems.count
+//                    for item in clothingItems {
+//                        if (!items.contains(item)) {
+//                            items.append(item)
+//                        }
+//                    }
+//                }
+//            } catch {
+//                exit(0)
+//            }
+//            collectionPaginator = ClothingItemPaginator(requestType: .likes, clothingType: typeFilter, gender: genderFilter)
         } else {
             previousTypeFilter = typeFilter
             previousGenderFilter = genderFilter

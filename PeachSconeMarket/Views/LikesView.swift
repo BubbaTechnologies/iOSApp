@@ -64,15 +64,15 @@ struct LikesView: View {
                         let perPage: CGFloat = contentHeight * (pageNumber * nextPageMultiplier)
                         let initial: CGFloat = contentHeight * firstPageMultiplier
                         if (abs(value.y) >=  perPage + initial) {
-                            do {
-                                more = try paginator.loadNextPage()
-                                proxy.scrollTo(collectionID)
-                            } catch HttpError.runtimeError(let message) {
-                                errorMessage = "\(message)"
-                                paginator.clothingItems.removeAll()
-                            } catch {
-                                errorMessage = "\(error)"
-                            }
+//                            do {
+//                                more = try paginator.loadNextPage()
+//                                proxy.scrollTo(collectionID)
+//                            } catch HttpError.runtimeError(let message) {
+//                                errorMessage = "\(message)"
+//                                paginator.clothingItems.removeAll()
+//                            } catch {
+//                                errorMessage = "\(error)"
+//                            }
                         }
                         loading = false
                     }
@@ -84,14 +84,14 @@ struct LikesView: View {
                     .scaleEffect(3)
                     .padding(.bottom, UIScreen.main.bounds.height * 0.01)
                     .onAppear{
-                        do {
-                            _ = try paginator.loadNextPage()
-                            loading = false
-                        } catch HttpError.runtimeError(let message) {
-                            errorMessage = "\(message)"
-                        } catch {
-                            errorMessage = "\(error)"
-                        }
+//                        do {
+//                            _ = try paginator.loadNextPage()
+//                            loading = false
+//                        } catch HttpError.runtimeError(let message) {
+//                            errorMessage = "\(message)"
+//                        } catch {
+//                            errorMessage = "\(error)"
+//                        }
                     }
             }
             if !errorMessage.isEmpty {

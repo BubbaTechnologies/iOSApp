@@ -13,17 +13,7 @@ class Api:ObservableObject {
     @Published var typeFilters: [String] = []
     let baseUrl = "api.peachsconemarket.com"
     
-    init() throws {
-        if let jwtData = KeychainHelper.standard.read(service: "access-token", account: "peachSconeMarket") {
-            if let jwtDataUnwrapped = String(data: jwtData, encoding: .utf8) {
-                if try checkToken(jwt: jwtDataUnwrapped) {
-                    self.jwt = jwtDataUnwrapped
-                    return
-                } else {
-                    KeychainHelper.standard.delete(service: "access-token", account: "peachSconeMarket")
-                }
-            }
-        }
+    init() {
         self.jwt = nil
     }
     
@@ -41,6 +31,23 @@ class Api:ObservableObject {
     
     func setJwt(token: String) -> Void {
         self.jwt = token
+    }
+    
+    //Deteremines if previous token is valid. Returns true if token is valid or else false.
+    func loadToken() throws -> Bool {
+        KeychainHelper.standard.delete(service: "access-token", account: "peachSconeMarket")
+        if let jwtData = KeychainHelper.standard.read(service: "access-token", account: "peachSconeMarket") {
+            if let jwtDataUnwrapped = String(data: jwtData, encoding: .utf8) {
+                if try checkToken(jwt: jwtDataUnwrapped) {
+                    self.jwt = jwtDataUnwrapped
+                    return true
+                } else {
+                    KeychainHelper.standard.delete(service: "access-token", account: "peachSconeMarket")
+                }
+            }
+        }
+        self.jwt = nil
+        return false
     }
     
     internal func getGenderFilter() -> String{
@@ -77,20 +84,18 @@ class Api:ObservableObject {
         request.setValue("Bearer " + jwt, forHTTPHeaderField: "Authorization")
         
         
-        var responseStatusCode: Int
+        var responseStatusCode: Int = 0
+        let semaphore = DispatchSemaphore(value: 0)
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let response = response as? HTTPURLResponse {
                 responseStatusCode = response.statusCode
-                if responseStatusCode != 200 {
-                    return
-                }
             } else {
                 responseStatusCode = -1
-                return
             }
+            semaphore.signal()
         }.resume()
         
-        
+        _ = semaphore.wait(timeout: .distantFuture)
         if responseStatusCode == 200 {
             return true
         } else if responseStatusCode == 403 {
@@ -100,7 +105,7 @@ class Api:ObservableObject {
         throw Api.getApiError(statusCode: responseStatusCode)
     }
     
-    func sendLogin(loginStruct: LoginStruct) throws -> Bool {
+    func sendLogin(loginClass: LoginClass) throws -> Bool {
         let url = URL(string: "https://" + baseUrl + "/login")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -108,53 +113,55 @@ class Api:ObservableObject {
             "Content-Type": "application/json",
             "Host": baseUrl
         ]
-        request.httpBody = try JSONEncoder().encode(loginStruct)
+        request.httpBody = try JSONEncoder().encode(loginClass)
 
-        var responseStatusCode: Int
+        var responseStatusCode: Int = 0
+        let semaphore = DispatchSemaphore(value: 0)
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let response = response as? HTTPURLResponse {
                 responseStatusCode = response.statusCode
-                if responseStatusCode != 200 {
-                    return
-                }
             } else {
                 responseStatusCode = -1
-                return
             }
-            
-            if let data = data {
-                do {
-                    let responseData = try JSONDecoder().decode(LoginResponseStruct.self, from: data)
-                    self.jwt = responseData.jwt
-                } catch {
-                    responseStatusCode = -2
+            if responseStatusCode == 200 {
+                if let data = data {
+                    do {
+                        let responseData = try JSONDecoder().decode(LoginResponseStruct.self, from: data)
+                        self.jwt = responseData.jwt
+                        KeychainHelper.standard.save(Data(responseData.jwt.utf8), service: "access-token", account: "peachSconeMarket")
+                    } catch {
+                        responseStatusCode = -2
+                    }
                 }
             }
+            semaphore.signal()
         }.resume()
         
+        _ = semaphore.wait(timeout: .distantFuture)
         if responseStatusCode == 200 {
             return true
         } else if responseStatusCode == 400 {
             return false
         } else if responseStatusCode == 403 {
-            throw APIError.tooManyAttemptsError
+            responseStatusCode = -3
         }
         
         throw Api.getApiError(statusCode: responseStatusCode)
     }
     
-    func sendSignUp(signUpStruct: SignUpStruct) throws -> Bool {
+    func sendSignUp(signUpClass: SignUpClass) throws -> Bool {
         let url = URL(string: "https://" + baseUrl + "/create")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.httpBody = try JSONEncoder().encode(signUpStruct)
+        request.httpBody = try JSONEncoder().encode(signUpClass)
         request.allHTTPHeaderFields = [
             "Content-Type": "application/json",
             "Host": baseUrl
         ]
         
         
-        var responseStatusCode: Int
+        var responseStatusCode: Int = 0
+        let semaphore = DispatchSemaphore(value: 0)
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let response = response as? HTTPURLResponse {
                 responseStatusCode = response.statusCode
@@ -165,29 +172,35 @@ class Api:ObservableObject {
                 responseStatusCode = -1
                 return
             }
-            
-            if let data = data {
-                do {
-                    let responseData = try JSONDecoder().decode(LoginResponseStruct.self, from: data)
-                    self.jwt = responseData.jwt
-                } catch {
-                    responseStatusCode = -2
+            if responseStatusCode == 200 {
+                if let data = data {
+                    do {
+                        let responseData = try JSONDecoder().decode(LoginResponseStruct.self, from: data)
+                        self.jwt = responseData.jwt
+                        KeychainHelper.standard.save(Data(responseData.jwt.utf8), service: "access-token", account: "peachSconeMarket")
+                    } catch {
+                        responseStatusCode = -2
+                    }
                 }
             }
+            semaphore.signal()
         }.resume()
         
+        _ = semaphore.wait(timeout: .distantFuture)
         if responseStatusCode == 200 {
             return true
         } else if responseStatusCode == 400 {
             return false
         } else if responseStatusCode == 403 {
-            throw APIError.tooManyAttemptsError
+            //Too many attempts
+            responseStatusCode = -3
         }
         
         throw Api.getApiError(statusCode: responseStatusCode)
     }
     
     func sendLike(likeStruct: LikeStruct) throws -> Bool {
+        var responseStatusCode: Int = -4
         if let jwt = self.jwt {
             var request = URLRequest(url: URL(string: "https://" + baseUrl + "/app/" + likeStruct.likeType.rawValue)!)
             request.httpMethod = "POST"
@@ -199,10 +212,9 @@ class Api:ObservableObject {
             
             request.httpBody = try JSONEncoder().encode(likeStruct)
             
-            var responseStatusCode: Int
             URLSession.shared.dataTask(with: request) { _, response, error in
                 if let response = response as? HTTPURLResponse {
-                    responseStatusCode = responseStatusCode
+                    responseStatusCode = response.statusCode
                 } else {
                     responseStatusCode = -1
                 }
@@ -211,9 +223,9 @@ class Api:ObservableObject {
             if responseStatusCode == 200 {
                 return true
             }
-            
-            throw Api.getApiError(statusCode: responseStatusCode)
         }
+        
+        throw Api.getApiError(statusCode: responseStatusCode)
     }
     
     func loadClothing(completion:@escaping (ClothingItem)->()) throws {
@@ -224,6 +236,7 @@ class Api:ObservableObject {
         urlComponents.queryItems = getQueryParameters()
         
         //Starts url request
+        var responseStatusCode: Int = -4
         if let jwt = self.jwt {
             var request = URLRequest(url: urlComponents.url!)
             request.httpMethod = "GET"
@@ -233,8 +246,7 @@ class Api:ObservableObject {
             ]
             
             
-            var responseStatusCode: Int
-            var responseData: ClothingItem
+            var responseData: ClothingItem = ClothingItem()
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let response=response as? HTTPURLResponse {
                     responseStatusCode = response.statusCode
@@ -245,7 +257,7 @@ class Api:ObservableObject {
                 
                 if let data = data {
                     do {
-                        let responseData = try JSONDecoder().decode(ClothingItem.self, from: data)
+                        responseData = try JSONDecoder().decode(ClothingItem.self, from: data)
                     } catch {
                         responseStatusCode = -2
                     }
@@ -257,11 +269,9 @@ class Api:ObservableObject {
                     completion(responseData)
                 }
             }
-            
-            throw Api.getApiError(statusCode: responseStatusCode)
         }
         
-        throw APIError.invalidToken
+        throw Api.getApiError(statusCode: responseStatusCode)
      }
     
     func loadClothingPage(collectionType: CollectionStruct.CollectionRequestType, pageNumber: Int?, completion:@escaping ([ClothingItem])->()) throws {
@@ -270,7 +280,7 @@ class Api:ObservableObject {
         urlComponents.host = baseUrl
         
         if collectionType == CollectionStruct.CollectionRequestType.none {
-            throw APIError.generalError
+            return
         }
         
         urlComponents.path = "/app/" + collectionType.rawValue
@@ -281,6 +291,7 @@ class Api:ObservableObject {
         urlComponents.queryItems = parameters
         
         //Sends request
+        var responseStatusCode: Int = -4
         if let jwt = self.jwt {
             var request = URLRequest(url: urlComponents.url!)
             
@@ -290,9 +301,7 @@ class Api:ObservableObject {
                 "Authorization":"Bearer " + jwt
             ]
             
-            
-            var responseStatusCode: Int
-            var responseData:CollectionStruct
+            var responseData:CollectionStruct = CollectionStruct()
             
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let response = response as? HTTPURLResponse {
@@ -316,42 +325,38 @@ class Api:ObservableObject {
                     completion(responseData.getItems())
                 }
             }
-            
-            throw Api.getApiError(statusCode: responseStatusCode)
         }
         
-        throw APIError.invalidToken
+        throw Api.getApiError(statusCode: responseStatusCode)
     }
     
-    func getFilterOptions()->FilterOptionsStruct?{
+    func getFilterOptions()->FilterOptionsStruct{
         //TODO: Get type filters dynamically
-        return nil;
+        return FilterOptionsStruct();
     }
     
     
-    enum APIError: Error {
-        case invalidToken
-        case networkError
-        case serverError
-        case jsonError
-        case generalError
-        case tooManyAttemptsError
+    func getGenderOptions()->[String] {
+        return ["Male","Female","Other"]
     }
     
-    static func getApiError(statusCode: Int)->APIError{
+    enum ApiError: Error {
+        case httpError(String)
+    }
+    
+    static func getApiError(statusCode: Int) -> ApiError{
         switch statusCode {
-        case let code where code >= 500 && code < 600:
-            return APIError.serverError
         case 403:
-            return APIError.invalidToken
-        case -1:
-            return APIError.networkError
-        case -2:
-            return APIError.jsonError
+            return ApiError.httpError("Authentication error.")
+        case let code where code >= 500 && code < 600:
+            return ApiError.httpError("Server Error. Status Code: \(statusCode)")
+        case -3:
+            return ApiError.httpError("Please wait an hour before attempting to authenticate again.")
+        case -4:
+            return ApiError.httpError("Invalid token.")
         default:
-            return APIError.generalError
+            return ApiError.httpError("Could not connect to server. Status Code: \(statusCode)")
         }
-        
     }
 
 }

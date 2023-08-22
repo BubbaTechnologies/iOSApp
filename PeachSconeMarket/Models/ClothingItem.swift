@@ -12,6 +12,13 @@ struct ClothingItem: Identifiable, Codable, Equatable {
     let imageURL: [String]
     let productURL: String
     
+    init() {
+        self.id = -1
+        self.name = ""
+        self.imageURL = []
+        self.productURL = ""
+    }
+    
     init (id: Int, name: String, imageURL: [String], productURL: String) {
         self.id  = id
         self.name = name

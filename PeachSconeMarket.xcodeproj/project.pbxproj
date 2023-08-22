@@ -37,7 +37,7 @@
 		9234A9982A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A9972A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift */; };
 		9234A9A72A0B278200EC036A /* CustomFontFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A9A62A0B278200EC036A /* CustomFontFactory.swift */; };
 		92524A7B2A14A45F00CE0FD4 /* SelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92524A7A2A14A45F00CE0FD4 /* SelectedView.swift */; };
-		9266D3952A0E03A200976757 /* SignUpStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9266D3942A0E03A200976757 /* SignUpStruct.swift */; };
+		9266D3952A0E03A200976757 /* SignUpClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9266D3942A0E03A200976757 /* SignUpClass.swift */; };
 		9266D3972A0E092C00976757 /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9266D3962A0E092C00976757 /* PickerView.swift */; };
 		9273B0852A0D6077002140C4 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9273B0842A0D6077002140C4 /* KeychainHelper.swift */; };
 		9286DB2F2A0C953D007FA46E /* NavigationButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB2E2A0C953D007FA46E /* NavigationButtonsView.swift */; };
@@ -45,7 +45,7 @@
 		9286DB332A0C9BBF007FA46E /* MiniCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB322A0C9BBF007FA46E /* MiniCardView.swift */; };
 		9286DB352A0CA280007FA46E /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB342A0CA280007FA46E /* CollectionView.swift */; };
 		9286DB372A0CA28F007FA46E /* LikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB362A0CA28F007FA46E /* LikesView.swift */; };
-		9286DB392A0CBE47007FA46E /* LoginStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB382A0CBE47007FA46E /* LoginStruct.swift */; };
+		9286DB392A0CBE47007FA46E /* LoginClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB382A0CBE47007FA46E /* LoginClass.swift */; };
 		928EAC2A2A2C65E900BF3F51 /* ClothingItemPaginator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928EAC292A2C65E900BF3F51 /* ClothingItemPaginator.swift */; };
 		92B937212A8C6F400025DCB1 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B937202A8C6F3F0025DCB1 /* Api.swift */; };
 		92C623D52A0EB1AB006B5940 /* LikeStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C623D42A0EB1AB006B5940 /* LikeStruct.swift */; };
@@ -109,7 +109,7 @@
 		9234A9972A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeachSconeMarketUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9234A9A62A0B278200EC036A /* CustomFontFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFontFactory.swift; sourceTree = "<group>"; };
 		92524A7A2A14A45F00CE0FD4 /* SelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedView.swift; sourceTree = "<group>"; };
-		9266D3942A0E03A200976757 /* SignUpStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpStruct.swift; sourceTree = "<group>"; };
+		9266D3942A0E03A200976757 /* SignUpClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpClass.swift; sourceTree = "<group>"; };
 		9266D3962A0E092C00976757 /* PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
 		9273B0832A0D5EDA002140C4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9273B0842A0D6077002140C4 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
@@ -118,7 +118,7 @@
 		9286DB322A0C9BBF007FA46E /* MiniCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniCardView.swift; sourceTree = "<group>"; };
 		9286DB342A0CA280007FA46E /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		9286DB362A0CA28F007FA46E /* LikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesView.swift; sourceTree = "<group>"; };
-		9286DB382A0CBE47007FA46E /* LoginStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginStruct.swift; sourceTree = "<group>"; };
+		9286DB382A0CBE47007FA46E /* LoginClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginClass.swift; sourceTree = "<group>"; };
 		928EAC292A2C65E900BF3F51 /* ClothingItemPaginator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingItemPaginator.swift; sourceTree = "<group>"; };
 		92B416882A186BB4002F89DC /* PeachSconeMarket.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PeachSconeMarket.entitlements; sourceTree = "<group>"; };
 		92B937202A8C6F3F0025DCB1 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
@@ -286,9 +286,9 @@
 				92B937202A8C6F3F0025DCB1 /* Api.swift */,
 				9234A9A62A0B278200EC036A /* CustomFontFactory.swift */,
 				9214DEC42A0B72FD000A5A2D /* ClothingItem.swift */,
-				9286DB382A0CBE47007FA46E /* LoginStruct.swift */,
+				9286DB382A0CBE47007FA46E /* LoginClass.swift */,
 				9273B0842A0D6077002140C4 /* KeychainHelper.swift */,
-				9266D3942A0E03A200976757 /* SignUpStruct.swift */,
+				9266D3942A0E03A200976757 /* SignUpClass.swift */,
 				92C623D42A0EB1AB006B5940 /* LikeStruct.swift */,
 				92C623D62A0EE53C006B5940 /* CollectionStruct.swift */,
 				92F1371C2A169230000C0546 /* FilterOptionsStruct.swift */,
@@ -438,7 +438,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92F1371F2A16D898000C0546 /* FilterView.swift in Sources */,
-				9266D3952A0E03A200976757 /* SignUpStruct.swift in Sources */,
+				9266D3952A0E03A200976757 /* SignUpClass.swift in Sources */,
 				92524A7B2A14A45F00CE0FD4 /* SelectedView.swift in Sources */,
 				92C623D92A0EECB5006B5940 /* MainView.swift in Sources */,
 				9214DEB92A0B5D33000A5A2D /* TitleView.swift in Sources */,
@@ -456,7 +456,7 @@
 				9234A97D2A0B245600EC036A /* LoadingView.swift in Sources */,
 				9214DEBF2A0B6B65000A5A2D /* SignUpView.swift in Sources */,
 				92F1371D2A169230000C0546 /* FilterOptionsStruct.swift in Sources */,
-				9286DB392A0CBE47007FA46E /* LoginStruct.swift in Sources */,
+				9286DB392A0CBE47007FA46E /* LoginClass.swift in Sources */,
 				9214DEB72A0B5D15000A5A2D /* LoginView.swift in Sources */,
 				92C623D52A0EB1AB006B5940 /* LikeStruct.swift in Sources */,
 				92C623D72A0EE53C006B5940 /* CollectionStruct.swift in Sources */,

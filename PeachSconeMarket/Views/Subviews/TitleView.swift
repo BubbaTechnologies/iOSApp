@@ -9,11 +9,15 @@ import SwiftUI
 
 struct TitleView: View {
     var body: some View {
-        Text("Peach Scone Market")
-            .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.13, relativeTo: .title))
-            .minimumScaleFactor(0.25)
-            .lineLimit(2)
-            .foregroundColor(Color("DarkText"))
+        GeometryReader{ reader in
+            Text("Peach Scone Market")
+                .font(CustomFontFactory.getFont(style: "Bold", size: 60, relativeTo: .title))
+                .padding(.horizontal, reader.size.width * 0.08)
+                .lineLimit(2)
+                .minimumScaleFactor(0.25)
+                .foregroundColor(Color("DarkText"))
+                .position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
+        }
     }
 }
 

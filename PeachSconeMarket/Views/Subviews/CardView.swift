@@ -93,46 +93,29 @@ struct CardView: View {
     }
 }
 
-extension CardView{
+extension CardView {
     func swipeCard(width: CGFloat) {
-        switch width {
-        case -500...(-150):
-            offset = CGSize(width: -500, height: 0)
-            Task{
-                await removeCard(like: false)
+            switch width {
+            case -500...(-150):
+                offset = CGSize(width: -500, height: 0)
+                Task{
+                    await removeCard(like: false)
+                }
+            case 150...500:
+                offset = CGSize(width: 500, height: 0)
+                Task {
+                    await removeCard(like: true)
+                }
+            default:
+                offset = .zero
             }
-        case 150...500:
-            offset = CGSize(width: 500, height: 0)
-            Task {
-                await removeCard(like: true)
-            }
-        default:
-            offset = .zero
         }
-    }
     
     func removeCard(like: Bool) async {
-        items.removeFirst()
-        
-        //Create LikeStruct
-        let likeStruct:LikeStruct = LikeStruct(clothingId: item.id, imageTapRatio: (Double(imageTapCount) / Double(item.imageURL.count)))
-        do {
-            try LikeStruct.createLikeRequest(likeStruct: likeStruct, likeType: like ? .like : .dislike)
-        } catch  {
-            print("\(error)")
+        //TODO: Remove card
+        //TODO: Create LikeStruct and send it.
+        //TODO: Load new card.
         }
-        
-        //Loads new items
-        for var i in 0...max((preLoadAmount - items.count),0) {
-            ClothingItem.loadItem(gender: genderFilter, type: typeFilter) { item in
-                if (!items.contains(item)) {
-                    items.append(item)
-                } else {
-                    i -= 1
-                }
-            }
-        }
-    }
 }
 
 

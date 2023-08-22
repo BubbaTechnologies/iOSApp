@@ -69,12 +69,9 @@ struct FilterView: View {
                         .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
                         .scaleEffect(3)
                         .onAppear{
-                            do {
-                                filterOptions = try FilterOptionsStruct.getFilterOptions()
-                            } catch {
-                                errorMessage = "\(error)"
-                            }
+//                                filterOptions = try FilterOptionsStruct.getFilterOptions()
                         }
+
                 }
                 Spacer()
             }
