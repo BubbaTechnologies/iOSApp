@@ -9,9 +9,9 @@ import SwiftUI
 
 struct SignUpView: View {
     @ObservedObject var api: Api
-    @Binding var appStage: PeachSconeMarketApp.stage
+    var completionFunction: ()->Void
+    var backFunction: ()->Void
     @ObservedObject private var signUpClass: SignUpClass = SignUpClass()
-    
     @State private var confirmPassword: String = ""
     @State private var genderSelected:Bool = false
     @State private var errorMessage: String = ""
@@ -26,18 +26,18 @@ struct SignUpView: View {
                             .frame(height: max(125, reader.size.height * 0.2))
                         TextInputView(promptText: "Email", input: $signUpClass.username, secure: false)
                             .textContentType(.username)
-                            .frame(height: max(PeachSconeMarketApp.fieldMinHeight, reader.size.height * PeachSconeMarketApp.fieldHeightFactor))
+                            .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                             .padding(.bottom, reader.size.height * 0.01)
-                        PickerView(selection: $signUpClass.gender, promptText: "Gender", options: api.getGenderOptions(), selected: $genderSelected)
-                            .frame(height: max(PeachSconeMarketApp.fieldMinHeight, reader.size.height * PeachSconeMarketApp.fieldHeightFactor))
+                        PickerView(selection: $signUpClass.gender, promptText: "Gender", options: api.filterOptionsStruct.getGenders(), selected: $genderSelected)
+                            .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                             .padding(.bottom, reader.size.height * 0.01)
                         TextInputView(promptText: "Password", input: $signUpClass.password, secure: true)
                             .textContentType(.newPassword)
-                            .frame(height: max(PeachSconeMarketApp.fieldMinHeight, reader.size.height * PeachSconeMarketApp.fieldHeightFactor))
+                            .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                             .padding(.bottom, reader.size.height * 0.01)
                         TextInputView(promptText: "Confirm Password", input: $confirmPassword, secure: true)
                             .textContentType(.newPassword)
-                            .frame(height: max(PeachSconeMarketApp.fieldMinHeight, reader.size.height * PeachSconeMarketApp.fieldHeightFactor))
+                            .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                             .padding(.bottom, reader.size.height * 0.01)
                         ButtonView(text: "Sign Up") {
                             if signUpClass.username.isEmpty || signUpClass.password.isEmpty || signUpClass.gender.isEmpty || confirmPassword.isEmpty {
@@ -46,13 +46,26 @@ struct SignUpView: View {
                             }
                             SignUp()
                         }
-                        .frame(height: max(PeachSconeMarketApp.buttonMinHeight, reader.size.height * PeachSconeMarketApp.buttonHeightFactor))
+                        .frame(height: max(LoginSequenceDesignVariables.buttonMinHeight, reader.size.height * LoginSequenceDesignVariables.buttonHeightFactor))
                         Text("\(errorMessage)")
                             .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.04, relativeTo: .body))
                             .foregroundColor(.red)
                             .multilineTextAlignment(.center)
                         Spacer()
                     }.frame(height: reader.size.height)
+                }
+                VStack(alignment: .leading){
+                    Button(action: backFunction) {
+                        Image(systemName:"chevron.backward")
+                            .resizable()
+                            .scaledToFit()
+                            .padding(.leading, reader.size.width * 0.05)
+                            .padding(.top, reader.size.height * 0.03)
+                            .foregroundColor(Color("DarkText"))
+                            .frame(width: reader.size.width * 0.075)
+                        Spacer()
+                    }
+                    Spacer()
                 }
             }
         }
@@ -68,7 +81,7 @@ extension SignUpView {
         
         do {
             if try api.sendSignUp(signUpClass: signUpClass) {
-                appStage = .loading
+                completionFunction()
             } else {
                 errorMessage = "You done goofed.\nTry again."
                 return
@@ -84,6 +97,6 @@ extension SignUpView {
 
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpView(api: Api(), appStage: .constant(.authentication))
+        SignUpView(api: Api(), completionFunction: {}, backFunction: {})
     }
 }

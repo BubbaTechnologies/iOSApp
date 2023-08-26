@@ -56,6 +56,7 @@ struct CollectionStruct: Codable {
         case clothingDTOList = "clothingDTOList"
     }
     
+    
     enum CollectionRequestType:String, Codable {
         case likes = "likes"
         case collection = "collection"

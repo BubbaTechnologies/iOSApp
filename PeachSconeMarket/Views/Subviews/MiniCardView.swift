@@ -9,79 +9,69 @@ import SwiftUI
 
 struct MiniCardView: View {
     public var item: ClothingItem
-    private let widthFactor: Double = 0.35
-    private let heightFactor: Double = 0.3
-    @Binding var isPresentingSafari:Bool
-    @Binding var safariUrl: URL
+    @Binding var safariUrl: URL?
     @Binding var editing: Bool
-    @State var selected: Bool = false
     @Binding var selectedItems: [Int]
     
+    @State var selected: Bool = false
+    private let widthFactor: Double = 0.35
+    private let heightFactor: Double = 0.3
+    
     var body: some View {
-        ZStack {
-            VStack{
-                AsyncImage(url: URL(string: item.imageURL[0])) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
-                            .scaleEffect(3)
-                    case .success(let image):
-                        image.resizable()
-                            .scaledToFill()
-                            .clipped()
-                            .onTapGesture {
-                                if editing {
-                                    selected.toggle()
-                                    if selected {
-                                        selectedItems.append(item.id)
-                                    } else {
-                                        selectedItems = selectedItems.filter{
-                                            $0 != item.id
-                                        }
-                                    }
-                                } else {
-                                    if let url = URL(string: item.productURL) {
-                                        //Create LikeStruct
-//                                        let likeStruct:LikeStruct = LikeStruct(clothingId: item.id, imageTapRatio: 0)
-//                                        do {
-//                                            try LikeStruct.createLikeRequest(likeStruct: likeStruct, likeType: .pageClick)
-//                                        } catch  {
-//                                            print("\(error)")
-//                                        }
-                                        safariUrl = url
-                                        isPresentingSafari = true
-                                    }
+        GeometryReader { reader in
+            ZStack{
+                VStack{
+                    AsyncImage(url: URL(string: item.imageURL[0])) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
+                                .scaleEffect(3)
+                        case .success(let image):
+                            image.resizable()
+                                .scaledToFill()
+                                .clipped()
+                        case .failure:
+                            Text("This is taking longer than normal...")
+                                .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.08, relativeTo: .caption))
+                        @unknown default:
+                            EmptyView()
+                        }
+                    }.onTapGesture {
+                        //Uploads interaction data
+                        if editing {
+                            selected.toggle()
+                            if selected {
+                                selectedItems.append(item.id)
+                            } else {
+                                selectedItems = selectedItems.filter{
+                                    $0 != item.id
                                 }
                             }
-                    case .failure:
-                        Text("Failure to Load")
-                    @unknown default:
-                        //TODO: Handle default case
-                        EmptyView()
+                        } else {
+                            if let url = URL(string: item.productURL) {
+                                safariUrl = url
+                            }
+                        }
                     }
-                }
-                .overlay(
-                    RoundedRectangle(cornerRadius: 15)
-                        .stroke(Color("DarkText"))
-                        .frame(width: UIScreen.main.bounds.width * widthFactor, height: UIScreen.main.bounds.height * heightFactor, alignment: .center)
-                    
-                )
-                .frame(width: UIScreen.main.bounds.width * widthFactor, height: UIScreen.main.bounds.height * heightFactor, alignment: .center)
-                .background(Color("LightText"))
-                .cornerRadius(15)
-                VStack(alignment: .center){
-                    Text("\(item.name)")
-                        .lineLimit(4)
-                        .font(CustomFontFactory.getFont(style: "Regular", size: UIScreen.main.bounds.width * 0.05, relativeTo: .caption))
-                        .multilineTextAlignment(TextAlignment.leading)
-                        .foregroundColor(Color("DarkText"))
+                    .frame(width: reader.size.width ,height: reader.size.height * 0.75)
+                    .background(Color("LightText"))
+                    .cornerRadius(reader.size.height * 0.05)
+                    HStack{
+                        Text("\(item.name)")
+                            .lineLimit(4)
+                            .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.13, relativeTo: .body))
+                            .multilineTextAlignment(TextAlignment.leading)
+                            .foregroundColor(Color("DarkText"))
+                        Spacer()
+                    }
                     Spacer()
-                }.frame(width: UIScreen.main.bounds.width * (widthFactor + 0.01), height: UIScreen.main.bounds.height * heightFactor * 0.4)
-            }
-            if (editing) {
-                SelectedView(selected: $selected)
-                    .offset(x:UIScreen.main.bounds.width * (widthFactor - 0.51), y: UIScreen.main.bounds.height * ((heightFactor * 0.4) - 0.325))
+                }.frame(width: reader.size.width, height: reader.size.height)
+                if (editing) {
+                    SelectedView(selected: $selected)
+                        .frame(width: reader.size.width * 0.25, height: reader.size.height * 0.125)
+                        .position(x: reader.frame(in: .local).minX + reader.size.width * 0.04, y: reader.frame(in: .local).minY + reader.size.height * 0.02)
+                }
             }
         }
     }
@@ -89,6 +79,6 @@ struct MiniCardView: View {
 
 struct MiniCardView_Previews: PreviewProvider {
     static var previews: some View {
-        MiniCardView(item:ClothingItem.sampleItems[0], isPresentingSafari: .constant(false), safariUrl: .constant(URL(string: "https://www.peachsconemarket.com")!), editing: .constant(true), selectedItems: .constant([]))
+        MiniCardView(item:ClothingItem.sampleItems[0], safariUrl: .constant(URL(string: "https://www.peachsconemarket.com")!), editing: .constant(true), selectedItems: .constant([]))
     }
 }

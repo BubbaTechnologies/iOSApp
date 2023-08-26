@@ -10,7 +10,8 @@ import Foundation
 class Api:ObservableObject {
     var jwt: String?
     @Published var genderFilter: String = ""
-    @Published var typeFilters: [String] = []
+    @Published var typeFilters: [String:Bool] = [:]
+    @Published var filterOptionsStruct: FilterOptionsStruct = FilterOptionsStruct()
     let baseUrl = "api.peachsconemarket.com"
     
     init() {
@@ -21,12 +22,18 @@ class Api:ObservableObject {
         genderFilter = filter
     }
     
-    func setTypeFitler(filters: [String]) -> Void {
-        typeFilters = filters
+    func addTypeFilter(filter: String) -> Void {
+        typeFilters[filter] = true
     }
     
-    func addTypeFilter(filter: String) -> Void {
-        typeFilters.append(filter)
+    func resetTypeFilters() {
+        for filter in self.typeFilters.keys {
+            self.typeFilters[filter] = false
+        }
+    }
+    
+    func resetGenderFilter() {
+        self.genderFilter = ""
     }
     
     func setJwt(token: String) -> Void {
@@ -35,7 +42,6 @@ class Api:ObservableObject {
     
     //Deteremines if previous token is valid. Returns true if token is valid or else false.
     func loadToken() throws -> Bool {
-        KeychainHelper.standard.delete(service: "access-token", account: "peachSconeMarket")
         if let jwtData = KeychainHelper.standard.read(service: "access-token", account: "peachSconeMarket") {
             if let jwtDataUnwrapped = String(data: jwtData, encoding: .utf8) {
                 if try checkToken(jwt: jwtDataUnwrapped) {
@@ -58,7 +64,9 @@ class Api:ObservableObject {
         var filterString: String = ""
         
         for filter in typeFilters {
-            filterString += filter.lowercased().replacingOccurrences(of: " ", with: "_") + ","
+            if filter.value {
+                filterString += filter.key.lowercased().replacingOccurrences(of: " ", with: "_") + ","
+            }
         }
         
         return String(filterString.dropLast());
@@ -199,7 +207,7 @@ class Api:ObservableObject {
         throw Api.getApiError(statusCode: responseStatusCode)
     }
     
-    func sendLike(likeStruct: LikeStruct) throws -> Bool {
+    func sendLike(likeStruct: LikeStruct) throws -> Void {
         var responseStatusCode: Int = -4
         if let jwt = self.jwt {
             var request = URLRequest(url: URL(string: "https://" + baseUrl + "/app/" + likeStruct.likeType.rawValue)!)
@@ -221,7 +229,7 @@ class Api:ObservableObject {
             }.resume()
             
             if responseStatusCode == 200 {
-                return true
+                return
             }
         }
         
@@ -275,6 +283,7 @@ class Api:ObservableObject {
      }
     
     func loadClothingPage(collectionType: CollectionStruct.CollectionRequestType, pageNumber: Int?, completion:@escaping ([ClothingItem])->()) throws {
+        //Builds URL
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = baseUrl
@@ -282,8 +291,11 @@ class Api:ObservableObject {
         if collectionType == CollectionStruct.CollectionRequestType.none {
             return
         }
-        
+
         urlComponents.path = "/app/" + collectionType.rawValue
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        
         var parameters:[URLQueryItem] = getQueryParameters()
         if let pageNumber = pageNumber {
             parameters.append(URLQueryItem(name: "page", value: String(pageNumber)))
@@ -302,7 +314,6 @@ class Api:ObservableObject {
             ]
             
             var responseData:CollectionStruct = CollectionStruct()
-            
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let response = response as? HTTPURLResponse {
                     responseStatusCode = response.statusCode
@@ -318,26 +329,63 @@ class Api:ObservableObject {
                         responseStatusCode = -2
                     }
                 }
+                semaphore.signal()
             }.resume()
             
+            _ = semaphore.wait(timeout: .distantFuture)
             if responseStatusCode == 200 {
                 DispatchQueue.main.async {
                     completion(responseData.getItems())
                 }
+                return
             }
         }
         
         throw Api.getApiError(statusCode: responseStatusCode)
     }
     
-    func getFilterOptions()->FilterOptionsStruct{
-        //TODO: Get type filters dynamically
-        return FilterOptionsStruct();
-    }
     
-    
-    func getGenderOptions()->[String] {
-        return ["Male","Female","Other"]
+    //Loads the filter options from the API
+    func loadFilterOptions() throws {
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        var responseStatusCode: Int = 0
+        var request = URLRequest(url: URL(string: "https://" + baseUrl + "/app/filterOptions")!)
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = [
+            "Host": baseUrl
+        ]
+
+        var responseData: FilterOptionsStruct = FilterOptionsStruct()
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let response = response as? HTTPURLResponse {
+                responseStatusCode = response.statusCode
+            } else {
+                responseStatusCode = -1
+                return
+            }
+
+            if let data = data {
+                do {
+                    let filterOptions = try JSONDecoder().decode(FilterOptions.self, from: data)
+                    responseData = FilterOptionsStruct(filterOptions: filterOptions)
+                } catch {
+                    responseStatusCode = -2
+                }
+            }
+            semaphore.signal()
+        }.resume()
+        
+        _ = semaphore.wait(timeout: .distantFuture)
+        if responseStatusCode == 200 {
+            for type in responseData.getUniqueTypes() {
+                typeFilters[type] = false
+            }
+            
+            self.filterOptionsStruct = responseData
+        }
+        
+        throw Api.getApiError(statusCode: responseStatusCode)
     }
     
     enum ApiError: Error {

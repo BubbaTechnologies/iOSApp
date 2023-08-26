@@ -11,16 +11,10 @@ import SwiftUI
 struct PeachSconeMarketApp: App {
     @State var appStage: stage = .loading
     @ObservedObject var api: Api = Api()
+    @ObservedObject var swipeClothingManager: ClothingListManager = ClothingListManager()
     
     @State var errorMessage: String = ""
     @State var errorPresent: Bool = false
-    
-    
-    //Design Variables
-    static let fieldMinHeight: CGFloat = 45
-    static let fieldHeightFactor = 0.055
-    static let buttonMinHeight: CGFloat = 50
-    static let buttonHeightFactor = 0.065
     
     var body: some Scene {
         WindowGroup {
@@ -32,10 +26,9 @@ struct PeachSconeMarketApp: App {
                     message: Text("\(errorMessage)"))
                 }
             } else if appStage == .authentication {
-                LoginView(api: api, appStage: $appStage)
+                LoginView(api: api, completionFunction: {appStage = .loading})
             } else if appStage == .main {
-                //TODO: Main Stage
-                Text("Congrats you made it!")
+                MainView(api: api, swipeClothingManager: swipeClothingManager)
             }
         }
     }
@@ -45,6 +38,9 @@ extension PeachSconeMarketApp {
     func load() {
         do {
             if try api.loadToken() {
+                //Loads clothing
+                self.swipeClothingManager.api = api
+                try self.swipeClothingManager.loadItems()
                 appStage = .main
             } else {
                 appStage = .authentication

@@ -10,7 +10,7 @@ import Foundation
 
 struct LoginView: View {
     @ObservedObject var api: Api
-    @Binding var appStage: PeachSconeMarketApp.stage
+    var completionFunction:()->Void
     @ObservedObject private var loginClass: LoginClass = LoginClass()
 
     @State private var signUpActive: Bool = false
@@ -29,11 +29,11 @@ struct LoginView: View {
                                     .frame(height: max(125, reader.size.height * 0.2))
                                 TextInputView(promptText: "Email", input: $loginClass.username, secure: false)
                                     .textContentType(.username)
-                                    .frame(height: max(PeachSconeMarketApp.fieldMinHeight, reader.size.height * PeachSconeMarketApp.fieldHeightFactor))
+                                    .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                                     .padding(.bottom, reader.size.height * 0.01)
                                 TextInputView(promptText: "Password", input: $loginClass.password, secure: true)
                                     .textContentType(.password)
-                                    .frame(height: max(PeachSconeMarketApp.fieldMinHeight, reader.size.height * PeachSconeMarketApp.fieldHeightFactor))
+                                    .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                                     .padding(.bottom, reader.size.height * 0.01)
                                 ButtonView(text: "Sign In") {
                                     if loginClass.username.isEmpty || loginClass.password.isEmpty {
@@ -42,22 +42,22 @@ struct LoginView: View {
                                     }
                                     login()
                                 }
-                                .frame(height: max(PeachSconeMarketApp.buttonMinHeight, reader.size.height * PeachSconeMarketApp.buttonHeightFactor))
+                                .frame(height: max(LoginSequenceDesignVariables.buttonMinHeight, reader.size.height * LoginSequenceDesignVariables.buttonHeightFactor))
                                 Text("\(errorMessage)")
                                     .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.04, relativeTo: .body))
                                     .foregroundColor(.red)
                                     .multilineTextAlignment(.center)
                                 Spacer()
                                 ButtonView(text: "Sign Up", action: {
-                                    signUpActive.toggle()
+                                    signUpActive = true
                                 })
-                                .frame(height: max(PeachSconeMarketApp.buttonMinHeight, reader.size.height * PeachSconeMarketApp.buttonHeightFactor))
+                                .frame(height: max(LoginSequenceDesignVariables.buttonMinHeight, reader.size.height * LoginSequenceDesignVariables.buttonHeightFactor))
                             }.frame(height: reader.size.height)
                         }
                 }
             }
         case true:
-            SignUpView(api: api, appStage: $appStage)
+            SignUpView(api: api, completionFunction: completionFunction, backFunction: {signUpActive = false})
         }
     }
 }
@@ -66,9 +66,7 @@ extension LoginView {
     func login() {
         do {
             if try api.sendLogin(loginClass: loginClass) {
-                appStage = .loading
-                print("Changed app stage!")
-                print(appStage)
+                completionFunction()
             } else {
                 errorMessage = "Maybe try a different password?"
             }
@@ -82,6 +80,6 @@ extension LoginView {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(api: Api(), appStage: .constant(.authentication))
+        LoginView(api: Api(), completionFunction: {})
     }
 }

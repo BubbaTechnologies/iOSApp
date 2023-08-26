@@ -15,80 +15,77 @@ struct CardView: View {
     @State private var currentImageIndex: Int = 0
     @State private var imageTapCount: Int = 0
     
-    @Binding public var items: [ClothingItem]
+    //Paramters represent item swiped, imageTapRatio, and userLiked
     public var item: ClothingItem
-    @Binding public var typeFilter: [String]
-    @Binding public var genderFilter: String
-    @Binding public var preLoadAmount: Int
+    public var swipeAction: (ClothingItem, Double, Bool)->Void
     
     var body: some View {
-        ZStack{
-            AsyncImage(url: URL(string: item.imageURL[currentImageIndex])) { phase in
-                switch phase {
-                case .empty:
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
-                        .scaleEffect(3)
-                case .success(let image):
-                    ZStack{
-                        image.resizable()
-                            .scaledToFill()
-                            .clipped()
-                        HStack{
-                            ForEach(0...item.imageURL.count-1, id:\.self) {index in
-                                ZStack{
-                                    if (index == currentImageIndex) {
+        GeometryReader {reader in
+            ZStack{
+                AsyncImage(url: URL(string: item.imageURL[currentImageIndex])) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
+                            .scaleEffect(3)
+                    case .success(let image):
+                        ZStack{
+                            image.resizable()
+                                .scaledToFill()
+                                .clipped()
+                            HStack{
+                                ForEach(0...item.imageURL.count-1, id:\.self) {index in
+                                    ZStack{
+                                        if (index == currentImageIndex) {
+                                            Circle()
+                                                .fill(.black)
+                                                .id("Circle" + String(index))
+                                                .frame(width: reader.size.width * circleFactor, alignment: .center)
+                                        } else {
+                                            Circle()
+                                                .fill(.white)
+                                                .opacity(0.5)
+                                                .id("Circle" + String(index))
+                                                .frame(width: reader.size.width * circleFactor, alignment: .center)
+                                        }
+                                        
+                                        //Border Circle
                                         Circle()
-                                            .fill(.black)
-                                            .id("Circle" + String(index))
-                                            .frame(width: UIScreen.main.bounds.width * circleFactor, alignment: .center)
-                                    } else {
-                                        Circle()
-                                            .fill(.white)
-                                            .opacity(0.5)
-                                            .id("Circle" + String(index))
-                                            .frame(width: UIScreen.main.bounds.width * circleFactor, alignment: .center)
-                                    }
-                                    Circle()
-                                        .strokeBorder(Color("DarkText"), lineWidth:0.5)
-                                        .frame(width: UIScreen.main.bounds.width * circleFactor, alignment: .center)
-                                }.padding(.horizontal, -3)
-                            }
-                        }.offset(y:UIScreen.main.bounds.height * (heightFactor) * 0.47)
-                    }
-                case .failure:
-                    Text("Failure to Load")
-                        .foregroundColor(Color("DarkText"))
-                @unknown default:
-                    EmptyView()
-                }
-            }
-            .overlay(
-                RoundedRectangle(cornerRadius: heightFactor * 30.5)
-                    .stroke(Color("DarkText"))
-                    .frame(width: UIScreen.main.bounds.width * widthFactor, height: UIScreen.main.bounds.height * heightFactor, alignment: .center)
-            )
-            .padding(.horizontal, 20)
-            .frame(width: UIScreen.main.bounds.width * widthFactor, height: UIScreen.main.bounds.height * heightFactor, alignment: .center)
-            .background(Color("LightText"))
-            .cornerRadius(heightFactor * 30.5)
-            .offset(x: offset.width)
-            .rotationEffect(.degrees(Double(offset.width / 50)))
-            .gesture(
-                DragGesture()
-                    .onChanged{ gesture in
-                        offset = gesture.translation
-                    }
-                    .onEnded { _ in
-                        withAnimation {
-                            swipeCard(width: offset.width)
+                                            .strokeBorder(Color("DarkText"), lineWidth:0.2)
+                                            .frame(width: reader.size.width * circleFactor, alignment: .center)
+                                    }.padding(.horizontal, -3)
+                                }
+                            }.offset(y:reader.size.height * 0.48)
                         }
+                    case .failure:
+                        Text("This is taking longer than normal...")
+                            .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.04, relativeTo: .caption))
+                    @unknown default:
+                        EmptyView()
                     }
-            )
-            .onTapGesture{
-                currentImageIndex = (currentImageIndex + 1) % item.imageURL.count
-                imageTapCount += 1
-            }
+                }
+                .padding(.horizontal, 20)
+                .frame(width: reader.size.width * widthFactor, height: reader.size.height, alignment: .center)
+                .background(Color("LightText"))
+                .cornerRadius(heightFactor * 30.5)
+                .offset(x: offset.width)
+                .rotationEffect(.degrees(Double(offset.width / 50)))
+                .gesture(
+                    DragGesture()
+                        .onChanged{ gesture in
+                            offset = gesture.translation
+                        }
+                        .onEnded { _ in
+                            withAnimation {
+                                swipeCard(width: offset.width)
+                            }
+                        }
+                )
+                .onTapGesture{
+                    currentImageIndex = (currentImageIndex + 1) % item.imageURL.count
+                    imageTapCount += 1
+                }
+            }.position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
         }
     }
 }
@@ -98,30 +95,20 @@ extension CardView {
             switch width {
             case -500...(-150):
                 offset = CGSize(width: -500, height: 0)
-                Task{
-                    await removeCard(like: false)
-                }
+                swipeAction(item, Double(imageTapCount) / Double(item.imageURL.count), false)
             case 150...500:
                 offset = CGSize(width: 500, height: 0)
-                Task {
-                    await removeCard(like: true)
-                }
+                swipeAction(item, Double(imageTapCount) / Double(item.imageURL.count), true)
             default:
                 offset = .zero
             }
-        }
-    
-    func removeCard(like: Bool) async {
-        //TODO: Remove card
-        //TODO: Create LikeStruct and send it.
-        //TODO: Load new card.
         }
 }
 
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(items: .constant(ClothingItem.sampleItems), item: ClothingItem.sampleItems[0], typeFilter: .constant([]), genderFilter: .constant(""), preLoadAmount: .constant(5))
+        CardView(item: ClothingItem.sampleItems[0], swipeAction: {_,_,_ in return} )
     }
 }
 
