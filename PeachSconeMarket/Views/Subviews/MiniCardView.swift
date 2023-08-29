@@ -37,7 +37,11 @@ struct MiniCardView: View {
                         @unknown default:
                             EmptyView()
                         }
-                    }.onTapGesture {
+                    }
+                    .frame(width: reader.size.width ,height: reader.size.height * 0.75)
+                    .background(Color("LightText"))
+                    .cornerRadius(reader.size.height * 0.05)
+                    .onTapGesture {
                         //Uploads interaction data
                         if editing {
                             selected.toggle()
@@ -54,9 +58,6 @@ struct MiniCardView: View {
                             }
                         }
                     }
-                    .frame(width: reader.size.width ,height: reader.size.height * 0.75)
-                    .background(Color("LightText"))
-                    .cornerRadius(reader.size.height * 0.05)
                     HStack{
                         Text("\(item.name)")
                             .lineLimit(4)

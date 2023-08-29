@@ -20,17 +20,22 @@ struct MainView: View {
                 Color("BackgroundColor").ignoresSafeArea()
                 VStack(alignment: .center){
                     if pageState == .filtering {
-                        //TODO: Filter View
-                        //TODO: Pass function to change pageState back to previous
-                        /*Function:()->Void
-                         {
-                         state = previousState
-                         Clear loaded clothing
-                         Reload with filters
-                         }
-                         */
-                        
-                        Text("Filter View")
+                        FilterView(api: api) { newState in
+                            if newState == .filtering {
+                                //cancel
+                                pageState = previousPageState
+                            } else if newState == .editing {
+                                //confirm
+                                pageState = previousPageState
+                                swipeClothingManager.reset()
+                                do {
+                                    try swipeClothingManager.loadItems()
+                                } catch {
+                                    //TODO: Display error
+                                }
+                            }
+                        }
+                        .frame(width: reader.size.width, height: reader.size.height)
                     } else if pageState == .swipe {
                         SwipeView(api: api, clothingManager: swipeClothingManager, pageState: $pageState) { newState in
                             previousPageState = pageState

@@ -8,104 +8,35 @@
 import SwiftUI
 
 struct FilterView: View {
-    @Binding var typeFilter: [String]
-    @Binding var genderFilter: String
-    @State var filterOptions: FilterOptionsStruct? = nil
-    @State var errorMessage: String = ""
+    @ObservedObject var api: Api
+    var changeFunction: (PageState)->Void
     
-    private let bottomPaddingFactor: Double = 0.001
-    private let outsidePaddingFactor: Double = 0.001
+    
     var body: some View {
-        ZStack{
+        GeometryReader { reader in
+            Color("BackgroundColor").ignoresSafeArea()
             VStack {
-                VStack(alignment: .center){
-                    ScrollView(showsIndicators: false) {
-                        InlineTitleView()
-                            .frame(alignment: .top)
-                            .padding(.bottom, UIScreen.main.bounds.height * bottomPaddingFactor)
-                        Text("Filters")
-                            .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.075, relativeTo: .title3))
-                            .foregroundColor(Color("DarkText"))
-                            .padding(.bottom, UIScreen.main.bounds.height * bottomPaddingFactor)
-                        
-                        //Display error message
-                        if (!errorMessage.isEmpty) {
-                            Text("\(errorMessage)")
-                                .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.04, relativeTo: .caption))
-                                .foregroundColor(.red)
-                        }
-                        
-                        //If filterOptions are loaded properly
-                        if (filterOptions != nil) {
-                            VStack{
-                                Text("Gender")
-                                    .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.07, relativeTo: .subheadline))
-                                    .foregroundColor(Color("DarkText"))
-                                    .padding(.bottom, UIScreen.main.bounds.height * bottomPaddingFactor)
-                                HStack{
-                                    Spacer()
-                                    if (genderFilter == "") {
-                                        ListView(list: filterOptions!.getGenders().sorted(), action: genderSelect)
-                                    } else {
-                                        VStack{
-                                            ListButtonView(selected: true, item: genderFilter.capitalized, action: singleGenderButton)
-                                            Text("Type")
-                                                .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.07, relativeTo: .subheadline))
-                                                .foregroundColor(Color("DarkText"))
-                                            ListView(list: filterOptions!.getTypes(gender: genderFilter.lowercased()).sorted(), action: typeSelect)
-                                        }
-                                    }
-                                    Spacer()
-                                }
-                            }
-                        }
-                    }
-                }
+                InlineTitleView()
+                    .frame(width: reader.size.width, height: reader.size.height * 0.07)
+                    .padding(.top, reader.size.height * 0.025)
+                    .padding(.bottom, reader.size.height * 0.01)
+                Text("Maybe next week!")
+                    .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.07, relativeTo: .body))
+                    .frame(height: reader.size.height * 0.85)
+                    .foregroundColor(Color("DarkText"))
+                NavigationButtonView(showFilter: true, showEdit: true, options: .constant(true), buttonAction: changeFunction)
+                    .frame(height: reader.size.height * NavigationViewDesignVariables.frameHeightFactor)
+                    .padding(.bottom, reader.size.height * 0.005)
             }
-            VStack{
-                Spacer()
-                if (filterOptions == nil && errorMessage == "") {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
-                        .scaleEffect(3)
-                        .onAppear{
-//                                filterOptions = try FilterOptionsStruct.getFilterOptions()
-                        }
-
-                }
-                Spacer()
-            }
+            .frame(width: reader.size.width, height: reader.size.height)
         }
     }
 }
 
-extension FilterView {
-    func genderSelect(gender: String, selected: Bool)->Void {
-        if selected {
-            genderFilter = ""
-        } else {
-            genderFilter = gender.lowercased()
-        }
-    }
-    
-    func typeSelect(item: String, selected: Bool)->Void{
-        if !selected {
-            typeFilter.append(item.lowercased())
-        } else {
-            typeFilter = typeFilter.filter{
-                $0 != item
-            }
-        }
-    }
-    
-    func singleGenderButton(_ :String, _:Bool)->Void{
-        genderFilter = ""
-    }
-}
 
 struct FilterView_Previews: PreviewProvider {
     static var previews: some View {
-        FilterView(typeFilter: .constant([]), genderFilter: .constant(""), filterOptions: FilterOptionsStruct.sampleOptions)
+        FilterView(api: Api(), changeFunction: {_ in return})
     }
 }
 

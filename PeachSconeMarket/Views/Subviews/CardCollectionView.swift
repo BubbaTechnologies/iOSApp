@@ -14,16 +14,16 @@ struct CardCollectionView: View {
     @Binding var selectedItems: [Int]
     
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
-    
+
     var body: some View {
         GeometryReader{ reader in
             LazyVStack(alignment: .center){
                 LazyVGrid(columns: columns) {
-                    ForEach(items){ item in
-                        MiniCardView(item: item, safariUrl: $safariUrl, editing: $editing, selectedItems: $selectedItems)
-                            .frame(width: reader.size.width * 0.4, height: reader.size.height * (1.0/pow(Double(
+                    ForEach(items.indices, id: \.self){ i in
+                        MiniCardView(item: items[i], safariUrl: $safariUrl, editing: $editing, selectedItems: $selectedItems)
+                            .frame(width: reader.size.width * 0.4, height: reader.size.height * (2.0/Double(
                                 (items.count % 2 == 0 ? items.count : items.count + 1)
-                            ), 2.0)))
+                            )))
                     }
                 }
             }

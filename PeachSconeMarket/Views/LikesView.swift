@@ -13,7 +13,7 @@ struct LikesView: View {
     var changeFunction: (PageState)->Void
     
     @State var errorMessage: String = ""
-    @State var attemptedLoad: Bool = true
+    @State var attemptedLoad: Bool = false
     
     @State var isPresentingSafari:Bool = false
     @State var safariUrl: URL? = nil
@@ -35,11 +35,10 @@ struct LikesView: View {
                             Text(editing ? "Editing Likes" : "Likes")
                                 .font(CustomFontFactory.getFont(style: "Bold", size: reader.size.width * 0.075, relativeTo: .title3))
                                 .foregroundColor(Color("DarkText"))
-                            if errorMessage.isEmpty && attemptedLoad && clothingManager.clothingItems.count > 0 {
-                                //TODO: How to resize dynamically
+                            if errorMessage.isEmpty && attemptedLoad {
                                 CardCollectionView(items: $clothingManager.clothingItems,  safariUrl: $safariUrl, editing: $editing, selectedItems: $selectedClothingItems)
                                     .frame(height: reader.size.height * (Double(
-                                        (clothingManager.clothingItems.count % 2 == 0 ? clothingManager.clothingItems.count : clothingManager.clothingItems.count + 1)) / 9.0))
+                                        (clothingManager.clothingItems.count % 2 == 0 ? clothingManager.clothingItems.count : clothingManager.clothingItems.count + 1)) / 5.0))
                                 if !clothingManager.allClothingItemsLoaded {
                                     ProgressView()
                                         .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
