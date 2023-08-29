@@ -21,7 +21,9 @@ struct CardCollectionView: View {
                 LazyVGrid(columns: columns) {
                     ForEach(items){ item in
                         MiniCardView(item: item, safariUrl: $safariUrl, editing: $editing, selectedItems: $selectedItems)
-                            .frame(width: reader.size.width * 0.4, height: reader.size.height * (1.75 / Double(items.count)))
+                            .frame(width: reader.size.width * 0.4, height: reader.size.height * (1.0/pow(Double(
+                                (items.count % 2 == 0 ? items.count : items.count + 1)
+                            ), 2.0)))
                     }
                 }
             }

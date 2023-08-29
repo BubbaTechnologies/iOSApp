@@ -8,43 +8,31 @@
 import SwiftUI
 
 struct CollectionView: View {
-    //@State var items: [ClothingItem]
+    var changeFunction: (PageState)->Void
     
     var body: some View {
-        ZStack{
-//            VStack(alignment: .center){
-//                ScrollView(showsIndicators: false) {
-//                    InlineTitleView()
-//                        .frame(alignment: .top)
-//                        .padding(.bottom, 1)
-//                    Text("Collection")
-//                        .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.08))
-//                        .foregroundColor(Color("DarkText"))
-//                    CardCollectionView(items: $items)
-//                }
-//                Spacer()
-//                NavigationButtonView()
-//                    .frame(height: UIScreen.main.bounds.height * 0.05)
-//            }
-            VStack(alignment: .center){
+        GeometryReader { reader in
+            Color("BackgroundColor").ignoresSafeArea()
+            VStack {
                 InlineTitleView()
-                    .frame(alignment: .top)
-                    .padding(.bottom, 0.75)
-                Text("Collection")
-                    .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.075, relativeTo: .title3))
+                    .frame(width: reader.size.width, height: reader.size.height * 0.07)
+                    .padding(.top, reader.size.height * 0.025)
+                    .padding(.bottom, reader.size.height * 0.01)
+                Text("Ohhh a mystery\nWhat will it be?")
+                    .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.07, relativeTo: .body))
+                    .frame(height: reader.size.height * 0.85)
                     .foregroundColor(Color("DarkText"))
-                Spacer()
-                Text("Coming Soon!")
-                    .font(CustomFontFactory.getFont(style: "Regular", size: UIScreen.main.bounds.width * 0.06, relativeTo: .subheadline))
-                    .foregroundColor(Color("DarkText"))
-                Spacer()
+                NavigationButtonView(showFilter: false, showEdit: false, options: .constant(false), buttonAction: changeFunction)
+                    .frame(height: reader.size.height * NavigationViewDesignVariables.frameHeightFactor)
+                    .padding(.bottom, reader.size.height * 0.005)
             }
+            .frame(width: reader.size.width, height: reader.size.height)
         }
     }
 }
 
 struct CollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        CollectionView()//items: ClothingItem.sampleItems)
+        CollectionView(changeFunction: {_ in return})
     }
 }

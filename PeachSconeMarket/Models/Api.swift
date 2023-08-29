@@ -319,6 +319,7 @@ class Api:ObservableObject {
                     responseStatusCode = response.statusCode
                 } else {
                     responseStatusCode = -1
+                    semaphore.signal()
                     return
                 }
                 
@@ -326,7 +327,9 @@ class Api:ObservableObject {
                     do {
                         responseData = try JSONDecoder().decode(embeddedStruct.self, from: data).getCollectionStruct()
                     } catch {
-                        responseStatusCode = -2
+                        if responseStatusCode != 200 {
+                            responseStatusCode = -2
+                        }
                     }
                 }
                 semaphore.signal()
@@ -403,7 +406,7 @@ class Api:ObservableObject {
         case -4:
             return ApiError.httpError("Invalid token.")
         default:
-            return ApiError.httpError("Could not connect to server. Status Code: \(statusCode)")
+            return ApiError.httpError("It's not you it's us. Status Code: \(statusCode)")
         }
     }
 

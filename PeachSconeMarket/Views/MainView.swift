@@ -31,20 +31,6 @@ struct MainView: View {
                          */
                         
                         Text("Filter View")
-                    } else if pageState == .editing {
-                        //TODO: Editing view
-                        //Add circles to all mini cards
-                        
-                        //Pass function to change pageState back to previous
-                        /*Function: ([clothingItem])->{
-                         state = previousState
-                         Remove selected clothing cards
-                         Send remove request
-                         Reload current page
-                         }
-                         */
-                        
-                        Text("Editing View")
                     } else if pageState == .swipe {
                         SwipeView(api: api, clothingManager: swipeClothingManager, pageState: $pageState) { newState in
                             previousPageState = pageState
@@ -58,7 +44,11 @@ struct MainView: View {
                         }
                         .frame(width: reader.size.width, height: reader.size.height)
                     } else if pageState == .collection {
-                        Text("Collection View")
+                        CollectionView(changeFunction: { newState in
+                            previousPageState = pageState
+                            pageState = newState
+                        })
+                        .frame(width: reader.size.width, height: reader.size.height)
                     }
                     Spacer()
                 }

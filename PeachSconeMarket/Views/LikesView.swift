@@ -31,20 +31,31 @@ struct LikesView: View {
                     .padding(.top, reader.size.height * 0.025)
                     .padding(.bottom, reader.size.height * 0.01)
                 ScrollView(showsIndicators: false) {
-                    VStack {
+                    LazyVStack {
                             Text(editing ? "Editing Likes" : "Likes")
                                 .font(CustomFontFactory.getFont(style: "Bold", size: reader.size.width * 0.075, relativeTo: .title3))
-                            if errorMessage.isEmpty && attemptedLoad {
-                                //TODO: Size cards based on amount of clothing in list
+                                .foregroundColor(Color("DarkText"))
+                            if errorMessage.isEmpty && attemptedLoad && clothingManager.clothingItems.count > 0 {
+                                //TODO: How to resize dynamically
                                 CardCollectionView(items: $clothingManager.clothingItems,  safariUrl: $safariUrl, editing: $editing, selectedItems: $selectedClothingItems)
-                                    .frame(height: reader.size.height * (Double(clothingManager.clothingItems.count) / 4.0))
+                                    .frame(height: reader.size.height * (Double(
+                                        (clothingManager.clothingItems.count % 2 == 0 ? clothingManager.clothingItems.count : clothingManager.clothingItems.count + 1)) / 9.0))
                                 if !clothingManager.allClothingItemsLoaded {
-//                                    ProgressView()
-//                                        .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
-//                                        .scaleEffect(3)
-                                    //TODO: Style Progress View and load next page
+                                    ProgressView()
+                                        .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
+                                        .scaleEffect(2)
+                                        .padding(.top,  reader.size.height * 0.1)
+                                        .onAppear{
+                                            clothingManager.loadNext() { error in
+                                                if case Api.ApiError.httpError(let message)? = error {
+                                                    errorMessage = message
+                                                } else if let error = error {
+                                                    errorMessage = "Something isn't right. Error Message: \(error)"
+                                                }
+                                            }
+                                        }
                                 }
-                                Spacer(minLength: reader.size.height * 0.15)
+                                Spacer(minLength: reader.size.height * 0.1)
                             } else if !attemptedLoad {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
@@ -99,19 +110,27 @@ struct LikesView: View {
 extension LikesView {
     func navigationFunction(pageState: PageState) {
         if editing {
-            if pageState != .editing || pageState != .filtering {
-                return changeFunction(pageState)
-            }
-            
+            //If editing and confirmed
             if pageState == .editing {
-                //Confirm editing
-                //TODO: Remove clothing from ClothingManagerList
-                //TODO: Send api request
+                clothingManager.clothingItems = clothingManager.clothingItems.filter{
+                    !selectedClothingItems.contains($0.id)
+                }
+                
+                for id in selectedClothingItems {
+                    let likeStruct:LikeStruct = LikeStruct(clothingId: id, imageTapRatio: 0, likeType: .removeLike)
+                    do {
+                        try clothingManager.api.sendLike(likeStruct: likeStruct)
+                    } catch {
+                        //TODO:Persist data and send later
+                    }
+                }
             }
             
-            editing = false
-            selectedClothingItems = []
-            return
+            if pageState == .editing || pageState == .filtering {
+                editing = false
+                selectedClothingItems = []
+                return
+            }
         }
         
         
