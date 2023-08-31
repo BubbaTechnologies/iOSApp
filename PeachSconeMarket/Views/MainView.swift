@@ -22,16 +22,18 @@ struct MainView: View {
                     if pageState == .filtering {
                         FilterView(api: api) { newState in
                             if newState == .filtering {
-                                //cancel
                                 pageState = previousPageState
                             } else if newState == .editing {
-                                //confirm
                                 pageState = previousPageState
                                 swipeClothingManager.reset()
-                                do {
-                                    try swipeClothingManager.loadItems()
-                                } catch {
-                                    //TODO: Display error
+                                
+                                //confirm
+                                DispatchQueue.global().async {
+                                    do {
+                                        try swipeClothingManager.loadItems()
+                                    } catch {
+                                        //TODO: Display error
+                                    }
                                 }
                             }
                         }

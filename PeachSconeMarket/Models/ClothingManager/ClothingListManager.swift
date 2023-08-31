@@ -26,6 +26,7 @@ class ClothingListManager: ObservableObject, ClothingManager {
         self.api = api
     }
     
+    
     func loadItems() throws {
         try api.loadClothingPage(collectionType: .cardList, pageNumber: nil) { items in
             self.clothingItems.append(contentsOf: items)
@@ -33,8 +34,18 @@ class ClothingListManager: ObservableObject, ClothingManager {
     }
     
     func loadNext() throws {
-        try api.loadClothing() { item in
-            self.clothingItems.append(item)
+        var apiError: Error? = nil
+        try api.loadClothing() { result in
+            switch result {
+            case .success(let item):
+                self.clothingItems.append(item)
+            case .failure(let error):
+                apiError = error
+            }
+        }
+        
+        if let apiError = apiError {
+            throw apiError
         }
     }
     

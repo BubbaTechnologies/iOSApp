@@ -55,21 +55,22 @@ class ClothingPageManager: ObservableObject, ClothingManager {
         }
     }
     
-    func loadNext(completion: @escaping (Error?)->Void) -> Void {
+    func loadNext(completion: @escaping (Result<Bool,Error>)->Void) -> Void {
         DispatchQueue.main.async{
             do {
                 try self.api.loadClothingPage(collectionType: self.requestType, pageNumber: self.currentPage) { items in
                     if items.isEmpty {
                         self.allClothingItemsLoaded = true
+                        completion(.success(true))
                         return
                     }
                     
                     self.clothingItems.append(contentsOf: items)
                     self.currentPage += 1
-                    completion(nil)
+                    completion(.success(false))
                 }
             } catch {
-                completion(error)
+                completion(.failure(error))
             }
         }
     }

@@ -18,7 +18,7 @@ struct CollectionView: View {
                     .frame(width: reader.size.width, height: reader.size.height * 0.07)
                     .padding(.top, reader.size.height * 0.025)
                     .padding(.bottom, reader.size.height * 0.01)
-                Text("Ohhh a mystery\nWhat will it be?")
+                Text("Why does the chicken cross the road?")
                     .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.07, relativeTo: .body))
                     .frame(height: reader.size.height * 0.85)
                     .foregroundColor(Color("DarkText"))

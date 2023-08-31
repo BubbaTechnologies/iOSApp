@@ -22,7 +22,7 @@ struct PeachSconeMarketApp: App {
                 LoadingView().onAppear{
                     load()
                 }.alert(isPresented: $errorPresent) {
-                    Alert(title: Text("No Peaches :("),
+                    Alert(title: Text("The market is not open!"),
                     message: Text("\(errorMessage)"))
                 }
             } else if appStage == .authentication {
@@ -41,6 +41,7 @@ extension PeachSconeMarketApp {
                 //Loads clothing
                 self.swipeClothingManager.api = api
                 try self.swipeClothingManager.loadItems()
+                try self.api.loadFilterOptions()
                 appStage = .main
             } else {
                 appStage = .authentication

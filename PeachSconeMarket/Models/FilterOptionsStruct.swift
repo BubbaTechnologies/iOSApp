@@ -65,6 +65,11 @@ struct FilterOptionsStruct {
         return typePerGenderDict[gender.lowercased()]!
     }
     
+    //Returns an array with corresponding indexes to self.genders of the types for the gender.
+    func getTypes()->[[String]] {
+        return types
+    }
+    
     //Returns the amount of types within the longest type list.
     func getLongestTypesArrayCount()->Int {
         return longestTypeArray

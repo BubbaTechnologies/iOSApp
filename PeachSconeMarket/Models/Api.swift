@@ -11,7 +11,7 @@ class Api:ObservableObject {
     var jwt: String?
     @Published var genderFilter: String = ""
     @Published var typeFilters: [String:Bool] = [:]
-    @Published var filterOptionsStruct: FilterOptionsStruct = FilterOptionsStruct()
+    @Published var filterOptionsStruct: FilterOptionsStruct = FilterOptionsStruct.sampleOptions
     let baseUrl = "api.peachsconemarket.com"
     
     init() {
@@ -65,7 +65,7 @@ class Api:ObservableObject {
         
         for filter in typeFilters {
             if filter.value {
-                filterString += filter.key.lowercased().replacingOccurrences(of: " ", with: "_") + ","
+                filterString += filter.key.lowercased().replacingOccurrences(of: " & ", with: "_").replacingOccurrences(of: " ", with: "_") + ","
             }
         }
         
@@ -74,12 +74,15 @@ class Api:ObservableObject {
     
     internal func getQueryParameters()->[URLQueryItem] {
         var urlParameters = [URLQueryItem]()
-        if !self.genderFilter.isEmpty {
-            urlParameters.append(URLQueryItem(name: "gender", value: self.genderFilter))
+
+        let genderFilterString: String = getGenderFilter()
+        if !genderFilterString.isEmpty {
+            urlParameters.append(URLQueryItem(name: "gender", value: genderFilterString))
         }
         
-        if !self.typeFilters.isEmpty {
-            urlParameters.append(URLQueryItem(name: "type", value: self.getTypeFilter()))
+        let typeFilterString: String = getTypeFilter()
+        if !typeFilterString.isEmpty {
+            urlParameters.append(URLQueryItem(name: "type", value: typeFilterString))
         }
         
         return urlParameters
@@ -236,7 +239,7 @@ class Api:ObservableObject {
         throw Api.getApiError(statusCode: responseStatusCode)
     }
     
-    func loadClothing(completion:@escaping (ClothingItem)->()) throws {
+    func loadClothing(completion:@escaping (Result<ClothingItem, Error>)->()) throws {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = baseUrl
@@ -253,9 +256,7 @@ class Api:ObservableObject {
                 "Host":baseUrl
             ]
             
-            
-            var responseData: ClothingItem = ClothingItem()
-            URLSession.shared.dataTask(with: request) { data, response, error in
+            URLSession.shared.dataTask(with: request){ data, response, error in
                 if let response=response as? HTTPURLResponse {
                     responseStatusCode = response.statusCode
                 } else {
@@ -265,21 +266,19 @@ class Api:ObservableObject {
                 
                 if let data = data {
                     do {
-                        responseData = try JSONDecoder().decode(ClothingItem.self, from: data)
+                        let responseData = try JSONDecoder().decode(ClothingItem.self, from: data)
+                        DispatchQueue.main.async {
+                            completion(.success(responseData))
+                        }
                     } catch {
                         responseStatusCode = -2
                     }
                 }
-            }.resume()
-            
-            if responseStatusCode == 200 {
                 DispatchQueue.main.async {
-                    completion(responseData)
+                    completion(.failure(Api.getApiError(statusCode: responseStatusCode)))
                 }
-            }
+            }.resume()
         }
-        
-        throw Api.getApiError(statusCode: responseStatusCode)
      }
     
     func loadClothingPage(collectionType: CollectionStruct.CollectionRequestType, pageNumber: Int?, completion:@escaping ([ClothingItem])->()) throws {
@@ -301,6 +300,8 @@ class Api:ObservableObject {
             parameters.append(URLQueryItem(name: "page", value: String(pageNumber)))
         }
         urlComponents.queryItems = parameters
+        
+        print("\(urlComponents.url!)")
         
         //Sends request
         var responseStatusCode: Int = -4
@@ -386,6 +387,7 @@ class Api:ObservableObject {
             }
             
             self.filterOptionsStruct = responseData
+            return
         }
         
         throw Api.getApiError(statusCode: responseStatusCode)
