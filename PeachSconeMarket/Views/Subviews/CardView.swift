@@ -16,15 +16,15 @@ struct CardView: View {
     @State private var currentImageIndex: Int = 0
     
     //Paramters represent item swiped, imageTapRatio, and userLiked
-    @ObservedObject var cardController: CardController
+    @ObservedObject var cardManager: CardManager
     public var swipeAction: (ClothingItem, Double, Bool)->Void
     
     var body: some View {
         GeometryReader {reader in
             ZStack {
-                ForEach(0..<cardController.getClothingCardPreloadAmount(), id:\.self) { index in
+                ForEach(0..<cardManager.getClothingCardPreloadAmount(), id:\.self) { index in
                     ZStack{
-                        AsyncImage(url: URL(string: cardController.getItem().imageURL[cardController.cardValues[index].imageIndex])) { phase in
+                        AsyncImage(url: URL(string: cardManager.getItem().imageURL[cardManager.cardValues[index].imageIndex])) { phase in
                             switch phase {
                             case .empty:
                                 ProgressView()
@@ -48,13 +48,13 @@ struct CardView: View {
                         .background(Color("LightText"))
                         .cornerRadius(heightFactor * 30.5)
                     }
-                    .zIndex(Double(cardController.cardValues[index].zIndex))
+                    .zIndex(Double(cardManager.cardValues[index].zIndex))
                 }
             }
             .position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
             .overlay{
                 HStack{
-                    ForEach(0..<cardController.getItem().imageURL.count, id:\.self) {index in
+                    ForEach(0..<cardManager.getItem().imageURL.count, id:\.self) {index in
                         ZStack{
                             if (index == self.currentImageIndex) {
                                 Circle()
@@ -86,16 +86,16 @@ struct CardView: View {
             )
             .onTapGesture{
                 //Updates cardValues
-                let currentCardIndex = currentImageIndex % cardController.getClothingCardPreloadAmount()
-                for i in 0..<cardController.getClothingCardPreloadAmount() {
+                let currentCardIndex = currentImageIndex % cardManager.getClothingCardPreloadAmount()
+                for i in 0..<cardManager.getClothingCardPreloadAmount() {
                     if i == currentCardIndex {
-                        cardController.cardValues[i] = ((cardController.cardValues[i].zIndex + 1) % cardController.getClothingCardPreloadAmount(), (cardController.cardValues[currentCardIndex].imageIndex + cardController.getClothingCardPreloadAmount()) % cardController.getItem().imageURL.count)
+                        cardManager.cardValues[i] = ((cardManager.cardValues[i].zIndex + 1) % cardManager.getClothingCardPreloadAmount(), (cardManager.cardValues[currentCardIndex].imageIndex + cardManager.getClothingCardPreloadAmount()) % cardManager.getItem().imageURL.count)
                     } else {
-                        cardController.cardValues[i] = ((cardController.cardValues[i].zIndex + 1) % cardController.getClothingCardPreloadAmount(), cardController.cardValues[i].imageIndex)
+                        cardManager.cardValues[i] = ((cardManager.cardValues[i].zIndex + 1) % cardManager.getClothingCardPreloadAmount(), cardManager.cardValues[i].imageIndex)
                     }
                 }
             
-                currentImageIndex = (currentImageIndex + 1) % cardController.getItem().imageURL.count
+                currentImageIndex = (currentImageIndex + 1) % cardManager.getItem().imageURL.count
                 imageTapCount += 1
             }
         }
@@ -107,10 +107,10 @@ extension CardView {
             switch width {
             case -500...(-150):
                 offset = CGSize(width: -500, height: 0)
-                swipeAction(cardController.getItem(), Double(imageTapCount) / Double(cardController.getItem().imageURL.count), false)
+                swipeAction(cardManager.getItem(), Double(imageTapCount) / Double(cardManager.getItem().imageURL.count), false)
             case 150...500:
                 offset = CGSize(width: 500, height: 0)
-                swipeAction(cardController.getItem(), Double(imageTapCount) / Double(cardController.getItem().imageURL.count), true)
+                swipeAction(cardManager.getItem(), Double(imageTapCount) / Double(cardManager.getItem().imageURL.count), true)
             default:
                 offset = .zero
             }
@@ -120,6 +120,6 @@ extension CardView {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(cardController: CardController(item: ClothingItem.sampleItems[0]), swipeAction: {_,_,_ in return} )
+        CardView(cardManager: CardManager(item: ClothingItem.sampleItems[0]), swipeAction: {_,_,_ in return} )
     }
 }

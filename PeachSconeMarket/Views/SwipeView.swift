@@ -47,7 +47,7 @@ struct SwipeView: View {
                     } else {
                         ZStack{
                             ForEach(clothingManager.clothingItems.reversed()) { item in
-                                CardView(cardController: CardController(item: item), swipeAction: cardAction)
+                                CardView(cardManager: CardManager(item: item), swipeAction: cardAction)
                                 .frame(height: reader.size.height * 0.75)
                             }
                         }.onAppear{

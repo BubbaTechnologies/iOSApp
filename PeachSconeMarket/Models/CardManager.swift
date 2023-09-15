@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CardController: ObservableObject {
+class CardManager: ObservableObject {
     private static let preloadAmount = 3
     
     private let item: ClothingItem
@@ -16,7 +16,7 @@ class CardController: ObservableObject {
     
     init(item: ClothingItem) {
         self.item = item
-        self.clothingCardPreloadAmount = min(item.imageURL.count, CardController.preloadAmount)
+        self.clothingCardPreloadAmount = min(item.imageURL.count, CardManager.preloadAmount)
         self.cardValues = []
         for i in 0..<clothingCardPreloadAmount {
             self.cardValues.append((clothingCardPreloadAmount - i - 1, i))

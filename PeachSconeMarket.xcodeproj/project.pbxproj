@@ -28,7 +28,7 @@
 		9214DEC32A0B6CDB000A5A2D /* InlineTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214DEC22A0B6CDB000A5A2D /* InlineTitleView.swift */; };
 		9214DEC52A0B72FD000A5A2D /* ClothingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214DEC42A0B72FD000A5A2D /* ClothingItem.swift */; };
 		9214DEC72A0B741F000A5A2D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214DEC62A0B741F000A5A2D /* CardView.swift */; };
-		921F0AD42AB50BFC00CEEC26 /* CardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921F0AD32AB50BFC00CEEC26 /* CardController.swift */; };
+		921F0AD42AB50BFC00CEEC26 /* CardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921F0AD32AB50BFC00CEEC26 /* CardManager.swift */; };
 		9234A97B2A0B245600EC036A /* PeachSconeMarketApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A97A2A0B245600EC036A /* PeachSconeMarketApp.swift */; };
 		9234A97D2A0B245600EC036A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A97C2A0B245600EC036A /* LoadingView.swift */; };
 		9234A97F2A0B245A00EC036A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9234A97E2A0B245A00EC036A /* Assets.xcassets */; };
@@ -102,7 +102,7 @@
 		9214DEC22A0B6CDB000A5A2D /* InlineTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineTitleView.swift; sourceTree = "<group>"; };
 		9214DEC42A0B72FD000A5A2D /* ClothingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingItem.swift; sourceTree = "<group>"; };
 		9214DEC62A0B741F000A5A2D /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		921F0AD32AB50BFC00CEEC26 /* CardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardController.swift; sourceTree = "<group>"; };
+		921F0AD32AB50BFC00CEEC26 /* CardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardManager.swift; sourceTree = "<group>"; };
 		9234A9772A0B245600EC036A /* PeachSconeMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeachSconeMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9234A97A2A0B245600EC036A /* PeachSconeMarketApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeachSconeMarketApp.swift; sourceTree = "<group>"; };
 		9234A97C2A0B245600EC036A /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -304,7 +304,7 @@
 				92C623D42A0EB1AB006B5940 /* LikeStruct.swift */,
 				92C623D62A0EE53C006B5940 /* CollectionStruct.swift */,
 				92F1371C2A169230000C0546 /* FilterOptionsStruct.swift */,
-				921F0AD32AB50BFC00CEEC26 /* CardController.swift */,
+				921F0AD32AB50BFC00CEEC26 /* CardManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -489,7 +489,7 @@
 				92F137232A16F508000C0546 /* ListButtonView.swift in Sources */,
 				9234A97D2A0B245600EC036A /* LoadingView.swift in Sources */,
 				9214DEBF2A0B6B65000A5A2D /* SignUpView.swift in Sources */,
-				921F0AD42AB50BFC00CEEC26 /* CardController.swift in Sources */,
+				921F0AD42AB50BFC00CEEC26 /* CardManager.swift in Sources */,
 				92F1371D2A169230000C0546 /* FilterOptionsStruct.swift in Sources */,
 				92ADCC7D2A97C7EB0070136A /* ClothingListManager.swift in Sources */,
 				9286DB392A0CBE47007FA46E /* LoginClass.swift in Sources */,
