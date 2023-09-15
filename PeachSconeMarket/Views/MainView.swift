@@ -35,6 +35,8 @@ struct MainView: View {
                                         //TODO: Display error
                                     }
                                 }
+                            } else {
+                                pageState = newState
                             }
                         }
                         .frame(width: reader.size.width, height: reader.size.height)

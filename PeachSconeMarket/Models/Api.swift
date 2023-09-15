@@ -246,6 +246,8 @@ class Api:ObservableObject {
         urlComponents.path = "/app/card"
         urlComponents.queryItems = getQueryParameters()
         
+        print("Requesting single card!")
+        
         //Starts url request
         var responseStatusCode: Int = -4
         if let jwt = self.jwt {
@@ -256,7 +258,6 @@ class Api:ObservableObject {
                 "Host":baseUrl
             ]
             
-            print("Requesting single card!")
             URLSession.shared.dataTask(with: request){ data, response, error in
                 if let response=response as? HTTPURLResponse {
                     responseStatusCode = response.statusCode
@@ -266,7 +267,6 @@ class Api:ObservableObject {
                 }
                 
                 if let data = data {
-                    print(String(bytes: data, encoding: .utf8)!)
                     do {
                         let responseData = try JSONDecoder().decode(ClothingItem.self, from: data)
                         DispatchQueue.main.async {
@@ -326,7 +326,7 @@ class Api:ObservableObject {
                 
                 if let data = data {
                     do {
-                        print(String(bytes: data, encoding: .utf8)!)
+//                        print(String(bytes: data, encoding: .utf8)!)
                         responseData = try JSONDecoder().decode(embeddedStruct.self, from: data).getCollectionStruct()
                     } catch {
                         if responseStatusCode != 200 {

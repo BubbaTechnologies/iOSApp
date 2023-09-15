@@ -75,7 +75,12 @@ struct SignUpView: View {
 extension SignUpView {
     func SignUp() {
         if confirmPassword != signUpClass.password {
-            errorMessage = "I think you're supposed to type the same password to confirm."
+            errorMessage = "You're supposed to type the same password to confirm."
+            return
+        }
+        
+        if !signUpClass.username.contains("@[a-zA-Z-\\.]+\\.[a-z]+$") {
+            errorMessage = "That's not an email!"
             return
         }
         
