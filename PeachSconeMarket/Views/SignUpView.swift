@@ -28,7 +28,7 @@ struct SignUpView: View {
                             .textContentType(.username)
                             .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                             .padding(.bottom, reader.size.height * 0.01)
-                        PickerView(selection: $signUpClass.gender, promptText: "Gender", options: api.filterOptionsStruct.getGenders(), selected: $genderSelected)
+                        PickerView(selection: $signUpClass.gender, promptText: "Gender", options: api.filterOptionsStruct.getGenders().reversed(), selected: $genderSelected)
                             .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                             .padding(.bottom, reader.size.height * 0.01)
                         TextInputView(promptText: "Password", input: $signUpClass.password, secure: true)

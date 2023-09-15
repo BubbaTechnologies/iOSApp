@@ -24,6 +24,7 @@ struct LoadingView: View {
                     Spacer()
                     Text("Version: \(versionNumber)")
                         .font(CustomFontFactory.getFont(style: "Regular", size: 18, relativeTo: .body))
+                        .foregroundColor(Color("DarkText"))
                 }
             }
         }

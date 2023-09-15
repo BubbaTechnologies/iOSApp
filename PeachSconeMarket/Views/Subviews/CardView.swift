@@ -21,69 +21,48 @@ struct CardView: View {
     
     var body: some View {
         GeometryReader {reader in
-            ZStack{
-                AsyncImage(url: URL(string: item.imageURL[currentImageIndex])) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
-                            .scaleEffect(3)
-                    case .success(let image):
-                        ZStack{
-                            image.resizable()
-                                .scaledToFill()
-                                .clipped()
-                            HStack{
-                                ForEach(0...item.imageURL.count-1, id:\.self) {index in
-                                    ZStack{
-                                        if (index == currentImageIndex) {
-                                            Circle()
-                                                .fill(.black)
-                                                .id("Circle" + String(index))
-                                                .frame(width: reader.size.width * circleFactor, alignment: .center)
-                                        } else {
-                                            Circle()
-                                                .fill(.white)
-                                                .opacity(0.5)
-                                                .id("Circle" + String(index))
-                                                .frame(width: reader.size.width * circleFactor, alignment: .center)
+            ZStack {
+                ZStack{
+                    AsyncImage(url: URL(string: item.imageURL[currentImageIndex])) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                                .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
+                                .scaleEffect(3)
+                        case .success(let image):
+                            ZStack{
+                                image.resizable()
+                                    .scaledToFill()
+                                    .clipped()
+                                HStack{
+                                    ForEach(0...item.imageURL.count-1, id:\.self) {index in
+                                        ZStack{
+                                            if (index == currentImageIndex) {
+                                                Circle()
+                                                    .background(Circle().fill(Color("DarkText")))
+                                            } else {
+                                                Circle()
+                                                    .fill(Color("LightText"))
+                                                    .opacity(0.5)
+                                            }
                                         }
-                                        
-                                        //Border Circle
-                                        Circle()
-                                            .strokeBorder(Color("DarkText"), lineWidth:0.2)
-                                            .frame(width: reader.size.width * circleFactor, alignment: .center)
-                                    }.padding(.horizontal, -3)
-                                }
-                            }.offset(y:reader.size.height * 0.48)
-                        }
-                    case .failure:
-                        Text("This is taking longer than normal...")
-                            .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.04, relativeTo: .caption))
-                    @unknown default:
-                        EmptyView()
-                    }
-                }
-                .padding(.horizontal, 20)
-                .frame(width: reader.size.width * widthFactor, height: reader.size.height, alignment: .center)
-                .background(Color("LightText"))
-                .cornerRadius(heightFactor * 30.5)
-                .offset(x: offset.width)
-                .rotationEffect(.degrees(Double(offset.width / 50)))
-                .gesture(
-                    DragGesture()
-                        .onChanged{ gesture in
-                            offset = gesture.translation
-                        }
-                        .onEnded { _ in
-                            withAnimation {
-                                swipeCard(width: offset.width)
+                                        .frame(width: reader.size.width * circleFactor, alignment: .center)
+                                        .id("Circle" + String(index))
+                                        .padding(.horizontal, -3)
+                                    }
+                                }.offset(y:reader.size.height * 0.48)
                             }
+                        case .failure:
+                            Text("This is taking longer than normal...")
+                                .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.04, relativeTo: .caption))
+                        @unknown default:
+                            EmptyView()
                         }
-                )
-                .onTapGesture{
-                    currentImageIndex = (currentImageIndex + 1) % item.imageURL.count
-                    imageTapCount += 1
+                    }
+                    .padding(.horizontal, 20)
+                    .frame(width: reader.size.width * widthFactor, height: reader.size.height, alignment: .center)
+                    .background(Color("LightText"))
+                    .cornerRadius(heightFactor * 30.5)
                 }
             }.position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
         }

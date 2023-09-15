@@ -45,7 +45,7 @@ struct SuperPicker: View {
                                 selection = option
                                 selected = true
                             } label : {
-                                Text(option)
+                                Text(option.capitalized)
                             }
                         }
                     } label : {

@@ -27,13 +27,14 @@ struct FilterView: View {
                         .font(CustomFontFactory.getFont(style: "Bold", size: reader.size.width * 0.075, relativeTo: .title3))
                         .foregroundColor(Color("DarkText"))
                     LazyVStack{
-                        ListView(list: api.filterOptionsStruct.getGenders(), selectedAction: genderSelectedAction, multipleSelections: false, subList: true, subListValues: api.filterOptionsStruct.getTypes(), subListSelectedAction: typeSelectedAction)
+                        ListView(list: api.filterOptionsStruct.getGenders(), selectedAction: genderSelectedAction, multipleSelections: false, subList: true, subListValues: api.filterOptionsStruct.getTypes(), subListMultipleSelections: true, subListSelectedAction: typeSelectedAction)
                             .frame(height: reader.size.height * (gender.isEmpty ? Double(api.filterOptionsStruct.getGenders().count) : Double(api.filterOptionsStruct.getGenders().count + api.filterOptionsStruct.getLongestTypesArrayCount()))/20.0)
                     }
                 }.frame(height: reader.size.height * 0.85)
                 NavigationButtonView(showFilter: true, showEdit: true, options: .constant(true)){ pageState in
                     api.resetTypeFilters()
                     api.resetGenderFilter()
+                    
                     
                     if pageState == .editing {
                         api.setGenderFitler(filter: gender)
