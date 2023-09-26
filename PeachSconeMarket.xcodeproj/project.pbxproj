@@ -28,6 +28,7 @@
 		9214DEC32A0B6CDB000A5A2D /* InlineTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214DEC22A0B6CDB000A5A2D /* InlineTitleView.swift */; };
 		9214DEC52A0B72FD000A5A2D /* ClothingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214DEC42A0B72FD000A5A2D /* ClothingItem.swift */; };
 		9214DEC72A0B741F000A5A2D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214DEC62A0B741F000A5A2D /* CardView.swift */; };
+		921F0AD42AB50BFC00CEEC26 /* CardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921F0AD32AB50BFC00CEEC26 /* CardManager.swift */; };
 		9234A97B2A0B245600EC036A /* PeachSconeMarketApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A97A2A0B245600EC036A /* PeachSconeMarketApp.swift */; };
 		9234A97D2A0B245600EC036A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A97C2A0B245600EC036A /* LoadingView.swift */; };
 		9234A97F2A0B245A00EC036A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9234A97E2A0B245A00EC036A /* Assets.xcassets */; };
@@ -37,7 +38,7 @@
 		9234A9982A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A9972A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift */; };
 		9234A9A72A0B278200EC036A /* CustomFontFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A9A62A0B278200EC036A /* CustomFontFactory.swift */; };
 		92524A7B2A14A45F00CE0FD4 /* SelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92524A7A2A14A45F00CE0FD4 /* SelectedView.swift */; };
-		9266D3952A0E03A200976757 /* SignUpStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9266D3942A0E03A200976757 /* SignUpStruct.swift */; };
+		9266D3952A0E03A200976757 /* SignUpClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9266D3942A0E03A200976757 /* SignUpClass.swift */; };
 		9266D3972A0E092C00976757 /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9266D3962A0E092C00976757 /* PickerView.swift */; };
 		9273B0852A0D6077002140C4 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9273B0842A0D6077002140C4 /* KeychainHelper.swift */; };
 		9286DB2F2A0C953D007FA46E /* NavigationButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB2E2A0C953D007FA46E /* NavigationButtonsView.swift */; };
@@ -45,8 +46,18 @@
 		9286DB332A0C9BBF007FA46E /* MiniCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB322A0C9BBF007FA46E /* MiniCardView.swift */; };
 		9286DB352A0CA280007FA46E /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB342A0CA280007FA46E /* CollectionView.swift */; };
 		9286DB372A0CA28F007FA46E /* LikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB362A0CA28F007FA46E /* LikesView.swift */; };
+<<<<<<< HEAD
 		9286DB392A0CBE47007FA46E /* LoginStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB382A0CBE47007FA46E /* LoginStruct.swift */; };
 		928EAC2A2A2C65E900BF3F51 /* ClothingItemPaginator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928EAC292A2C65E900BF3F51 /* ClothingItemPaginator.swift */; };
+=======
+		9286DB392A0CBE47007FA46E /* LoginClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB382A0CBE47007FA46E /* LoginClass.swift */; };
+		92ADCC782A97BE270070136A /* ClothingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ADCC772A97BE270070136A /* ClothingManager.swift */; };
+		92ADCC7B2A97C7DF0070136A /* ClothingPageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ADCC7A2A97C7DF0070136A /* ClothingPageManager.swift */; };
+		92ADCC7D2A97C7EB0070136A /* ClothingListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ADCC7C2A97C7EB0070136A /* ClothingListManager.swift */; };
+		92ADCC802A9831DA0070136A /* LoginSequenceDesignVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ADCC7F2A9831DA0070136A /* LoginSequenceDesignVariables.swift */; };
+		92ADCC822A997DC30070136A /* NavigationViewDesignVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ADCC812A997DC20070136A /* NavigationViewDesignVariables.swift */; };
+		92B937212A8C6F400025DCB1 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B937202A8C6F3F0025DCB1 /* Api.swift */; };
+>>>>>>> rebuild
 		92C623D52A0EB1AB006B5940 /* LikeStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C623D42A0EB1AB006B5940 /* LikeStruct.swift */; };
 		92C623D72A0EE53C006B5940 /* CollectionStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C623D62A0EE53C006B5940 /* CollectionStruct.swift */; };
 		92C623D92A0EECB5006B5940 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C623D82A0EECB5006B5940 /* MainView.swift */; };
@@ -96,6 +107,7 @@
 		9214DEC22A0B6CDB000A5A2D /* InlineTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineTitleView.swift; sourceTree = "<group>"; };
 		9214DEC42A0B72FD000A5A2D /* ClothingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingItem.swift; sourceTree = "<group>"; };
 		9214DEC62A0B741F000A5A2D /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		921F0AD32AB50BFC00CEEC26 /* CardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardManager.swift; sourceTree = "<group>"; };
 		9234A9772A0B245600EC036A /* PeachSconeMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeachSconeMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9234A97A2A0B245600EC036A /* PeachSconeMarketApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeachSconeMarketApp.swift; sourceTree = "<group>"; };
 		9234A97C2A0B245600EC036A /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -108,7 +120,7 @@
 		9234A9972A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeachSconeMarketUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9234A9A62A0B278200EC036A /* CustomFontFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFontFactory.swift; sourceTree = "<group>"; };
 		92524A7A2A14A45F00CE0FD4 /* SelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedView.swift; sourceTree = "<group>"; };
-		9266D3942A0E03A200976757 /* SignUpStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpStruct.swift; sourceTree = "<group>"; };
+		9266D3942A0E03A200976757 /* SignUpClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpClass.swift; sourceTree = "<group>"; };
 		9266D3962A0E092C00976757 /* PickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
 		9273B0832A0D5EDA002140C4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9273B0842A0D6077002140C4 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
@@ -117,9 +129,19 @@
 		9286DB322A0C9BBF007FA46E /* MiniCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniCardView.swift; sourceTree = "<group>"; };
 		9286DB342A0CA280007FA46E /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		9286DB362A0CA28F007FA46E /* LikesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikesView.swift; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		9286DB382A0CBE47007FA46E /* LoginStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginStruct.swift; sourceTree = "<group>"; };
 		928EAC292A2C65E900BF3F51 /* ClothingItemPaginator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingItemPaginator.swift; sourceTree = "<group>"; };
+=======
+		9286DB382A0CBE47007FA46E /* LoginClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginClass.swift; sourceTree = "<group>"; };
+		92ADCC772A97BE270070136A /* ClothingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingManager.swift; sourceTree = "<group>"; };
+		92ADCC7A2A97C7DF0070136A /* ClothingPageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingPageManager.swift; sourceTree = "<group>"; };
+		92ADCC7C2A97C7EB0070136A /* ClothingListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingListManager.swift; sourceTree = "<group>"; };
+		92ADCC7F2A9831DA0070136A /* LoginSequenceDesignVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSequenceDesignVariables.swift; sourceTree = "<group>"; };
+		92ADCC812A997DC20070136A /* NavigationViewDesignVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewDesignVariables.swift; sourceTree = "<group>"; };
+>>>>>>> rebuild
 		92B416882A186BB4002F89DC /* PeachSconeMarket.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PeachSconeMarket.entitlements; sourceTree = "<group>"; };
+		92B937202A8C6F3F0025DCB1 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		92C623D42A0EB1AB006B5940 /* LikeStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeStruct.swift; sourceTree = "<group>"; };
 		92C623D62A0EE53C006B5940 /* CollectionStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionStruct.swift; sourceTree = "<group>"; };
 		92C623D82A0EECB5006B5940 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -227,6 +249,7 @@
 		9234A9792A0B245600EC036A /* PeachSconeMarket */ = {
 			isa = PBXGroup;
 			children = (
+				9234A9A52A0B25D000EC036A /* Models */,
 				92B416882A186BB4002F89DC /* PeachSconeMarket.entitlements */,
 				9214DE8A2A0B56AE000A5A2D /* Fonts */,
 				9234A9A42A0B25B500EC036A /* Views */,
@@ -265,8 +288,8 @@
 		9234A9A42A0B25B500EC036A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				92ADCC7E2A9831BC0070136A /* DesignVariables */,
 				9214DEB32A0B57DB000A5A2D /* Subviews */,
-				9234A9A52A0B25D000EC036A /* Models */,
 				9234A97C2A0B245600EC036A /* LoadingView.swift */,
 				9214DEB62A0B5D15000A5A2D /* LoginView.swift */,
 				9214DEBE2A0B6B65000A5A2D /* SignUpView.swift */,
@@ -281,17 +304,42 @@
 		9234A9A52A0B25D000EC036A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				92ADCC792A97C7C90070136A /* ClothingManager */,
+				92B937202A8C6F3F0025DCB1 /* Api.swift */,
 				9234A9A62A0B278200EC036A /* CustomFontFactory.swift */,
 				9214DEC42A0B72FD000A5A2D /* ClothingItem.swift */,
-				9286DB382A0CBE47007FA46E /* LoginStruct.swift */,
+				9286DB382A0CBE47007FA46E /* LoginClass.swift */,
 				9273B0842A0D6077002140C4 /* KeychainHelper.swift */,
-				9266D3942A0E03A200976757 /* SignUpStruct.swift */,
+				9266D3942A0E03A200976757 /* SignUpClass.swift */,
 				92C623D42A0EB1AB006B5940 /* LikeStruct.swift */,
 				92C623D62A0EE53C006B5940 /* CollectionStruct.swift */,
 				92F1371C2A169230000C0546 /* FilterOptionsStruct.swift */,
+<<<<<<< HEAD
 				928EAC292A2C65E900BF3F51 /* ClothingItemPaginator.swift */,
+=======
+				921F0AD32AB50BFC00CEEC26 /* CardManager.swift */,
+>>>>>>> rebuild
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		92ADCC792A97C7C90070136A /* ClothingManager */ = {
+			isa = PBXGroup;
+			children = (
+				92ADCC772A97BE270070136A /* ClothingManager.swift */,
+				92ADCC7A2A97C7DF0070136A /* ClothingPageManager.swift */,
+				92ADCC7C2A97C7EB0070136A /* ClothingListManager.swift */,
+			);
+			path = ClothingManager;
+			sourceTree = "<group>";
+		};
+		92ADCC7E2A9831BC0070136A /* DesignVariables */ = {
+			isa = PBXGroup;
+			children = (
+				92ADCC7F2A9831DA0070136A /* LoginSequenceDesignVariables.swift */,
+				92ADCC812A997DC20070136A /* NavigationViewDesignVariables.swift */,
+			);
+			path = DesignVariables;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -434,8 +482,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92ADCC7B2A97C7DF0070136A /* ClothingPageManager.swift in Sources */,
 				92F1371F2A16D898000C0546 /* FilterView.swift in Sources */,
-				9266D3952A0E03A200976757 /* SignUpStruct.swift in Sources */,
+				9266D3952A0E03A200976757 /* SignUpClass.swift in Sources */,
 				92524A7B2A14A45F00CE0FD4 /* SelectedView.swift in Sources */,
 				92C623D92A0EECB5006B5940 /* MainView.swift in Sources */,
 				9214DEB92A0B5D33000A5A2D /* TitleView.swift in Sources */,
@@ -444,18 +493,23 @@
 				9214DEC52A0B72FD000A5A2D /* ClothingItem.swift in Sources */,
 				9266D3972A0E092C00976757 /* PickerView.swift in Sources */,
 				9273B0852A0D6077002140C4 /* KeychainHelper.swift in Sources */,
+				92ADCC802A9831DA0070136A /* LoginSequenceDesignVariables.swift in Sources */,
 				9286DB332A0C9BBF007FA46E /* MiniCardView.swift in Sources */,
 				9214DEC32A0B6CDB000A5A2D /* InlineTitleView.swift in Sources */,
 				9286DB352A0CA280007FA46E /* CollectionView.swift in Sources */,
 				9214DEBB2A0B5ECB000A5A2D /* TextInputView.swift in Sources */,
+				92ADCC822A997DC30070136A /* NavigationViewDesignVariables.swift in Sources */,
 				92022FA42A146807007BE365 /* SafariView.swift in Sources */,
 				92F137232A16F508000C0546 /* ListButtonView.swift in Sources */,
 				9234A97D2A0B245600EC036A /* LoadingView.swift in Sources */,
 				9214DEBF2A0B6B65000A5A2D /* SignUpView.swift in Sources */,
+				921F0AD42AB50BFC00CEEC26 /* CardManager.swift in Sources */,
 				92F1371D2A169230000C0546 /* FilterOptionsStruct.swift in Sources */,
-				9286DB392A0CBE47007FA46E /* LoginStruct.swift in Sources */,
+				92ADCC7D2A97C7EB0070136A /* ClothingListManager.swift in Sources */,
+				9286DB392A0CBE47007FA46E /* LoginClass.swift in Sources */,
 				9214DEB72A0B5D15000A5A2D /* LoginView.swift in Sources */,
 				92C623D52A0EB1AB006B5940 /* LikeStruct.swift in Sources */,
+				92ADCC782A97BE270070136A /* ClothingManager.swift in Sources */,
 				92C623D72A0EE53C006B5940 /* CollectionStruct.swift in Sources */,
 				9214DEC12A0B6CC8000A5A2D /* SwipeView.swift in Sources */,
 				9234A97B2A0B245600EC036A /* PeachSconeMarketApp.swift in Sources */,
@@ -463,7 +517,11 @@
 				92F137212A16EE9D000C0546 /* ListView.swift in Sources */,
 				9214DEC72A0B741F000A5A2D /* CardView.swift in Sources */,
 				9286DB372A0CA28F007FA46E /* LikesView.swift in Sources */,
+<<<<<<< HEAD
 				928EAC2A2A2C65E900BF3F51 /* ClothingItemPaginator.swift in Sources */,
+=======
+				92B937212A8C6F400025DCB1 /* Api.swift in Sources */,
+>>>>>>> rebuild
 				9214DEBD2A0B6474000A5A2D /* ButtonView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -642,7 +700,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+<<<<<<< HEAD
 				MARKETING_VERSION = 1.0.3;
+=======
+				MARKETING_VERSION = 1.0.5;
+>>>>>>> rebuild
 				PRODUCT_BUNDLE_IDENTIFIER = "Bubba-Technologies-Inc.PeachSconeMarket";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -681,7 +743,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+<<<<<<< HEAD
 				MARKETING_VERSION = 1.0.3;
+=======
+				MARKETING_VERSION = 1.0.5;
+>>>>>>> rebuild
 				PRODUCT_BUNDLE_IDENTIFIER = "Bubba-Technologies-Inc.PeachSconeMarket";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

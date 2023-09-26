@@ -8,42 +8,48 @@
 import SwiftUI
 
 struct ListButtonView: View {
-    @State var selected: Bool = false
+    @Binding var selected: Bool
     public var item: String
-    public let action: (String, Bool)->Void
-    private let textScaleFactor: Double = 0.06
+    public var action: (String, Bool)->Void
+    private let textScaleFactor: Double = 0.07
     
     
     var body: some View {
-        Button() {
-            action(item, selected)
-            selected.toggle()
-        } label: {
+        GeometryReader { reader in
             HStack{
-                Rectangle()
-                    .stroke(Color("DarkText"), lineWidth: 1)
-                    .overlay(
-                        VStack{
-                            Spacer()
-                            if (selected) {
-                                Text("X")
-                                    .font(CustomFontFactory.getFont(style: "Regular", size: UIScreen.main.bounds.width * (textScaleFactor - 0.01), relativeTo: .subheadline))
-                                    .foregroundColor(Color("DarkText"))
-                            }
-                            Spacer()
-                        }
-                    ).frame(width: UIScreen.main.bounds.width * (textScaleFactor - 0.01), height: UIScreen.main.bounds.width * (textScaleFactor - 0.01))
-                Text("\(item.capitalized.replacingOccurrences(of: "_", with: " "))")
-                    .font(CustomFontFactory.getFont(style: "Regular", size: UIScreen.main.bounds.width * textScaleFactor, relativeTo: .subheadline))
-                    .foregroundColor(Color("DarkText"))
-            }
-            .frame(width: UIScreen.main.bounds.width * 0.53, height: UIScreen.main.bounds.height * 0.04, alignment: .leading)
+                Spacer()
+                Button() {
+                    selected.toggle()
+                    action(item, selected)
+                } label: {
+                    HStack{
+                        Circle()
+                            .stroke(Color("DarkText"), lineWidth: 1)
+                            .overlay(
+                                VStack{
+                                    Spacer()
+                                    if (selected) {
+                                        Circle()
+                                            .foregroundColor(Color("DarkText"))
+                                            .frame(height: reader.size.height * 0.45)
+                                    }
+                                    Spacer()
+                                }
+                            ).frame(height: reader.size.height * 0.45)
+                        Text("\(item.replacingOccurrences(of: "_", with: " ").capitalized)")
+                            .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * textScaleFactor, relativeTo: .subheadline))
+                            .foregroundColor(Color("DarkText"))
+                        Spacer()
+                    }
+                }.padding(.leading, reader.size.width * 0.02)
+                Spacer()
+            }.frame(width: reader.size.width, alignment: .leading)
         }
     }
 }
 
 struct ListButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        ListButtonView(item: "Male", action:{(_,_) in return})
+        ListButtonView(selected: .constant(false), item: "Male", action: {_,_ in return})
     }
 }

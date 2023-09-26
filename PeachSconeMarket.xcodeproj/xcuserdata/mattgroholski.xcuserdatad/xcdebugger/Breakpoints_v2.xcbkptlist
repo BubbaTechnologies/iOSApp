@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "FDC71C47-817F-4921-9891-8EFEDBAD611D"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CBF68531-2620-45CB-BDCC-32E578FCC130"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PeachSconeMarket/Models/Api.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "325"
+            endingLineNumber = "325"
+            landmarkName = "loadClothingPage(collectionType:pageNumber:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "CBF68531-2620-45CB-BDCC-32E578FCC130 - 2bf49aea57ef7a6e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in PeachSconeMarket.Api.loadClothingPage(collectionType: PeachSconeMarket.CollectionStruct.CollectionRequestType, pageNumber: Swift.Optional&lt;Swift.Int&gt;, completion: (Swift.Array&lt;PeachSconeMarket.ClothingItem&gt;) -&gt; ()) throws -&gt; ()"
+                  moduleName = "PeachSconeMarket"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mattgroholski/Documents/My%20Documents/BubbaTech.nosync/PeachSconeMarket/PeachSconeMarket/Models/Api.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "323"
+                  endingLineNumber = "323"
+                  offsetFromSymbolStart = "916">
+               </Location>
+               <Location
+                  uuid = "CBF68531-2620-45CB-BDCC-32E578FCC130 - 2bf49aea57ef7a6e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in PeachSconeMarket.Api.loadClothingPage(collectionType: PeachSconeMarket.CollectionStruct.CollectionRequestType, pageNumber: Swift.Optional&lt;Swift.Int&gt;, completion: (Swift.Array&lt;PeachSconeMarket.ClothingItem&gt;) -&gt; ()) throws -&gt; ()"
+                  moduleName = "PeachSconeMarket"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mattgroholski/Documents/My%20Documents/BubbaTech.nosync/PeachSconeMarket/PeachSconeMarket/Models/Api.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "323"
+                  endingLineNumber = "323"
+                  offsetFromSymbolStart = "968">
+               </Location>
+               <Location
+                  uuid = "CBF68531-2620-45CB-BDCC-32E578FCC130 - 2bf49aea57ef7a6e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in PeachSconeMarket.Api.loadClothingPage(collectionType: PeachSconeMarket.CollectionStruct.CollectionRequestType, pageNumber: Swift.Optional&lt;Swift.Int&gt;, completion: (Swift.Array&lt;PeachSconeMarket.ClothingItem&gt;) -&gt; ()) throws -&gt; ()"
+                  moduleName = "PeachSconeMarket"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mattgroholski/Documents/My%20Documents/BubbaTech.nosync/PeachSconeMarket/PeachSconeMarket/Models/Api.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "323"
+                  endingLineNumber = "323"
+                  offsetFromSymbolStart = "924">
+               </Location>
+               <Location
+                  uuid = "CBF68531-2620-45CB-BDCC-32E578FCC130 - 2bf49aea57ef7a6e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in PeachSconeMarket.Api.loadClothingPage(collectionType: PeachSconeMarket.CollectionStruct.CollectionRequestType, pageNumber: Swift.Optional&lt;Swift.Int&gt;, completion: (Swift.Array&lt;PeachSconeMarket.ClothingItem&gt;) -&gt; ()) throws -&gt; ()"
+                  moduleName = "PeachSconeMarket"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mattgroholski/Documents/My%20Documents/BubbaTech.nosync/PeachSconeMarket/PeachSconeMarket/Models/Api.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "323"
+                  endingLineNumber = "323"
+                  offsetFromSymbolStart = "976">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

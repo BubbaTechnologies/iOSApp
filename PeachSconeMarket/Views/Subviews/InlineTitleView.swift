@@ -9,12 +9,14 @@ import SwiftUI
 
 struct InlineTitleView: View {
     var body: some View {
-        Text("Peach Scone Market")
-            .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.09, relativeTo: .title2))
-            .minimumScaleFactor(0.25)
-            .lineLimit(1)
-            .foregroundColor(Color("DarkText"))
-            .frame(width: UIScreen.main.bounds.width * 0.85, height: UIScreen.main.bounds.width * 0.15)
+        GeometryReader{ reader in
+            Text("Peach Scone Market")
+                .font(CustomFontFactory.getFont(style: "Bold", size: reader.size.width * 0.09, relativeTo: .title2))
+                .minimumScaleFactor(0.25)
+                .lineLimit(1)
+                .foregroundColor(Color("DarkText"))
+                .position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
+        }
     }
 }
 

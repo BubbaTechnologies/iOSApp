@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LoadingView: View {
+<<<<<<< HEAD
     
     var body: some View {
         ZStack{
@@ -21,6 +22,26 @@ struct LoadingView: View {
                     .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
                     .scaleEffect(2)
                 Spacer()
+=======
+    var versionNumber: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+    
+    var body: some View {
+        ZStack{
+            GeometryReader{ reader in
+                Color("BackgroundColor").ignoresSafeArea()
+                VStack(alignment: .center){
+                    Spacer()
+                    TitleView()
+                        .frame(height: max(125, reader.size.height * 0.2))
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
+                        .scaleEffect(2)
+                    Spacer()
+                    Text("Version: \(versionNumber)")
+                        .font(CustomFontFactory.getFont(style: "Regular", size: 18, relativeTo: .body))
+                        .foregroundColor(Color("DarkText"))
+                }
+>>>>>>> rebuild
             }
         }
     }

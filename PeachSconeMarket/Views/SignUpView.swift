@@ -8,72 +8,74 @@
 import SwiftUI
 
 struct SignUpView: View {
-    @State var name: String = ""
-    @State var email: String = ""
-    @State var password: String = ""
-    @State var confirmPassword: String = ""
-    @Binding var active:Bool
-    @Binding var loggedIn: Bool
-    @State var signUpDisabled:Bool = false
-    @State var gender: String = "Other"
-    @State var genderSelected: Bool = false
-    @State var errorMessage: String = ""
-    
-    private let bottomPaddingFactor: Double = 0.001
-    
-    let genderOptions = ["Male","Female","Other"]
+    @ObservedObject var api: Api
+    var completionFunction: ()->Void
+    var backFunction: ()->Void
+    @ObservedObject private var signUpClass: SignUpClass = SignUpClass()
+    @State private var confirmPassword: String = ""
+    @State private var genderSelected:Bool = false
+    @State private var errorMessage: String = ""
     var body: some View {
         ZStack{
-            Color("BackgroundColor").ignoresSafeArea()
-            VStack(alignment: .center) {
+            GeometryReader {reader in
+                Color("BackgroundColor").ignoresSafeArea()
                 ScrollView(showsIndicators: false) {
-                    Spacer(minLength: UIScreen.main.bounds.height * 0.12)
-                    TitleView()
-                        .padding(.bottom, UIScreen.main.bounds.height * (bottomPaddingFactor + 0.005))
-                    TextInputView(promptText: "Name", input: $name, secure: false)
-                        .textContentType(.name)
-                        .padding(.bottom, UIScreen.main.bounds.height * bottomPaddingFactor)
-                    TextInputView(promptText: "Email", input: $email, secure: false)
-                        .textContentType(.emailAddress)
-                        .padding(.bottom, UIScreen.main.bounds.height * bottomPaddingFactor)
-                    PickerView(selection: $gender, promptText: "Gender", options: genderOptions, selected: $genderSelected)
-                        .padding(.bottom, UIScreen.main.bounds.height * bottomPaddingFactor)
-                    TextInputView(promptText: "Password", input: $password, secure: true)
-                        .textContentType(.newPassword)
-                        .padding(.bottom, UIScreen.main.bounds.height * bottomPaddingFactor)
-                    TextInputView(promptText: "Confirm Password", input: $confirmPassword, secure: true)
-                        .textContentType(.newPassword)
-                        .padding(.bottom, UIScreen.main.bounds.height * bottomPaddingFactor)
-                    ButtonView(text: "Sign Up", action: SignUp)
-                        .onTapGesture {
-                            signUpDisabled = true
-                            errorMessage = ""
+                    VStack(alignment: .center) {
+                        Spacer(minLength: reader.size.height * 0.15)
+                        TitleView()
+                            .frame(height: max(125, reader.size.height * 0.2))
+                        TextInputView(promptText: "Email", input: $signUpClass.username, secure: false)
+                            .textContentType(.username)
+                            .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
+                            .padding(.bottom, reader.size.height * 0.01)
+                        PickerView(selection: $signUpClass.gender, promptText: "Gender", options: api.filterOptionsStruct.getGenders().reversed(), selected: $genderSelected)
+                            .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
+                            .padding(.bottom, reader.size.height * 0.01)
+                        TextInputView(promptText: "Password", input: $signUpClass.password, secure: true)
+                            .textContentType(.newPassword)
+                            .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
+                            .padding(.bottom, reader.size.height * 0.01)
+                        TextInputView(promptText: "Confirm Password", input: $confirmPassword, secure: true)
+                            .textContentType(.newPassword)
+                            .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
+                            .padding(.bottom, reader.size.height * 0.01)
+                        ButtonView(text: "Sign Up") {
+                            if signUpClass.username.isEmpty || signUpClass.password.isEmpty || signUpClass.gender.isEmpty || confirmPassword.isEmpty {
+                                errorMessage = "Please fill in all fields."
+                                return
+                            }
+                            SignUp()
                         }
-                        .disabled(signUpDisabled)
-                    if !errorMessage.isEmpty {
+                        .frame(height: max(LoginSequenceDesignVariables.buttonMinHeight, reader.size.height * LoginSequenceDesignVariables.buttonHeightFactor))
                         Text("\(errorMessage)")
-                            .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.04, relativeTo: .caption))
+                            .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.04, relativeTo: .body))
                             .foregroundColor(.red)
-                    }
-                    Spacer(minLength: UIScreen.main.bounds.height * 0.05)
+                            .multilineTextAlignment(.center)
+                        Spacer()
+                    }.frame(height: reader.size.height)
                 }
-            }
-            VStack(alignment: .leading){
-                Button(action: {active.toggle()}) {
-                    Image(systemName:"chevron.backward")
-                        .resizable()
-                        .scaledToFit()
-                        .padding(.leading, UIScreen.main.bounds.width * 0.03)
-                        .foregroundColor(Color("DarkText"))
-                        .frame(width: UIScreen.main.bounds.width * 0.08)
+                VStack(alignment: .leading){
+                    Button(action: backFunction) {
+                        Image(systemName:"chevron.backward")
+                            .resizable()
+                            .scaledToFit()
+                            .padding(.leading, reader.size.width * 0.05)
+                            .padding(.top, reader.size.height * 0.03)
+                            .foregroundColor(Color("DarkText"))
+                            .frame(width: reader.size.width * 0.075)
+                        Spacer()
+                    }
                     Spacer()
                 }
+<<<<<<< HEAD
                 Spacer()
             }
             if signUpDisabled {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
                     .scaleEffect(3)
+=======
+>>>>>>> rebuild
             }
         }
     }
@@ -81,42 +83,34 @@ struct SignUpView: View {
 
 extension SignUpView {
     func SignUp() {
-        if (password != confirmPassword) {
-            errorMessage = "Passwords do not match!"
-            signUpDisabled = false
+        if confirmPassword != signUpClass.password {
+            errorMessage = "You're supposed to type the same password to confirm."
             return
         }
         
-        if (password.isEmpty || name.isEmpty || email.isEmpty || !genderSelected) {
-            errorMessage = "Please fill in all fields!"
-            signUpDisabled = false
+        if !signUpClass.username.contains(/@[a-zA-Z-\.0]+\.[a-zA-Z]+$/) {
+            errorMessage = "That's not an email!"
             return
         }
         
-        let emailRegex = /.+@.+\..+/
-        if !email.contains(emailRegex) {
-            errorMessage = "Invalid email!"
-            signUpDisabled = false
-            return
-        }
-        
-        let signUpStruct: SignUpStruct = SignUpStruct(username: email, password: password, gender: gender, name: name)
         do {
-            let token: String = try SignUpStruct.signUpRequest(signUpData: signUpStruct)
-            KeychainHelper.standard.save(Data(token.utf8), service: "access-token", account:"peachSconeMarket")
-            loggedIn = true
-        } catch HttpError.runtimeError(let message){
-            errorMessage = "\(message)"
+            if try api.sendSignUp(signUpClass: signUpClass) {
+                completionFunction()
+            } else {
+                errorMessage = "You done goofed.\nTry again."
+                return
+            }
+        } catch Api.ApiError.httpError(let message) {
+            errorMessage = message
         } catch {
-            errorMessage = "\(error)"
+            errorMessage = "Something isn't right. Error Message: \(error)"
         }
-        signUpDisabled = false
         return
     }
 }
 
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpView(active: .constant(true), loggedIn: .constant(false))
+        SignUpView(api: Api(), completionFunction: {}, backFunction: {})
     }
 }

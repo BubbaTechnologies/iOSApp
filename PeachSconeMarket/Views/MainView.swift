@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainView: View {
+<<<<<<< HEAD
     @State var state:pageState = .main
     @Binding var items:[ClothingItem]
     @Binding var preLoadAmount: Int
@@ -62,31 +63,94 @@ extension MainView {
                         if (!items.contains(item)) {
                             items.append(item)
                         }
+=======
+    @ObservedObject var api:Api
+    @ObservedObject var swipeClothingManager: ClothingListManager
+        
+    @State var pageState:PageState = .swipe
+    @State var previousPageState: PageState = .swipe
+    
+    var body: some View {
+        ZStack{
+            GeometryReader { reader in
+                Color("BackgroundColor").ignoresSafeArea()
+                VStack(alignment: .center){
+                    if pageState == .filtering {
+                        FilterView(api: api) { newState in
+                            if newState == .filtering {
+                                pageState = previousPageState
+                            } else if newState == .editing {
+                                pageState = previousPageState
+                                swipeClothingManager.reset()
+                                
+                                //confirm
+                                DispatchQueue.global(qos: .userInitiated).async {
+                                    do {
+                                        try swipeClothingManager.loadItems()
+                                    } catch {
+                                        //TODO: Display error
+                                    }
+                                }
+                            } else {
+                                pageState = newState
+                            }
+                        }
+                        .frame(width: reader.size.width, height: reader.size.height)
+                    } else if pageState == .swipe {
+                        SwipeView(api: api, clothingManager: swipeClothingManager, pageState: $pageState) { newState in
+                            previousPageState = pageState
+                            pageState = newState
+                        }
+                        .frame(width: reader.size.width, height: reader.size.height)
+                    } else if pageState == .likes {
+                        LikesView(clothingManager: ClothingPageManager(api: api, requestType: .likes), pageState: $pageState){ newState in 
+                            previousPageState = pageState
+                            pageState = newState
+                        }
+                        .frame(width: reader.size.width, height: reader.size.height)
+                    } else if pageState == .collection {
+                        CollectionView(changeFunction: { newState in
+                            previousPageState = pageState
+                            pageState = newState
+                        })
+                        .frame(width: reader.size.width, height: reader.size.height)
+>>>>>>> rebuild
                     }
+                    Spacer()
                 }
             } catch {
                 exit(0)
             }
+<<<<<<< HEAD
             collectionPaginator = ClothingItemPaginator(requestType: .likes, clothingType: typeFilter, gender: genderFilter)
         } else {
             previousTypeFilter = typeFilter
             previousGenderFilter = genderFilter
             typeFilter = []
+=======
+>>>>>>> rebuild
         }
     }
 }
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
+<<<<<<< HEAD
         MainView(items: .constant(ClothingItem.sampleItems), preLoadAmount: .constant(5))
         MainView(items: .constant(ClothingItem.sampleItems), preLoadAmount: .constant(5))
+=======
+        MainView(api: Api(), swipeClothingManager: ClothingListManager())
+        MainView(api: Api(), swipeClothingManager: ClothingListManager())
+>>>>>>> rebuild
                 .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro"))
                 .previewDisplayName("iPhone 13 Pro")
     }
 }
 
-enum pageState {
+enum PageState {
     case likes
-    case main
+    case swipe
     case collection
+    case filtering
+    case editing
 }

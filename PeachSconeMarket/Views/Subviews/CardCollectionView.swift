@@ -9,18 +9,29 @@ import SwiftUI
 
 struct CardCollectionView: View {
     @Binding var items: [ClothingItem]
-    let columns = [GridItem(.flexible()), GridItem(.flexible())]
-    @Binding var isPresentingSafari:Bool
-    @Binding var safariUrl: URL
+    @Binding var safariUrl: URL?
     @Binding var editing: Bool
     @Binding var selectedItems: [Int]
     
+    let columns = [GridItem(.flexible()), GridItem(.flexible())]
+
     var body: some View {
+<<<<<<< HEAD
         ZStack{
             LazyVStack(alignment: .center){
                 LazyVGrid(columns: columns) {
                     ForEach(items){ item in
                         MiniCardView(item: item, isPresentingSafari: $isPresentingSafari, safariUrl: $safariUrl, editing: $editing, selectedItems: $selectedItems)
+=======
+        GeometryReader{ reader in
+            LazyVStack(alignment: .center){
+                LazyVGrid(columns: columns) {
+                    ForEach(items.indices, id: \.self){ i in
+                        MiniCardView(item: items[i], safariUrl: $safariUrl, editing: $editing, selectedItems: $selectedItems)
+                            .frame(width: reader.size.width * 0.4, height: reader.size.height * (2.0/Double(
+                                (items.count % 2 == 0 ? items.count : items.count + 1)
+                            )))
+>>>>>>> rebuild
                     }
                 }
             }
@@ -30,6 +41,6 @@ struct CardCollectionView: View {
 
 struct CardCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        CardCollectionView(items: .constant(ClothingItem.sampleItems), isPresentingSafari: .constant(false), safariUrl: .constant(URL(string: "https://www.peachsconemarket.com")!), editing: .constant(true), selectedItems: .constant([]))
+        CardCollectionView(items: .constant(ClothingItem.sampleItems), safariUrl: .constant(URL(string: "https://www.peachsconemarket.com")!), editing: .constant(true), selectedItems: .constant([]))
     }
 }

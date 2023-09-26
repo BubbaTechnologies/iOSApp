@@ -9,34 +9,52 @@ import SwiftUI
 import Foundation
 
 struct LoginView: View {
-    @State private var email: String = ""
-    @State private var password: String = ""
+    @ObservedObject var api: Api
+    var completionFunction:()->Void
+    @ObservedObject private var loginClass: LoginClass = LoginClass()
+
     @State private var signUpActive: Bool = false
-    @State private var errorMessage: String  = ""
-    @Binding var loggedIn: Bool
-    @State private var loginDisabled: Bool = false
+    @State private var errorMessage: String = ""
     
     var body: some View {
         switch signUpActive {
         case false:
             ZStack{
-                Color("BackgroundColor").ignoresSafeArea()
-                VStack(alignment: .center){
-                    ScrollView(showsIndicators: false) {
-                        Spacer(minLength: UIScreen.main.bounds.height * 0.25)
-                        TitleView()
-                            .padding(.bottom, 5)
-                        TextInputView(promptText: "Email", input: $email, secure: false)
-                            .textContentType(.username)
-                        TextInputView(promptText: "Password", input: $password, secure: true)
-                            .textContentType(.password)
-                        ButtonView(text: "Sign In", action: SignIn)
-                            .disabled(loginDisabled)
-                        if !errorMessage.isEmpty {
-                            Text("\(errorMessage)")
-                                .font(CustomFontFactory.getFont(style: "Bold", size: UIScreen.main.bounds.width * 0.04, relativeTo: .caption))
-                                .foregroundColor(.red)
+                    GeometryReader{ reader in
+                        Color("BackgroundColor").ignoresSafeArea()
+                        ScrollView(showsIndicators: false) {
+                            VStack{
+                                Spacer(minLength: reader.size.height * 0.2)
+                                TitleView()
+                                    .frame(height: max(125, reader.size.height * 0.2))
+                                TextInputView(promptText: "Email", input: $loginClass.username, secure: false)
+                                    .textContentType(.username)
+                                    .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
+                                    .padding(.bottom, reader.size.height * 0.01)
+                                TextInputView(promptText: "Password", input: $loginClass.password, secure: true)
+                                    .textContentType(.password)
+                                    .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
+                                    .padding(.bottom, reader.size.height * 0.01)
+                                ButtonView(text: "Sign In") {
+                                    if loginClass.username.isEmpty || loginClass.password.isEmpty {
+                                        errorMessage = "Fill in username and/or password."
+                                        return
+                                    }
+                                    login()
+                                }
+                                .frame(height: max(LoginSequenceDesignVariables.buttonMinHeight, reader.size.height * LoginSequenceDesignVariables.buttonHeightFactor))
+                                Text("\(errorMessage)")
+                                    .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.04, relativeTo: .body))
+                                    .foregroundColor(.red)
+                                    .multilineTextAlignment(.center)
+                                Spacer()
+                                ButtonView(text: "Sign Up", action: {
+                                    signUpActive = true
+                                })
+                                .frame(height: max(LoginSequenceDesignVariables.buttonMinHeight, reader.size.height * LoginSequenceDesignVariables.buttonHeightFactor))
+                            }.frame(height: reader.size.height)
                         }
+<<<<<<< HEAD
                         Spacer(minLength: UIScreen.main.bounds.height * 0.2)
                         ButtonView(text: "Sign Up", action: {signUpActive.toggle()})
                             .disabled(loginDisabled)
@@ -47,55 +65,34 @@ struct LoginView: View {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
                         .scaleEffect(3)
+=======
+>>>>>>> rebuild
                 }
             }
         case true:
-            SignUpView(active: $signUpActive, loggedIn: $loggedIn)
+            SignUpView(api: api, completionFunction: completionFunction, backFunction: {signUpActive = false})
         }
     }
 }
 
-extension LoginView{
-    func SignIn()->Void {
-        loginDisabled = true
-        
-        //Resets error message
-        if (email.isEmpty || password.isEmpty) {
-            errorMessage = "Fill in the above fields!"
-            loginDisabled = false
-            return
-        }
-        
-        //Checks email format
-        let emailRegex = /.+@.+\..+/
-        if !email.contains(emailRegex) {
-            errorMessage = "Invalid Email!"
-            loginDisabled = false
-            return
-        }
-        
-        
-        let loginStruct: LoginStruct = LoginStruct(username: email, password: password)
+extension LoginView {
+    func login() {
         do {
-            let token: String = try LoginStruct.loginRequest(loginData: loginStruct)
-            KeychainHelper.standard.save(Data(token.utf8), service: "access-token", account:"peachSconeMarket")
-            loggedIn = true
-        } catch HttpError.runtimeError(let message){
-            errorMessage = "\(message)"
+            if try api.sendLogin(loginClass: loginClass) {
+                completionFunction()
+            } else {
+                errorMessage = "Maybe try a different password?"
+            }
+        } catch Api.ApiError.httpError(let message) {
+            errorMessage = message
         } catch {
-            errorMessage = "\(error)"
+            errorMessage = "Something isn't right. Error Message: \(error)"
         }
-        
-        loginDisabled = false
-        return
     }
 }
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView(loggedIn: .constant(false))
-//        LoginView()
-//                    .previewDevice(PreviewDevice(rawValue: "iPhone 14 Pro Max"))
-//                    .previewDisplayName("iPhone 14 Pro Max")
+        LoginView(api: Api(), completionFunction: {})
     }
 }
