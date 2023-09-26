@@ -28,7 +28,7 @@ struct MainView: View {
                                 swipeClothingManager.reset()
                                 
                                 //confirm
-                                DispatchQueue.global().async {
+                                DispatchQueue.global(qos: .userInitiated).async {
                                     do {
                                         try swipeClothingManager.loadItems()
                                     } catch {

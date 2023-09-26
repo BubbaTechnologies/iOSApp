@@ -24,11 +24,9 @@ struct ButtonView: View {
                 Button(displayText) {
                     displayText = ""
                     loading = true
-                    DispatchQueue.global().async {
+                    DispatchQueue.global(qos: .userInitiated).async {
                         action()
-                        
-                        DispatchQueue.global().async {
-                            action()
+                        DispatchQueue.main.async {
                             loading = false
                             displayText = text
                         }

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SwipeView: View {
+    static var clothingWithPreloadedImages = 4
+    
     @ObservedObject var api:Api
     @ObservedObject var clothingManager: ClothingListManager
     @Binding var pageState:PageState
@@ -46,8 +48,10 @@ struct SwipeView: View {
                         }
                     } else {
                         ZStack{
-                            ForEach(clothingManager.clothingItems.reversed()) { item in
-                                CardView(cardManager: CardManager(item: item), swipeAction: cardAction)
+                            //Creates card for each clothing item in list
+                            ForEach(Array(clothingManager.clothingItems.reversed().enumerated()), id: \.element.id) { index, item in
+                                CardView(cardManager: CardManager(item: item), swipeAction: cardAction, preloadImages:
+                                            (clothingManager.clothingItems.count - index) < SwipeView.clothingWithPreloadedImages)
                                 .frame(height: reader.size.height * 0.75)
                             }
                         }.onAppear{

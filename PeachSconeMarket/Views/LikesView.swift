@@ -43,13 +43,14 @@ struct LikesView: View {
                                     ProgressView()
                                         .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
                                         .scaleEffect(2)
-                                        .padding(.top,  reader.size.height * 0.1)
+                                        .padding(.top,  reader.size.height * 0.05)
                                         .onAppear{
-                                            clothingManager.loadNext() { result in
-                                                switch result {
-                                                case .success(_):
-                                                    break
-                                                case .failure(let error):
+                                            DispatchQueue.global(qos: .userInitiated).async {
+                                                clothingManager.loadNext() { result in
+                                                    switch result {
+                                                    case .success(_):
+                                                        break
+                                                    case .failure(let error):
                                                         if case Api.ApiError.httpError(let message) = error {
                                                             errorMessage = message
                                                         } else {
@@ -57,9 +58,10 @@ struct LikesView: View {
                                                         }
                                                     }
                                                 }
+                                            }
                                         }
                                 }
-                                Spacer(minLength: reader.size.height * 0.1)
+                                Spacer(minLength: reader.size.height * 0.025)
                             } else if !attemptedLoad {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
@@ -94,20 +96,22 @@ struct LikesView: View {
             clothingManager.reset()
         }
         .onAppear{
-            clothingManager.loadNext() { result in
-                switch result {
-                case .success(let empty):
-                    if empty {
-                        if clothingManager.clothingItems.count == 0 {
-                            errorMessage = "Start liking clothing!"
+            DispatchQueue.global(qos: .userInitiated).async{
+                clothingManager.loadNext() { result in
+                    switch result {
+                    case .success(let empty):
+                        if empty {
+                            if clothingManager.clothingItems.count == 0 {
+                                errorMessage = "Start liking clothing!"
+                            }
                         }
-                    }
-                    attemptedLoad = true
-                case .failure(let error):
-                    if case Api.ApiError.httpError(let message) = error {
-                        errorMessage = message
-                    } else {
-                        errorMessage = "Something isn't right. Error Message: \(error)"
+                        attemptedLoad = true
+                    case .failure(let error):
+                        if case Api.ApiError.httpError(let message) = error {
+                            errorMessage = message
+                        } else {
+                            errorMessage = "Something isn't right. Error Message: \(error)"
+                        }
                     }
                 }
             }

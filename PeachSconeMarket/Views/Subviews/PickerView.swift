@@ -49,7 +49,7 @@ struct SuperPicker: View {
                             }
                         }
                     } label : {
-                        Text(!selected ? placeholder : selection)
+                        Text(!selected ? placeholder : selection.capitalized)
                             .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.06, relativeTo: .body))
                             .position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
                     }

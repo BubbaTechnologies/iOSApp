@@ -79,7 +79,7 @@ extension SignUpView {
             return
         }
         
-        if !signUpClass.username.contains("@[a-zA-Z-\\.]+\\.[a-z]+$") {
+        if !signUpClass.username.contains(/@[a-zA-Z-\.0]+\.[a-zA-Z]+$/) {
             errorMessage = "That's not an email!"
             return
         }

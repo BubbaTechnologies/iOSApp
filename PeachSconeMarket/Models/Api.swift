@@ -246,8 +246,6 @@ class Api:ObservableObject {
         urlComponents.path = "/app/card"
         urlComponents.queryItems = getQueryParameters()
         
-        print("Requesting single card!")
-        
         //Starts url request
         var responseStatusCode: Int = -4
         if let jwt = self.jwt {
@@ -326,7 +324,6 @@ class Api:ObservableObject {
                 
                 if let data = data {
                     do {
-//                        print(String(bytes: data, encoding: .utf8)!)
                         responseData = try JSONDecoder().decode(embeddedStruct.self, from: data).getCollectionStruct()
                     } catch {
                         if responseStatusCode != 200 {
