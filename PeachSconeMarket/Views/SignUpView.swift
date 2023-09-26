@@ -67,15 +67,6 @@ struct SignUpView: View {
                     }
                     Spacer()
                 }
-<<<<<<< HEAD
-                Spacer()
-            }
-            if signUpDisabled {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
-                    .scaleEffect(3)
-=======
->>>>>>> rebuild
             }
         }
     }

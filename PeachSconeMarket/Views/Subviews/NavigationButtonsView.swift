@@ -13,21 +13,8 @@ struct NavigationButtonView: View {
     @Binding var options: Bool
     let buttonAction: (PageState)->Void
     
-<<<<<<< HEAD
-    @Binding public var state:pageState
-    @Binding public var editing: Bool
-    @Binding public var selectedItems: [Int]
-    @ObservedObject public var paginator: ClothingItemPaginator
-    @Binding public var filtering: Bool
-    
-    public var filterActions: (Bool,Bool)->Void
-    
-    private let scaleFactor: Double = 0.14
-    private let padding: Double = 4.0
-=======
     private let scaleFactor: Double = 0.7
     private let padding: Double = 3.0
->>>>>>> rebuild
     private let heightPadding: Double = 0.0025
     
     var body: some View {
@@ -134,89 +121,6 @@ struct NavigationButtonView: View {
                                     }
                                 )
 
-<<<<<<< HEAD
-        state = .likes
-        showEdit = true
-        showFilter = true
-    }
-    
-    func switchMainView() {
-        state = .main
-        showEdit = false
-        showFilter = true
-        editing = false
-        filtering = false
-        options = false
-    }
-    
-    func switchCollectionView() {
-        if (state != .collection) {
-            editing = false
-            options = false
-        }
-        
-        //Removes filtering if button clicked
-        if (!editing) {
-            filtering = false
-            options = false
-        }
-        
-        state = .collection
-        showEdit = false
-        showFilter = false
-    }
-    
-    func switchFilterView() {
-        //Clicking X in edit mode
-        if (editing && options) {
-            editing = false
-            options = false
-            return
-        }
-        
-        //X in filter mode
-        if (filtering && options) {
-            filterActions(false, true)
-            filtering = false
-            options = false
-            return
-        }
-        
-        //Start filter mode
-        filterActions(false, false)
-        filtering = true
-        options = true
-        return
-    }
-    
-    func switchEditView() {
-        //Checkmark edit mode
-        if (editing && options) {
-            for id in selectedItems {
-                let likeStruct:LikeStruct = LikeStruct(clothingId: id, imageTapRatio: 0)
-                do {
-                    try LikeStruct.createLikeRequest(likeStruct: likeStruct, likeType: .removeLike)
-                } catch  {
-                    print("\(error)")
-                }
-            }
-            
-            //Removes all selected items from the view
-            paginator.clothingItems = paginator.clothingItems.filter {
-                !selectedItems.contains($0.id)
-            }
-            editing = false
-            options = false
-            return
-        }
-        
-        //Checkmark filter mode
-        if (filtering && options) {
-            filterActions(true, true)
-            filtering = false
-            options = false
-            return
-=======
                         }
                     } else {
                         Circle()
@@ -227,17 +131,12 @@ struct NavigationButtonView: View {
                     .padding(.top, reader.size.height * heightPadding)
                 Spacer()
             }.position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY - reader.size.height * 0.05)
->>>>>>> rebuild
         }
     }
 }
 
 struct NavigationButtonView_Previews: PreviewProvider {
     static var previews: some View {
-<<<<<<< HEAD
-        NavigationButtonView(showEdit: true, showFilter: true, state: .constant(.main), editing: .constant(false), selectedItems: .constant([]), paginator: ClothingItemPaginator(requestType: .likes, clothingItems: ClothingItem.sampleItems), filtering: .constant(false), filterActions: {(_, _) in return})
-=======
         NavigationButtonView(showFilter: true, showEdit: true, options: .constant(false), buttonAction: {_ in return})
->>>>>>> rebuild
     }
 }

@@ -18,42 +18,6 @@ struct MiniCardView: View {
     private let heightFactor: Double = 0.3
     
     var body: some View {
-<<<<<<< HEAD
-        ZStack {
-            VStack{
-                AsyncImage(url: URL(string: item.imageURL[0])) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
-                            .scaleEffect(3)
-                    case .success(let image):
-                        image.resizable()
-                            .scaledToFill()
-                            .clipped()
-                            .onTapGesture {
-                                if editing {
-                                    selected.toggle()
-                                    if selected {
-                                        selectedItems.append(item.id)
-                                    } else {
-                                        selectedItems = selectedItems.filter{
-                                            $0 != item.id
-                                        }
-                                    }
-                                } else {
-                                    if let url = URL(string: item.productURL) {
-                                        //Create LikeStruct
-                                        let likeStruct:LikeStruct = LikeStruct(clothingId: item.id, imageTapRatio: 0)
-                                        do {
-                                            try LikeStruct.createLikeRequest(likeStruct: likeStruct, likeType: .pageClick)
-                                        } catch  {
-                                            print("\(error)")
-                                        }
-                                        safariUrl = url
-                                        isPresentingSafari = true
-                                    }
-=======
         GeometryReader { reader in
             ZStack{
                 VStack{
@@ -86,7 +50,6 @@ struct MiniCardView: View {
                             } else {
                                 selectedItems = selectedItems.filter{
                                     $0 != item.id
->>>>>>> rebuild
                                 }
                             }
                         } else {

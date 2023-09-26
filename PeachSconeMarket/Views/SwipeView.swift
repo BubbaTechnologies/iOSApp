@@ -8,12 +8,6 @@
 import SwiftUI
 
 struct SwipeView: View {
-<<<<<<< HEAD
-    @Binding var items: [ClothingItem]
-    @Binding var typeFilter:[String]
-    @Binding var genderFilter: String
-    @Binding var preLoadAmount: Int
-=======
     static var clothingWithPreloadedImages = 4
     
     @ObservedObject var api:Api
@@ -24,7 +18,6 @@ struct SwipeView: View {
     @State var errorMessage: String = ""
     
     //Design Variables
->>>>>>> rebuild
     private let widthFactor: Double = 0.81
     private let heightFactor: Double = 0.10
     private let maximumLoadingCount: Int = 5
@@ -34,20 +27,6 @@ struct SwipeView: View {
             Color("BackgroundColor").ignoresSafeArea()
             VStack{
                 InlineTitleView()
-<<<<<<< HEAD
-                Spacer()
-                    .frame(maxHeight: UIScreen.main.bounds.height * 0.023)
-                if (items.count < (preLoadAmount / 2)) {
-                    Spacer()
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
-                        .scaleEffect(3)
-                    Spacer()
-                } else {
-                    ZStack{
-                        ForEach(items.reversed()) { item in
-                            CardView(items: $items, item: item, typeFilter: $typeFilter, genderFilter: $genderFilter, preLoadAmount: $preLoadAmount)
-=======
                     .frame(width: reader.size.width, height: reader.size.height * 0.07)
                     .padding(.top, reader.size.height * 0.025)
                     .padding(.bottom, reader.size.height * 0.01)
@@ -86,7 +65,6 @@ struct SwipeView: View {
                                 .foregroundColor(Color("DarkText"))
                                 .lineLimit(2)
                                 .frame(width: reader.size.width * 0.9, height: reader.size.height * 0.1, alignment: .top)
->>>>>>> rebuild
                         }
                     }
                 }.frame(height: reader.size.height * 0.85)
@@ -126,10 +104,6 @@ extension SwipeView {
 
 struct SwipeView_Previews: PreviewProvider {
     static var previews: some View {
-<<<<<<< HEAD
-        SwipeView(items: .constant(ClothingItem.sampleItems), typeFilter: .constant(["top"]), genderFilter: .constant("male"), preLoadAmount: .constant(5))
-=======
         SwipeView(api: Api(), clothingManager: ClothingListManager(clothingItems: ClothingItem.sampleItems), pageState: .constant(.swipe), changeFunction: {_ in return})
->>>>>>> rebuild
     }
 }

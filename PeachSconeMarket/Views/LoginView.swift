@@ -54,19 +54,6 @@ struct LoginView: View {
                                 .frame(height: max(LoginSequenceDesignVariables.buttonMinHeight, reader.size.height * LoginSequenceDesignVariables.buttonHeightFactor))
                             }.frame(height: reader.size.height)
                         }
-<<<<<<< HEAD
-                        Spacer(minLength: UIScreen.main.bounds.height * 0.2)
-                        ButtonView(text: "Sign Up", action: {signUpActive.toggle()})
-                            .disabled(loginDisabled)
-                    }
-                }
-                
-                if loginDisabled {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
-                        .scaleEffect(3)
-=======
->>>>>>> rebuild
                 }
             }
         case true:

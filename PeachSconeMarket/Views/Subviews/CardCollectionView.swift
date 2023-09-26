@@ -16,13 +16,6 @@ struct CardCollectionView: View {
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
 
     var body: some View {
-<<<<<<< HEAD
-        ZStack{
-            LazyVStack(alignment: .center){
-                LazyVGrid(columns: columns) {
-                    ForEach(items){ item in
-                        MiniCardView(item: item, isPresentingSafari: $isPresentingSafari, safariUrl: $safariUrl, editing: $editing, selectedItems: $selectedItems)
-=======
         GeometryReader{ reader in
             LazyVStack(alignment: .center){
                 LazyVGrid(columns: columns) {
@@ -31,7 +24,6 @@ struct CardCollectionView: View {
                             .frame(width: reader.size.width * 0.4, height: reader.size.height * (2.0/Double(
                                 (items.count % 2 == 0 ? items.count : items.count + 1)
                             )))
->>>>>>> rebuild
                     }
                 }
             }

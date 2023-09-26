@@ -8,21 +8,6 @@
 import SwiftUI
 
 struct LoadingView: View {
-<<<<<<< HEAD
-    
-    var body: some View {
-        ZStack{
-            Color("BackgroundColor").ignoresSafeArea()
-            VStack(alignment: .center){
-                Spacer()
-                TitleView()
-                    .padding(.bottom, 10)
-                    .frame(width: UIScreen.main.bounds.width * 0.85)
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
-                    .scaleEffect(2)
-                Spacer()
-=======
     var versionNumber: String = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
     
     var body: some View {
@@ -41,7 +26,6 @@ struct LoadingView: View {
                         .font(CustomFontFactory.getFont(style: "Regular", size: 18, relativeTo: .body))
                         .foregroundColor(Color("DarkText"))
                 }
->>>>>>> rebuild
             }
         }
     }

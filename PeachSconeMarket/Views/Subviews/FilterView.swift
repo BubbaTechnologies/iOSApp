@@ -30,22 +30,6 @@ struct FilterView: View {
                         ListView(list: api.filterOptionsStruct.getGenders(), selectedAction: genderSelectedAction, multipleSelections: false, subList: true, subListValues: api.filterOptionsStruct.getTypes(), subListMultipleSelections: true, subListSelectedAction: typeSelectedAction)
                             .frame(height: reader.size.height * (gender.isEmpty ? Double(api.filterOptionsStruct.getGenders().count) : Double(api.filterOptionsStruct.getGenders().count + api.filterOptionsStruct.getLongestTypesArrayCount()))/20.0)
                     }
-<<<<<<< HEAD
-                }
-            }
-            VStack{
-                Spacer()
-                if (filterOptions == nil && errorMessage == "") {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
-                        .scaleEffect(3)
-                        .onAppear{
-                            do {
-                                filterOptions = try FilterOptionsStruct.getFilterOptions()
-                            } catch {
-                                errorMessage = "\(error)"
-                            }
-=======
                 }.frame(height: reader.size.height * 0.85)
                 NavigationButtonView(showFilter: true, showEdit: true, options: .constant(true)){ pageState in
                     api.resetTypeFilters()
@@ -56,7 +40,6 @@ struct FilterView: View {
                         api.setGenderFitler(filter: gender)
                         for filter in typeFilter {
                             api.addTypeFilter(filter: filter)
->>>>>>> rebuild
                         }
                     }
                     
