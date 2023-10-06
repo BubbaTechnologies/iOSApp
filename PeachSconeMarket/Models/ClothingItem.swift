@@ -30,7 +30,6 @@ struct ClothingItem: Identifiable, Codable, Equatable {
 
 extension ClothingItem {
     static let sampleItems: [ClothingItem] = [
-        //The Matlow Short in Arid Eucalyptus Washed Herringbone
         ClothingItem(id: 13511, name: "The Matlow Short", imageURL:  [
             "https://cdn.shopify.com/s/files/1/0070/1922/files/The_Matlow_Short_AridEucalyptusWashedHerringbone_Front.jpg?v=1683920710",
             "https://cdn.shopify.com/s/files/1/0070/1922/files/instock_m_q223_MatlowShort_AridEucalyptus_002.jpg?v=1683920710",
@@ -53,8 +52,21 @@ extension ClothingItem {
             "https://cdn.shopify.com/s/files/1/2185/2813/products/U3032RG_03299_b1_s3_a4_1_m75.jpg?v=1681411157",
             "https://cdn.shopify.com/s/files/1/2185/2813/products/U3032RG_03299_b1_s3_a4_2_m75.jpg?v=1681411157"
         ], productURL: "https://www.aloyoga.com/products/u3032rg-accolade-hoodie-ivory-mens"),
-        ClothingItem(id: 1, name: "Saltwater Slub Pocket Tee", imageURL:["https://cdn.shopify.com/s/files/1/2445/4975/products/1210096_Saltwater_Slub_Pocket_Tee_FDO_1.jpg?v=1678729658","https://cdn.shopify.com/s/files/1/2445/4975/products/FDO_SWT_44a05eca-3021-45d3-92ef-346bc23a079f.png?v=1682451906","https://cdn.shopify.com/s/files/1/2445/4975/files/1210096_Saltwater_Slub_Pocket_Tee_FDO_1.jpg?v=1682451906","https://cdn.shopify.com/s/files/1/2445/4975/products/1210096_Saltwater_Slub_Pocket_Tee_FDO_3.jpg?v=1682451906"], productURL: "https://www.outerknown.com/products/saltwater-slub-pocket-tee-faded-olive"),
         ClothingItem(id:2, name: "GOAT Vintage Upcycled Adidas '80s T-Shirt", imageURL: ["https://www.pacsun.com/dw/image/v2/AAJE_PRD/on/demandware.static/-/Sites-pacsun_storefront_catalog/default/dwc9a7132a/product_images/0702526000029NEW_00_001.jpg?sw=700"], productURL: "https://www.pacsun.com/goat-vintage/upcycled-adidas-80s-t-shirt-0702526000029.html"),
-        ClothingItem(id: 3, name: "Holly Asymmetric Straight Leg Jean Green Denim", imageURL: ["https://www.pacsun.com/dw/image/v2/AAJE_PRD/on/demandware.static/-/Sites-pacsun_storefront_catalog/default/dw60bf305b/product_images/0870604270003NEW_00_089.jpg?sw=700","https://www.pacsun.com/dw/image/v2/AAJE_PRD/on/demandware.static/-/Sites-pacsun_storefront_catalog/default/dw30605c47/product_images/0870604270003NEW_02_089.jpg?sw=400"], productURL: "https://www.pacsun.com/ngorder/green-purple-checkerboard-romper-0870604270003.html")
+        ClothingItem(id: 3, name: "Holly Asymmetric Straight Leg Jean Green Denim", imageURL: ["https://www.pacsun.com/dw/image/v2/AAJE_PRD/on/demandware.static/-/Sites-pacsun_storefront_catalog/default/dw60bf305b/product_images/0870604270003NEW_00_089.jpg?sw=700","https://www.pacsun.com/dw/image/v2/AAJE_PRD/on/demandware.static/-/Sites-pacsun_storefront_catalog/default/dw30605c47/product_images/0870604270003NEW_02_089.jpg?sw=400"], productURL: "https://www.pacsun.com/ngorder/green-purple-checkerboard-romper-0870604270003.html"),
+        ClothingItem(id: 19012, name: "Gymshark Crest Sweatshirt", imageURL: ["https://cdn.shopify.com/s/files/1/0156/6146/products/CrestCrewNavyA2A1V-UBCY-2890.297.jpg?v=1680644147",
+           "https://cdn.shopify.com/s/files/1/0156/6146/products/CrestCrewNavyA2A1V-UBCY-2919.298.jpg?v=1680644146",
+           "https://cdn.shopify.com/s/files/1/0156/6146/products/CrestCrewNavyA2A1V-UBCY-2921.299.jpg?v=1680644147",
+           "https://cdn.shopify.com/s/files/1/0156/6146/products/CrestCrewNavyA2A1V-UBCY-2932.300.jpg?v=1680644147"], productURL: "https://us.shop.gymshark.com/products/gymshark-crest-sweatshirt-navy-ss22"),
+        ClothingItem(id: 21793, name: "EVERETT GREY CHECK STRAIGHT TROUSER", imageURL: ["https://cdn.shopify.com/s/files/1/0533/2572/5850/products/B01075.jpg?v=1665592274",
+            "https://cdn.shopify.com/s/files/1/0533/2572/5850/products/B01112.jpg?v=1665592289",
+            "https://cdn.shopify.com/s/files/1/0533/2572/5850/products/B01120.jpg?v=1665592274",
+            "https://cdn.shopify.com/s/files/1/0533/2572/5850/products/B01094.jpg?v=1665592305"], productURL: "https://wearebound.co.uk/collections/all/products/grey-check-straight-trouser?variant=43472640573679"),
+        ClothingItem(id: 4997, name: "Travel Trouser", imageURL: ["https://bonobos-prod-s3.imgix.net/products/308296/original/PANT_ELASTIC-WAIST-PANT_BPT11263N1105G_1.jpg?1691031167=&w=750",
+               "https://bonobos-prod-s3.imgix.net/products/308297/original/PANT_ELASTIC-WAIST-PANT_BPT11263N1105G_2_hover.jpg?1691031167=&w=750",
+               "https://bonobos-prod-s3.imgix.net/products/308298/original/PANT_ELASTIC-WAIST-PANT_BPT11263N1105G_3_category.jpg?1691031167=&w=750",
+               "https://bonobos-prod-s3.imgix.net/products/308299/original/PANT_ELASTIC-WAIST-PANT_BPT11263N1105G_4.jpg?1691031167=&w=750",
+               "https://bonobos-prod-s3.imgix.net/products/308300/original/PANT_ELASTIC-WAIST-PANT_BPT11263N1105G_20.jpg?1691031167=&w=750",
+               "https://bonobos-prod-s3.imgix.net/products/308301/original/PANT_ELASTIC-WAIST-PANT_BPT11263N1105G_40_outfitter.jpg?1691031167=&w=750"], productURL: "https://www.bonobos.com/products/travel-trouser?color=lava%20smoke%20dark%20grey")
     ]
 }

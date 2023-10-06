@@ -212,12 +212,13 @@ class Api:ObservableObject {
     
     func sendLike(likeStruct: LikeStruct) throws -> Void {
         var responseStatusCode: Int = -4
+        let semaphore = DispatchSemaphore(value: 0)
         if let jwt = self.jwt {
             var request = URLRequest(url: URL(string: "https://" + baseUrl + "/app/" + likeStruct.likeType.rawValue)!)
             request.httpMethod = "POST"
             request.allHTTPHeaderFields = [
                 "Authorization":"Bearer " + jwt,
-                "Host":baseUrl,
+                "Host": baseUrl,
                 "Content-Type":"application/json"
             ]
             
@@ -229,8 +230,10 @@ class Api:ObservableObject {
                 } else {
                     responseStatusCode = -1
                 }
+                semaphore.signal()
             }.resume()
             
+            _ = semaphore.wait(timeout: .distantFuture)
             if responseStatusCode == 200 {
                 return
             }
@@ -339,7 +342,11 @@ class Api:ObservableObject {
             _ = semaphore.wait(timeout: .distantFuture)
             if responseStatusCode == 200 {
                 DispatchQueue.main.async {
-                    completion(responseData.getItems())
+                    var itemCollection = responseData.getItems()
+                    if (collectionType == CollectionStruct.CollectionRequestType.cardList) {
+                        itemCollection.reverse()
+                    }
+                    completion(itemCollection)
                 }
                 return
             }
@@ -382,11 +389,13 @@ class Api:ObservableObject {
         
         _ = semaphore.wait(timeout: .distantFuture)
         if responseStatusCode == 200 {
-            for type in responseData.getUniqueTypes() {
-                typeFilters[type] = false
+            DispatchQueue.main.sync {
+                for type in responseData.getUniqueTypes() {
+                    self.typeFilters[type] = false
+                }
+                
+                self.filterOptionsStruct = responseData
             }
-            
-            self.filterOptionsStruct = responseData
             return
         }
         

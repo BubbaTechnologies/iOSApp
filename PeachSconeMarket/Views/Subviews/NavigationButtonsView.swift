@@ -32,12 +32,12 @@ struct NavigationButtonView: View {
                                         if (options) {
                                             Text("X")
                                                 .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.08, relativeTo: .body))
-                                                .foregroundColor(Color("DarkText"))
+                                                .foregroundColor(Color("DarkFontColor"))
                                         } else {
                                             Image("FilterIcon")
                                                 .resizable()
                                                 .scaledToFit()
-                                                .foregroundColor(Color("DarkText"))
+                                                .foregroundColor(Color("DarkFontColor"))
                                                 .frame(height: reader.size.height * ((scaleFactor - 0.4) * 0.75))
                                         }
                                     }
@@ -107,14 +107,14 @@ struct NavigationButtonView: View {
                                             Image(systemName:"checkmark")
                                                 .resizable()
                                                 .scaledToFit()
-                                                .foregroundColor(Color("DarkText"))
+                                                .foregroundColor(Color("DarkFontColor"))
                                                 .frame(height: reader.size.height * ((scaleFactor - 0.3) * 0.75))
                                                 .offset(x: reader.size.width * -0.001)
                                         } else {
                                             Image("EditIcon")
                                                 .resizable()
                                                 .scaledToFit()
-                                                .foregroundColor(Color("DarkText"))
+                                                .foregroundColor(Color("DarkFontColor"))
                                                 .frame(height: reader.size.height * ((scaleFactor - 0.25) * 0.75))
                                                 .offset(y: reader.size.height * -0.0015)
                                         }

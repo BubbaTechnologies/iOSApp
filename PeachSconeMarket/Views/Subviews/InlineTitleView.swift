@@ -14,7 +14,7 @@ struct InlineTitleView: View {
                 .font(CustomFontFactory.getFont(style: "Bold", size: reader.size.width * 0.09, relativeTo: .title2))
                 .minimumScaleFactor(0.25)
                 .lineLimit(1)
-                .foregroundColor(Color("DarkText"))
+                .foregroundColor(Color("DarkFontColor"))
                 .position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
         }
     }

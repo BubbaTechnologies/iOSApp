@@ -24,13 +24,13 @@ struct ListButtonView: View {
                 } label: {
                     HStack{
                         Circle()
-                            .stroke(Color("DarkText"), lineWidth: 1)
+                            .stroke(Color("DarkFontColor"), lineWidth: 1)
                             .overlay(
                                 VStack{
                                     Spacer()
                                     if (selected) {
                                         Circle()
-                                            .foregroundColor(Color("DarkText"))
+                                            .foregroundColor(Color("DarkFontColor"))
                                             .frame(height: reader.size.height * 0.45)
                                     }
                                     Spacer()
@@ -38,7 +38,7 @@ struct ListButtonView: View {
                             ).frame(height: reader.size.height * 0.45)
                         Text("\(item.replacingOccurrences(of: "_", with: " ").capitalized)")
                             .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * textScaleFactor, relativeTo: .subheadline))
-                            .foregroundColor(Color("DarkText"))
+                            .foregroundColor(Color("DarkFontColor"))
                         Spacer()
                     }
                 }.padding(.leading, reader.size.width * 0.02)

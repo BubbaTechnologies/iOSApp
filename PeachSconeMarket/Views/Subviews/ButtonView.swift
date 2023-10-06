@@ -33,10 +33,10 @@ struct ButtonView: View {
                     }
                 }
                     .buttonStyle(.plain)
-                    .foregroundColor(Color("LightText"))
+                    .foregroundColor(Color("LightFontColor"))
                     .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.08, relativeTo: relativeToValue))
                     .frame(width: reader.size.width * 0.33, height: reader.size.height)
-                    .background(Color("DarkText"))
+                    .background(Color("DarkFontColor"))
                     .cornerRadius(5.0)
                     .position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
                     .disabled(loading)
@@ -45,7 +45,7 @@ struct ButtonView: View {
                     }
                 if loading {
                     ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: Color("LightText")))
+                        .progressViewStyle(CircularProgressViewStyle(tint: Color("LightFontColor")))
                 }
             }
         }

@@ -15,14 +15,14 @@ struct SelectedView: View {
         GeometryReader { reader in
             ZStack{
                 Circle()
-                    .fill(Color("LightText"))
+                    .fill(Color("LightFontColor"))
                     .overlay{
                         ZStack{
                             if (selected) {
                                 Image(systemName:"checkmark")
                                     .resizable()
                                     .scaledToFill()
-                                    .foregroundColor(Color("DarkText"))
+                                    .foregroundColor(Color("DarkFontColor"))
                                     .frame(width:abs(reader.size.width * scale), height: reader.size.height * scale)
                             }
                         }

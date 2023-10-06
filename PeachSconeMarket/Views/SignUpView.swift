@@ -61,7 +61,7 @@ struct SignUpView: View {
                             .scaledToFit()
                             .padding(.leading, reader.size.width * 0.05)
                             .padding(.top, reader.size.height * 0.03)
-                            .foregroundColor(Color("DarkText"))
+                            .foregroundColor(Color("DarkFontColor"))
                             .frame(width: reader.size.width * 0.075)
                         Spacer()
                     }

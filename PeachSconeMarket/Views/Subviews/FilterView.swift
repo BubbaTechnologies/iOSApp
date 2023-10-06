@@ -25,7 +25,7 @@ struct FilterView: View {
                 ScrollView(showsIndicators: true) {
                     Text("Filters")
                         .font(CustomFontFactory.getFont(style: "Bold", size: reader.size.width * 0.075, relativeTo: .title3))
-                        .foregroundColor(Color("DarkText"))
+                        .foregroundColor(Color("DarkFontColor"))
                     LazyVStack{
                         ListView(list: api.filterOptionsStruct.getGenders(), selectedAction: genderSelectedAction, multipleSelections: false, subList: true, subListValues: api.filterOptionsStruct.getTypes(), subListMultipleSelections: true, subListSelectedAction: typeSelectedAction)
                             .frame(height: reader.size.height * (gender.isEmpty ? Double(api.filterOptionsStruct.getGenders().count) : Double(api.filterOptionsStruct.getGenders().count + api.filterOptionsStruct.getLongestTypesArrayCount()))/20.0)

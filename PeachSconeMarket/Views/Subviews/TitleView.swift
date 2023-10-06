@@ -12,11 +12,11 @@ struct TitleView: View {
         GeometryReader{ reader in
             Text("Peach Scone Market")
                 .font(CustomFontFactory.getFont(style: "Bold", size: 60, relativeTo: .title))
-                .foregroundColor(Color("DarkText"))
+                .foregroundColor(Color("DarkFontColor"))
                 .padding(.horizontal, reader.size.width * 0.08)
                 .lineLimit(2)
                 .minimumScaleFactor(0.25)
-                .foregroundColor(Color("DarkText"))
+                .foregroundColor(Color("DarkFontColor"))
                 .position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
         }
     }

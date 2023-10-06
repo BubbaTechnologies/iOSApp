@@ -21,11 +21,12 @@ struct CardView: View {
     public var preloadImages: Bool
     
     var body: some View {
-        GeometryReader {reader in
+        GeometryReader { reader in
             ZStack {
                 if preloadImages {
-                    ForEach(0..<cardManager.getClothingCardPreloadAmount(), id:\.self) { index in
-                        CardImageView(imageUrl: cardManager.getItem().imageURL[cardManager.cardValues[index].imageIndex])
+                    //Creates cards with
+                    ForEach(Array(cardManager.getItem().imageURL.enumerated()), id:\.offset) { index, image in
+                        CardImageView(imageUrl: image)
                             .zIndex(Double(cardManager.cardValues[index].zIndex))
                     }
                 } else {
@@ -38,11 +39,11 @@ struct CardView: View {
                         ZStack{
                             if (index == self.currentImageIndex) {
                                 Circle()
-                                    .fill(Color("DarkText"))
-                                    .background(Circle().fill(Color("DarkText")))
+                                    .fill(Color("DarkFontColor"))
+                                    .background(Circle().fill(Color("DarkFontColor")))
                             } else {
                                 Circle()
-                                    .fill(Color("LightText"))
+                                    .fill(Color("LightFontColor"))
                                     .opacity(0.5)
                             }
                         }
@@ -50,7 +51,7 @@ struct CardView: View {
                         .id("Circle" + String(index))
                         .padding(.horizontal, -3)
                     }
-                }.offset(y:reader.size.height * 0.48)
+                }.offset(y: reader.size.height * 0.48)
             }
             .offset(x: offset.width)
             .rotationEffect(.degrees(Double(offset.width / 50)))
@@ -65,22 +66,13 @@ struct CardView: View {
                         }
                     }
             )
-            .onTapGesture{
+            .onTapGesture{                
                 if preloadImages {
                     //Gets current preload card index
                     let preloadAmount = cardManager.getClothingCardPreloadAmount()
                     let currentCardIndex = imageTapCount % preloadAmount
                     
-                    //Updates zIndex and imageIndex
-                    for i in 0..<cardManager.getClothingCardPreloadAmount() {
-                        if i == currentCardIndex {
-                            //Updates currentCardIndex
-                            cardManager.cardValues[i] = ((cardManager.cardValues[i].zIndex + 1) % preloadAmount, (cardManager.cardValues[currentCardIndex].imageIndex + cardManager.getClothingCardPreloadAmount()) % cardManager.getItem().imageURL.count)
-                        } else {
-                            //Updates other cards zIndex
-                            cardManager.cardValues[i] = ((cardManager.cardValues[i].zIndex + 1) % cardManager.getClothingCardPreloadAmount(), cardManager.cardValues[i].imageIndex)
-                        }
-                    }
+                    cardManager.incrementValues(currentCardIndex: currentCardIndex)
                 }
                 
                 currentImageIndex = (currentImageIndex + 1) % cardManager.getItem().imageURL.count
@@ -103,41 +95,6 @@ extension CardView {
                 offset = .zero
             }
         }
-}
-
-struct CardImageView: View {
-    var imageUrl: String
-    var body: some View {
-        GeometryReader { reader in
-            AsyncImage(url: URL(string: imageUrl)) { phase in
-                switch phase {
-                case .empty:
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
-                        .scaleEffect(3)
-                case .success(let image):
-                    ZStack{
-                        image.resizable()
-                            .scaledToFill()
-                            .clipped()
-                    }
-                case .failure:
-                    Text("This is taking longer than normal...")
-                        .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.04, relativeTo: .caption))
-                        .foregroundColor(Color("DarkText"))
-                @unknown default:
-                    Text("This is taking longer than normal...")
-                        .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.04, relativeTo: .caption))
-                        .foregroundColor(Color("DarkText"))
-                }
-            }
-            .padding(.horizontal, 20)
-            .frame(width: reader.size.width * CardView.widthFactor, height: reader.size.height, alignment: .center)
-            .background(Color("LightText"))
-            .cornerRadius(CardView.heightFactor * 30.5)
-            .position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
-        }
-    }
 }
 
 

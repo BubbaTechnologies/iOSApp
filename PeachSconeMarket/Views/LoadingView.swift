@@ -19,12 +19,12 @@ struct LoadingView: View {
                     TitleView()
                         .frame(height: max(125, reader.size.height * 0.2))
                     ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
+                        .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkFontColor")))
                         .scaleEffect(2)
                     Spacer()
                     Text("Version: \(versionNumber)")
                         .font(CustomFontFactory.getFont(style: "Regular", size: 18, relativeTo: .body))
-                        .foregroundColor(Color("DarkText"))
+                        .foregroundColor(Color("DarkFontColor"))
                 }
             }
         }

@@ -20,7 +20,7 @@ struct PickerView: View {
             )
             .frame(width: reader.size.width * 0.8)
             .background(Color("LightBackgroundColor"))
-            .border(Color("DarkText"))
+            .border(Color("DarkFontColor"))
             .cornerRadius(2.5)
             .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.05, relativeTo: .body))
             .position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
@@ -53,7 +53,7 @@ struct SuperPicker: View {
                             .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.06, relativeTo: .body))
                             .position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
                     }
-                    .foregroundColor(Color("DarkText"))
+                    .foregroundColor(Color("DarkFontColor"))
                 }
             }
         }

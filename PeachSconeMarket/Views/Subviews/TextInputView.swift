@@ -20,7 +20,7 @@ struct TextInputView: View {
             )
             .frame(width: reader.size.width * 0.8)
             .background(Color("LightBackgroundColor"))
-            .border(Color("DarkText"))
+            .border(Color("DarkFontColor"))
             .cornerRadius(2.5)
             .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.05, relativeTo: .body))
             .position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
@@ -59,7 +59,7 @@ struct SuperTextField: View {
                     }
                 }
             }
-            .foregroundColor(Color("DarkText"))
+            .foregroundColor(Color("DarkFontColor"))
             .position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
         }
     }

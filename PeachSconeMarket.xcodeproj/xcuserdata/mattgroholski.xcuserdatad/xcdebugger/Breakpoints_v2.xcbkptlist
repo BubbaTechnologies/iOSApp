@@ -14,8 +14,8 @@
             filePath = "PeachSconeMarket/Models/Api.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "325"
-            endingLineNumber = "325"
+            startingLineNumber = "328"
+            endingLineNumber = "328"
             landmarkName = "loadClothingPage(collectionType:pageNumber:completion:)"
             landmarkType = "7">
             <Locations>
@@ -78,6 +78,70 @@
                   startingLineNumber = "323"
                   endingLineNumber = "323"
                   offsetFromSymbolStart = "976">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C73789E8-78E9-48DE-989D-7286345A1F72"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PeachSconeMarket/Views/SwipeView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "713D9C77-C26B-4B8B-B2B7-EF07DA03D184"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PeachSconeMarket/Views/SwipeView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "713D9C77-C26B-4B8B-B2B7-EF07DA03D184 - 27a3bb6e3a4858f1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; SwiftUI.ForEach&lt;Swift.Array&lt;(offset: Swift.Int, element: PeachSconeMarket.ClothingItem)&gt;, Swift.Int, &lt;&lt;opaque return type of SwiftUI.View.zIndex(Swift.Double) -&gt; some&gt;&gt;.0&gt; in closure #1 () -&gt; SwiftUI._ConditionalContent&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Spacer, SwiftUI._ConditionalContent&lt;&lt;&lt;opaque return type of SwiftUI.View.multilineTextAlignment(SwiftUI.TextAlignment) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.scaleEffect(_: CoreGraphics.CGFloat, anchor: SwiftUI.UnitPoint) -&gt; some&gt;&gt;.0&gt;, SwiftUI.Spacer)&gt;&gt;, SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0, Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0&gt;)&gt;&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt; in closure #1 (SwiftUI.GeometryProxy) -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.ignoresSafeArea(_: SwiftUI.SafeAreaRegions, edges: SwiftUI.Edge.Set) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0)&gt; in PeachSconeMarket.SwipeView.body.getter : some"
+                  moduleName = "PeachSconeMarket"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mattgroholski/Documents/My%20Documents/BubbaTech.nosync/PeachSconeMarket/PeachSconeMarket/Views/SwipeView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "304">
+               </Location>
+               <Location
+                  uuid = "713D9C77-C26B-4B8B-B2B7-EF07DA03D184 - ad11a771172194c7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Int, PeachSconeMarket.ClothingItem) -&gt; &lt;&lt;opaque return type of SwiftUI.View.zIndex(Swift.Double) -&gt; some&gt;&gt;.0 in closure #2 () -&gt; SwiftUI.ForEach&lt;Swift.Array&lt;(offset: Swift.Int, element: PeachSconeMarket.ClothingItem)&gt;, Swift.Int, &lt;&lt;opaque return type of SwiftUI.View.zIndex(Swift.Double) -&gt; some&gt;&gt;.0&gt; in closure #1 () -&gt; SwiftUI._ConditionalContent&lt;SwiftUI.VStack&lt;SwiftUI.TupleView&lt;(SwiftUI.Spacer, SwiftUI._ConditionalContent&lt;&lt;&lt;opaque return type of SwiftUI.View.multilineTextAlignment(SwiftUI.TextAlignment) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.scaleEffect(_: CoreGraphics.CGFloat, anchor: SwiftUI.UnitPoint) -&gt; some&gt;&gt;.0&gt;, SwiftUI.Spacer)&gt;&gt;, SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0, Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0&gt;)&gt;&gt; in closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt; in closure #1 (SwiftUI.GeometryProxy) -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.ignoresSafeArea(_: SwiftUI.SafeAreaRegions, edges: SwiftUI.Edge.Set) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.frame(width: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, height: Swift.Optional&lt;CoreGraphics.CGFloat&gt;, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0)&gt; in PeachSconeMarket.SwipeView.body.getter : some"
+                  moduleName = "PeachSconeMarket"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mattgroholski/Documents/My%20Documents/BubbaTech.nosync/PeachSconeMarket/PeachSconeMarket/Views/SwipeView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "188">
                </Location>
             </Locations>
          </BreakpointContent>

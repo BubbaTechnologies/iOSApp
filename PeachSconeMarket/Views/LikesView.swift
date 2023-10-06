@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LikesView: View {
     @ObservedObject var clothingManager: ClothingPageManager
+    @ObservedObject var likeStore: LikeStore
     @Binding var pageState: PageState
     var changeFunction: (PageState)->Void
     
@@ -34,14 +35,14 @@ struct LikesView: View {
                     LazyVStack {
                             Text(editing ? "Editing Likes" : "Likes")
                                 .font(CustomFontFactory.getFont(style: "Bold", size: reader.size.width * 0.075, relativeTo: .title3))
-                                .foregroundColor(Color("DarkText"))
+                                .foregroundColor(Color("DarkFontColor"))
                             if errorMessage.isEmpty && attemptedLoad {
                                 CardCollectionView(items: $clothingManager.clothingItems,  safariUrl: $safariUrl, editing: $editing, selectedItems: $selectedClothingItems)
                                     .frame(height: reader.size.height * (Double(
                                         (clothingManager.clothingItems.count % 2 == 0 ? clothingManager.clothingItems.count : clothingManager.clothingItems.count + 1)) / 5.0))
                                 if !clothingManager.allClothingItemsLoaded {
                                     ProgressView()
-                                        .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
+                                        .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkFontColor")))
                                         .scaleEffect(2)
                                         .padding(.top,  reader.size.height * 0.05)
                                         .onAppear{
@@ -64,7 +65,7 @@ struct LikesView: View {
                                 Spacer(minLength: reader.size.height * 0.025)
                             } else if !attemptedLoad {
                                 ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
+                                    .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkFontColor")))
                                     .scaleEffect(3)
                                     .frame(height: reader.size.height * 0.75)
                             } else {
@@ -130,10 +131,12 @@ extension LikesView {
                 
                 for id in selectedClothingItems {
                     let likeStruct:LikeStruct = LikeStruct(clothingId: id, imageTapRatio: 0, likeType: .removeLike)
-                    do {
-                        try clothingManager.api.sendLike(likeStruct: likeStruct)
-                    } catch {
-                        //TODO:Persist data and send later
+                    DispatchQueue.global(qos: .background).async{
+                        do {
+                            try clothingManager.api.sendLike(likeStruct: likeStruct)
+                        } catch {
+                            self.likeStore.likes.append(likeStruct)
+                        }
                     }
                 }
             }
@@ -158,7 +161,7 @@ extension LikesView {
 
 struct LikesView_Previews: PreviewProvider {
     static var previews: some View {
-        LikesView(clothingManager: ClothingPageManager(clothingItems: ClothingItem.sampleItems), pageState: .constant(.likes), changeFunction: {_ in return})
+        LikesView(clothingManager: ClothingPageManager(clothingItems: ClothingItem.sampleItems), likeStore: LikeStore(), pageState: .constant(.likes), changeFunction: {_ in return})
     }
 }
 

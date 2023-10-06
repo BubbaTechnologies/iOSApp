@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct MainView: View {
+    @Environment(\.scenePhase) private var scenePhase
+    
     @ObservedObject var api:Api
     @ObservedObject var swipeClothingManager: ClothingListManager
+    @ObservedObject var store: LikeStore
         
     @State var pageState:PageState = .swipe
     @State var previousPageState: PageState = .swipe
@@ -32,7 +35,7 @@ struct MainView: View {
                                     do {
                                         try swipeClothingManager.loadItems()
                                     } catch {
-                                        //TODO: Display error
+                                        print("\(error)")
                                     }
                                 }
                             } else {
@@ -41,13 +44,13 @@ struct MainView: View {
                         }
                         .frame(width: reader.size.width, height: reader.size.height)
                     } else if pageState == .swipe {
-                        SwipeView(api: api, clothingManager: swipeClothingManager, pageState: $pageState) { newState in
+                        SwipeView(api: api, clothingManager: swipeClothingManager, store: store, pageState: $pageState) { newState in
                             previousPageState = pageState
                             pageState = newState
                         }
                         .frame(width: reader.size.width, height: reader.size.height)
                     } else if pageState == .likes {
-                        LikesView(clothingManager: ClothingPageManager(api: api, requestType: .likes), pageState: $pageState){ newState in 
+                        LikesView(clothingManager: ClothingPageManager(api: api, requestType: .likes),likeStore: store, pageState: $pageState){ newState in
                             previousPageState = pageState
                             pageState = newState
                         }
@@ -62,14 +65,26 @@ struct MainView: View {
                     Spacer()
                 }
             }
+        }.onChange(of: scenePhase) { phase in
+            //Persists likes when user is inactive
+            if phase == .inactive {
+                
+                Task {
+                    do {
+                        try await self.store.save()
+                    } catch {
+                        print("Could not persist likes: \(store.likes)")
+                    }
+                }
+            }
         }
     }
 }
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(api: Api(), swipeClothingManager: ClothingListManager())
-        MainView(api: Api(), swipeClothingManager: ClothingListManager())
+        MainView(api: Api(), swipeClothingManager: ClothingListManager(), store: LikeStore())
+        MainView(api: Api(), swipeClothingManager: ClothingListManager(), store: LikeStore())
                 .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro"))
                 .previewDisplayName("iPhone 13 Pro")
     }

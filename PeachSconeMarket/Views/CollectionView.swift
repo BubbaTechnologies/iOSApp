@@ -21,7 +21,7 @@ struct CollectionView: View {
                 Text("Why does the chicken cross the road?")
                     .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.07, relativeTo: .body))
                     .frame(height: reader.size.height * 0.85)
-                    .foregroundColor(Color("DarkText"))
+                    .foregroundColor(Color("DarkFontColor"))
                 NavigationButtonView(showFilter: false, showEdit: false, options: .constant(false), buttonAction: changeFunction)
                     .frame(height: reader.size.height * NavigationViewDesignVariables.frameHeightFactor)
                     .padding(.bottom, reader.size.height * 0.005)

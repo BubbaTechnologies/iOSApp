@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct SwipeView: View {
-    static var clothingWithPreloadedImages = 4
+    static var clothingWithPreloadedImages = 3
     
     @ObservedObject var api:Api
     @ObservedObject var clothingManager: ClothingListManager
+    @ObservedObject var store: LikeStore
+    
     @Binding var pageState:PageState
     var changeFunction: (PageState)->Void
     
@@ -21,6 +23,7 @@ struct SwipeView: View {
     private let widthFactor: Double = 0.81
     private let heightFactor: Double = 0.10
     private let maximumLoadingCount: Int = 5
+    private let maxZIndex = 12
     
     var body: some View {
         GeometryReader { reader in
@@ -41,7 +44,7 @@ struct SwipeView: View {
                                     .multilineTextAlignment(.center)
                             } else {
                                 ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkText")))
+                                    .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkFontColor")))
                                     .scaleEffect(3)
                             }
                             Spacer()
@@ -49,10 +52,11 @@ struct SwipeView: View {
                     } else {
                         ZStack{
                             //Creates card for each clothing item in list
-                            ForEach(Array(clothingManager.clothingItems.reversed().enumerated()), id: \.element.id) { index, item in
-                                CardView(cardManager: CardManager(item: item), swipeAction: cardAction, preloadImages:
-                                            (clothingManager.clothingItems.count - index) < SwipeView.clothingWithPreloadedImages)
+                            ForEach(Array(clothingManager.clothingItems.enumerated()), id: \.element.id) { index, item in
+                                CardView(cardManager: clothingManager.clothingCardManagers[index], swipeAction: cardAction, preloadImages: index < SwipeView.clothingWithPreloadedImages)
                                 .frame(height: reader.size.height * 0.75)
+                                .disabled(index != 0)
+                                .zIndex(Double(maxZIndex - index))
                             }
                         }.onAppear{
                             errorMessage = ""
@@ -62,7 +66,7 @@ struct SwipeView: View {
                                 .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.07, relativeTo: .body))
                                 .minimumScaleFactor(0.85)
                                 .multilineTextAlignment(TextAlignment.center)
-                                .foregroundColor(Color("DarkText"))
+                                .foregroundColor(Color("DarkFontColor"))
                                 .lineLimit(2)
                                 .frame(width: reader.size.width * 0.9, height: reader.size.height * 0.1, alignment: .top)
                         }
@@ -80,14 +84,20 @@ extension SwipeView {
     func cardAction(item: ClothingItem, imageTapRatio: Double, userLiked: Bool) {
         //Sends like/dislike
         let likeStruct: LikeStruct = LikeStruct(clothingId: item.id, imageTapRatio: imageTapRatio, likeType: userLiked ? .like : .dislike)
-        do {
-            try api.sendLike(likeStruct: likeStruct)
-        } catch {
-            //TODO: Persist like data if failure
-            //Send like data at load
+        
+        DispatchQueue.global(qos: .background).async {
+            do {
+                try api.sendLike(likeStruct: likeStruct)
+            } catch {
+                //Adds like to likeStore
+                print("\(error)")
+                print("Adding like to likeStore: \(likeStruct)")
+                self.store.likes.append(likeStruct)
+            }
         }
         
-        clothingManager.clothingItems.removeFirst()
+        clothingManager.removeFirst()
+        
         do {
             try clothingManager.loadNext()
         } catch Api.ApiError.httpError(let message) {
@@ -104,6 +114,6 @@ extension SwipeView {
 
 struct SwipeView_Previews: PreviewProvider {
     static var previews: some View {
-        SwipeView(api: Api(), clothingManager: ClothingListManager(clothingItems: ClothingItem.sampleItems), pageState: .constant(.swipe), changeFunction: {_ in return})
+        SwipeView(api: Api(), clothingManager: ClothingListManager(clothingItems: ClothingItem.sampleItems), store: LikeStore(), pageState: .constant(.swipe), changeFunction: {_ in return})
     }
 }
