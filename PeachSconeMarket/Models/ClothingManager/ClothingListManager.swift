@@ -70,5 +70,6 @@ class ClothingListManager: ObservableObject, ClothingManager {
     
     func reset() {
         self.clothingItems = []
+        self.clothingCardManagers = []
     }
 }
