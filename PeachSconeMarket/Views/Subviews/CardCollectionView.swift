@@ -17,8 +17,8 @@ struct CardCollectionView: View {
 
     var body: some View {
         GeometryReader{ reader in
-            LazyVStack(alignment: .center){
-                LazyVGrid(columns: columns) {
+            LazyVStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 0){
+                LazyVGrid(columns: columns, spacing: 0) {
                     ForEach(items.indices, id: \.self){ i in
                         MiniCardView(item: items[i], safariUrl: $safariUrl, editing: $editing, selectedItems: $selectedItems)
                             .frame(width: reader.size.width * 0.4, height: reader.size.height * (2.0/Double(

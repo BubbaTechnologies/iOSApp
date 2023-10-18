@@ -22,6 +22,7 @@ struct LikesView: View {
     @State var selectedClothingItems: [Int] = []
 
     @State var editing: Bool = false
+    @State var loading: Bool = false
     
     var body: some View {
         GeometryReader { reader in
@@ -32,7 +33,7 @@ struct LikesView: View {
                     .padding(.top, reader.size.height * 0.025)
                     .padding(.bottom, reader.size.height * 0.01)
                 ScrollView(showsIndicators: false) {
-                    LazyVStack {
+                    VStack {
                             Text(editing ? "Editing Likes" : "Likes")
                                 .font(CustomFontFactory.getFont(style: "Bold", size: reader.size.width * 0.075, relativeTo: .title3))
                                 .foregroundColor(Color("DarkFontColor"))
@@ -40,29 +41,36 @@ struct LikesView: View {
                                 CardCollectionView(items: $clothingManager.clothingItems,  safariUrl: $safariUrl, editing: $editing, selectedItems: $selectedClothingItems)
                                     .frame(height: reader.size.height * (Double(
                                         (clothingManager.clothingItems.count % 2 == 0 ? clothingManager.clothingItems.count : clothingManager.clothingItems.count + 1)) / 5.0))
-                                if !clothingManager.allClothingItemsLoaded {
-                                    ProgressView()
-                                        .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkFontColor")))
-                                        .scaleEffect(2)
-                                        .padding(.top,  reader.size.height * 0.05)
-                                        .onAppear{
-                                            DispatchQueue.global(qos: .userInitiated).async {
-                                                clothingManager.loadNext() { result in
-                                                    switch result {
-                                                    case .success(_):
-                                                        break
-                                                    case .failure(let error):
-                                                        if case Api.ApiError.httpError(let message) = error {
-                                                            errorMessage = message
-                                                        } else {
-                                                            errorMessage = "Something isn't right. Error Message: \(error)"
+                                    if !clothingManager.allClothingItemsLoaded {
+                                        LazyVStack{
+                                            ProgressView()
+                                                .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkFontColor")))
+                                                .scaleEffect(2)
+                                                .onAppear{
+                                                    if !loading {
+                                                        loading = true
+                                                        DispatchQueue.global(qos: .userInitiated).async {
+                                                            clothingManager.loadNext() { result in
+                                                                switch result {
+                                                                case .success(_):
+                                                                    break
+                                                                case .failure(let error):
+                                                                    if case Api.ApiError.httpError(let message) = error {
+                                                                        errorMessage = message
+                                                                    } else {
+                                                                        errorMessage = "Something isn't right. Error Message: \(error)"
+                                                                    }
+                                                                }
+                                                            }
+                                                            loading = false
                                                         }
                                                     }
                                                 }
-                                            }
                                         }
-                                }
-                                Spacer(minLength: reader.size.height * 0.025)
+                                            .frame(height: reader.size.height * 0.1)
+                                        EmptyView()
+                                            .frame(height: reader.size.height * 0.1)
+                                    }
                             } else if !attemptedLoad {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkFontColor")))
@@ -95,6 +103,7 @@ struct LikesView: View {
         }
         .onDisappear{
             clothingManager.reset()
+            attemptedLoad = false
         }
         .onAppear{
             DispatchQueue.global(qos: .userInitiated).async{

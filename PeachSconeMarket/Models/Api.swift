@@ -88,6 +88,8 @@ class Api:ObservableObject {
         return urlParameters
     }
     
+    
+    // Description: Checks if JWT string is a valid token. Returns true if server responds 200 and false if 403. Throws an error otherwise.
     internal func checkToken(jwt: String) throws -> Bool {
         let url = URL(string: "https://" + baseUrl  + "/app/checkToken")!
         var request = URLRequest(url: url)
@@ -327,11 +329,10 @@ class Api:ObservableObject {
                 
                 if let data = data {
                     do {
+//                        print(String(data: data, encoding: .utf8)!)
                         responseData = try JSONDecoder().decode(embeddedStruct.self, from: data).getCollectionStruct()
                     } catch {
-                        if responseStatusCode != 200 {
-                            responseStatusCode = -2
-                        } else {
+                        if responseStatusCode == 200 {
                             responseStatusCode = -5
                         }
                     }
