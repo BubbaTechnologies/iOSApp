@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MiniCardView: View {
     public var item: ClothingItem
-    @Binding var safariUrl: URL?
+    @Binding var safariItem: ClothingItem?
     @Binding var editing: Bool
     @Binding var selectedItems: [Int]
     
@@ -28,9 +28,7 @@ struct MiniCardView: View {
                                     .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkFontColor")))
                                     .scaleEffect(3)
                             case .success(let image):
-                                image.resizable()
-                                    .scaledToFill()
-                                    .clipped()
+                                ProcessedImageView(image: image)
                             case .failure:
                                 Text("This is taking longer than normal...")
                                     .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.08, relativeTo: .caption))
@@ -53,9 +51,7 @@ struct MiniCardView: View {
                                     }
                                 }
                             } else {
-                                if let url = URL(string: item.productURL) {
-                                    safariUrl = url
-                                }
+                                safariItem = item
                             }
                         }
                         HStack{
@@ -72,6 +68,9 @@ struct MiniCardView: View {
                     SelectedView(selected: $selected)
                         .frame(width: reader.size.width * 0.25, height: reader.size.height * 0.125)
                         .position(x: reader.frame(in: .local).minX + reader.size.width * 0.04, y: reader.frame(in: .local).minY + reader.size.height * 0.02)
+                        .onDisappear{
+                            selected = false
+                        }
                 }
             }
         }
@@ -80,6 +79,6 @@ struct MiniCardView: View {
 
 struct MiniCardView_Previews: PreviewProvider {
     static var previews: some View {
-        MiniCardView(item:ClothingItem.sampleItems[0], safariUrl: .constant(URL(string: "https://www.peachsconemarket.com")!), editing: .constant(true), selectedItems: .constant([]))
+        MiniCardView(item:ClothingItem.sampleItems[0], safariItem: .constant(ClothingItem.sampleItems[0]), editing: .constant(true), selectedItems: .constant([]))
     }
 }

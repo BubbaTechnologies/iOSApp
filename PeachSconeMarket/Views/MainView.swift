@@ -55,11 +55,12 @@ struct MainView: View {
                             pageState = newState
                         }
                         .frame(width: reader.size.width, height: reader.size.height)
-                    } else if pageState == .collection {
-                        CollectionView(changeFunction: { newState in
+                    } else if pageState == .closet {
+                        //Loads bought items (api references as collection)
+                        ClosetView(clothingManager: ClothingPageManager(api: api, requestType: .collection), likeStore: store, pageState: $pageState) { newState in
                             previousPageState = pageState
                             pageState = newState
-                        })
+                        }
                         .frame(width: reader.size.width, height: reader.size.height)
                     }
                     Spacer()
@@ -68,7 +69,6 @@ struct MainView: View {
         }.onChange(of: scenePhase) { phase in
             //Persists likes when user is inactive
             if phase == .inactive {
-                
                 Task {
                     do {
                         try await self.store.save()
@@ -93,7 +93,7 @@ struct MainView_Previews: PreviewProvider {
 enum PageState {
     case likes
     case swipe
-    case collection
+    case closet
     case filtering
     case editing
 }

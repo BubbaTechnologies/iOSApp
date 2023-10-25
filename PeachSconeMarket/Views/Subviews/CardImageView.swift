@@ -19,9 +19,7 @@ struct CardImageView: View {
                         .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkFontColor")))
                         .scaleEffect(3)
                 case .success(let image):
-                    image.resizable()
-                        .scaledToFill()
-                        .clipped()
+                    ProcessedImageView(image: image)
                 case .failure:
                     Text("This is taking longer than normal...")
                         .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.04, relativeTo: .caption))

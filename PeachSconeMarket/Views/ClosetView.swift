@@ -1,5 +1,5 @@
 //
-//  LikesView.swift
+//  CollectionView.swift
 //  PeachSconeMarket
 //
 //  Created by Matt Groholski on 5/10/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LikesView: View {
+struct ClosetView: View {
     @ObservedObject var clothingManager: ClothingPageManager
     @ObservedObject var likeStore: LikeStore
     @Binding var pageState: PageState
@@ -16,18 +16,19 @@ struct LikesView: View {
     @State var selectedClothingItems: [Int] = []
 
     @State var editing: Bool = false
+    @State var loading: Bool = false
     
     var body: some View {
         GeometryReader { reader in
             Color("BackgroundColor").ignoresSafeArea()
-            VStack(alignment: .center) {
+            VStack {
                 InlineTitleView()
                     .frame(width: reader.size.width, height: reader.size.height * 0.07)
                     .padding(.top, reader.size.height * 0.025)
                     .padding(.bottom, reader.size.height * 0.01)
-                CardScrollView(name: "Likes", clothingManager: clothingManager, likeStore: likeStore, selectedClothingItems: $selectedClothingItems, editing: $editing)
+                CardScrollView(name: "Closet", clothingManager: clothingManager, likeStore: likeStore, selectedClothingItems: $selectedClothingItems, editing: $editing)
                     .frame(height: reader.size.height * 0.85, alignment: .center)
-                NavigationButtonView(showFilter: true, showEdit: true, options: $editing, buttonAction: navigationFunction)
+                NavigationButtonView(showFilter: false, showEdit: false, options: .constant(false), buttonAction: changeFunction)
                     .frame(height: reader.size.height * NavigationViewDesignVariables.frameHeightFactor)
                     .padding(.bottom, reader.size.height * 0.005)
             }
@@ -36,7 +37,7 @@ struct LikesView: View {
     }
 }
 
-extension LikesView {
+extension ClosetView {
     func navigationFunction(pageState: PageState) {
         if editing {
             //If editing and confirmed
@@ -74,12 +75,8 @@ extension LikesView {
     }
 }
 
-
-struct LikesView_Previews: PreviewProvider {
+struct ClosetView_Previews: PreviewProvider {
     static var previews: some View {
-        LikesView(clothingManager: ClothingPageManager(clothingItems: ClothingItem.sampleItems), likeStore: LikeStore(), pageState: .constant(.likes), changeFunction: {_ in return})
+        ClosetView(clothingManager: ClothingPageManager(clothingItems: ClothingItem.sampleItems), likeStore: LikeStore(), pageState: .constant(.closet), changeFunction: {_ in return})
     }
 }
-
-
-

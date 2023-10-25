@@ -24,8 +24,12 @@ struct PeachSconeMarketApp: App {
                     .onAppear{
                         load()
                     }.alert(isPresented: $errorPresent) {
-                        Alert(title: Text("The market is not open!"),
-                        message: Text("\(errorMessage)"))
+                        Alert(title: Text("The market is not open!")
+                            .font(CustomFontFactory.getFont(style: "Normal", size: 22, relativeTo: .title))
+                            .foregroundColor(Color("DarkFontColor")),
+                        message: Text("\(errorMessage)")
+                            .font(CustomFontFactory.getFont(style: "Normal", size: 16, relativeTo: .body))
+                            .foregroundColor(Color("DarkFontColor")))
                     }
             } else if appStage == .authentication {
                 LoginView(api: api, completionFunction: {appStage = .loading})
