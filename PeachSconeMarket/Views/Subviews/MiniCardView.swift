@@ -21,14 +21,17 @@ struct MiniCardView: View {
         GeometryReader { reader in
             ZStack{
                 VStack{
-                    AsyncImage(url: URL(string: item.imageURL[0])) { phase in
+                    CustomAsyncImage(url: URL(string: item.imageURL[0])) { phase in
                             switch phase {
                             case .empty:
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkFontColor")))
                                     .scaleEffect(3)
                             case .success(let image):
-                                ProcessedImageView(image: image)
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                                    .clipped()
                             case .failure:
                                 Text("This is taking longer than normal...")
                                     .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.08, relativeTo: .caption))

@@ -82,7 +82,7 @@ struct NavigationButtonView: View {
                     
                 
                 //Collection View Button
-                Button(action: {buttonAction(.collection)}) {
+                Button(action: {buttonAction(.closet)}) {
                     Circle()
                         .fill(Color("DarkBackgroundColor"))
                         .overlay(

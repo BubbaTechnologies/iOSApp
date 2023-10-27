@@ -12,14 +12,17 @@ struct CardImageView: View {
     var imageUrl: String
     var body: some View {
         GeometryReader { reader in
-            AsyncImage(url: URL(string: imageUrl)) { phase in
+            CustomAsyncImage(url: URL(string: imageUrl)) { phase in
                 switch phase {
                 case .empty:
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkFontColor")))
                         .scaleEffect(3)
                 case .success(let image):
-                    ProcessedImageView(image: image)
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .clipped()
                 case .failure:
                     Text("This is taking longer than normal...")
                         .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.04, relativeTo: .caption))
