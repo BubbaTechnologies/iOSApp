@@ -51,21 +51,18 @@ struct NavigationButtonView: View {
                     .padding(.horizontal, (padding))
                     .padding(.top, reader.size.height * heightPadding)
                 
-                //Likes View Button
-                Button(action: {buttonAction(.likes)}) {
+                //Collection View Button
+                Button(action: {buttonAction(.closet)}) {
                     Circle()
                         .fill(Color("DarkBackgroundColor"))
                         .overlay(
-                            Image("HeartIcon")
+                            Image("BagIcon")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height: reader.size.height * (scaleFactor - 0.125))
-                                .offset(y: reader.size.height * 0.015)
+                                .frame(height: reader.size.height * (scaleFactor - 0.2))
                         )
-
                 }.frame(height: reader.size.height * scaleFactor)
                     .padding(.horizontal, padding)
-                    
                 
                 //Swipe View Button
                 Button(action: {buttonAction(.swipe)}) {
@@ -81,16 +78,18 @@ struct NavigationButtonView: View {
                     .padding(.horizontal, padding)
                     
                 
-                //Collection View Button
-                Button(action: {buttonAction(.closet)}) {
+                //Likes View Button
+                Button(action: {buttonAction(.likes)}) {
                     Circle()
                         .fill(Color("DarkBackgroundColor"))
                         .overlay(
-                            Image("BagIcon")
+                            Image("HeartIcon")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(height: reader.size.height * (scaleFactor - 0.2))
+                                .frame(height: reader.size.height * (scaleFactor - 0.125))
+                                .offset(y: reader.size.height * 0.015)
                         )
+
                 }.frame(height: reader.size.height * scaleFactor)
                     .padding(.horizontal, padding)
                     

@@ -39,11 +39,20 @@ struct SignUpView: View {
                             .textContentType(.newPassword)
                             .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                             .padding(.bottom, reader.size.height * 0.01)
+                        DatePickerView(placeholder: "Birthdate", birthdate: $signUpClass.birthdate)
+                            .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
+                            .padding(.bottom, reader.size.height * 0.01)
                         ButtonView(text: "Sign Up") {
                             if signUpClass.username.isEmpty || signUpClass.password.isEmpty || signUpClass.gender.isEmpty || confirmPassword.isEmpty {
                                 errorMessage = "Please fill in all fields."
                                 return
                             }
+                            
+                            if signUpClass.birthdate <= Calendar.current.date(byAdding: .year, value: -13, to: Date())! {
+                                errorMessage = "Please fill your birthdate."
+                                return
+                            }
+                            
                             SignUp()
                         }
                         .frame(height: max(LoginSequenceDesignVariables.buttonMinHeight, reader.size.height * LoginSequenceDesignVariables.buttonHeightFactor))
@@ -52,6 +61,35 @@ struct SignUpView: View {
                             .foregroundColor(.red)
                             .multilineTextAlignment(.center)
                         Spacer()
+                            Text("By signing up, you acknowledge that you have read the ")
+                                .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.03, relativeTo: .caption))
+                                .foregroundColor(Color("DarkFontColor"))
+                                .multilineTextAlignment(.center)
+                        HStack(spacing: 0){
+                            Spacer()
+                            Link("Privacy Policy ", destination: URL(string: "https://www.peachsconemarket.com/privacypolicy/privacy_policy_tos.pdf")!)
+                                .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.03, relativeTo: .caption))
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal, 0)
+                                .foregroundColor(.blue)
+                            Text("and agree to the ")
+                                .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.03, relativeTo: .caption))
+                                .multilineTextAlignment(.center)
+                                .foregroundColor(Color("DarkFontColor"))
+                                .padding(.horizontal, 0)
+                            Link("Terms of Service", destination: URL(string: "https://www.peachsconemarket.com/privacypolicy/privacy_policy_tos.pdf")!)
+                                .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.03, relativeTo: .caption))
+                                .multilineTextAlignment(.center)
+                                .foregroundColor(.blue)
+                                .padding(.horizontal, 0)
+                            Text(".")
+                                .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.03, relativeTo: .caption))
+                                .multilineTextAlignment(.center)
+                                .foregroundColor(Color("DarkFontColor"))
+                                .padding(.horizontal, 0)
+                            Spacer()
+
+                        }
                     }.frame(height: reader.size.height)
                 }
                 VStack(alignment: .leading){

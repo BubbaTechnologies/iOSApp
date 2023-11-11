@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct MainView: View {
+    /**
+                Controls the scene phase, when the user is active or inactivate. @Enviroment stores accesses enviroment variable within scene.
+     */
     @Environment(\.scenePhase) private var scenePhase
     
     @ObservedObject var api:Api

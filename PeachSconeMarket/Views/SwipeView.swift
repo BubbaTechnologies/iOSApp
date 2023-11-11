@@ -22,7 +22,10 @@ struct SwipeView: View {
     //Design Variables
     private let widthFactor: Double = 0.81
     private let heightFactor: Double = 0.10
-    private let maximumLoadingCount: Int = 5
+    /**
+                Determines how low the card count can get before the loading screen appears.
+     */
+    private let maximumLoadingCount: Int = 2
     private let maxZIndex = 12
     
     var body: some View {

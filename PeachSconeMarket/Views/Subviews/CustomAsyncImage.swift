@@ -206,7 +206,6 @@ private extension CustomAsyncImage {
         return context.makeImage()!
     }
     
-    //TODO: Make more generic
     private func getTopLeftAverage(_ data: UnsafeMutableRawPointer?, width: Int, bytesPerPixel: Int) -> UIColor {
         var totalRed: CGFloat = 0
         var totalGreen: CGFloat = 0

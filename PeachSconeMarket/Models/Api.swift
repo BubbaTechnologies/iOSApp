@@ -403,6 +403,42 @@ class Api:ObservableObject {
         throw Api.getApiError(statusCode: responseStatusCode)
     }
     
+    func updateLocation(latitude: Double, longitude: Double) throws {
+        var responseStatusCode: Int = -4
+        let semaphore = DispatchSemaphore(value: 0)
+        if let jwt = self.jwt {
+            var request = URLRequest(url: URL(string: "https://" + baseUrl + "/app/updateLocation")!)
+            request.httpMethod = "POST"
+            request.allHTTPHeaderFields = [
+                "Authorization":"Bearer " + jwt,
+                "Host": baseUrl,
+                "Content-Type":"application/json"
+            ]
+            
+            var locationData: [String: Double] = [:]
+            locationData["latitude"] = latitude
+            locationData["longitude"] = longitude
+            
+            request.httpBody = try JSONEncoder().encode(locationData)
+            
+            URLSession.shared.dataTask(with: request) { _, response, error in
+                if let response = response as? HTTPURLResponse {
+                    responseStatusCode = response.statusCode
+                } else {
+                    responseStatusCode = -1
+                }
+                semaphore.signal()
+            }.resume()
+            
+            _ = semaphore.wait(timeout: .distantFuture)
+            if responseStatusCode == 200 {
+                return
+            }
+        }
+        
+        throw Api.getApiError(statusCode: responseStatusCode)
+    }
+    
     enum ApiError: Error {
         case httpError(String)
     }

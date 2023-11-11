@@ -11,23 +11,33 @@ class SignUpClass: ObservableObject, Encodable {
     @Published var username: String
     @Published var password: String
     @Published var gender: String
+    @Published var birthdate: Date
+    
+    var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }
     
     init () {
         self.username = ""
         self.password = ""
         self.gender = ""
+        self.birthdate = Date()
     }
     
-    init(username: String, password: String, gender:String, name:String) {
+    init(username: String, password: String, gender:String, name:String, date: Date) {
         self.username = username
         self.password = password
         self.gender = gender.lowercased()
+        self.birthdate = Date()
     }
     
     enum EncodingKeys: String, CodingKey {
         case username
         case password
         case gender
+        case birthdate
     }
     
     func encode(to encoder: Encoder) throws {
@@ -35,6 +45,7 @@ class SignUpClass: ObservableObject, Encodable {
         try container.encode(username, forKey: .username)
         try container.encode(password, forKey: .password)
         try container.encode(gender, forKey: .gender)
+        try container.encode(dateFormatter.string(from: birthdate), forKey: .birthdate)
     }
 }
 
