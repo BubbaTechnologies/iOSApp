@@ -89,7 +89,9 @@ class Api:ObservableObject {
     }
     
     
-    // Description: Checks if JWT string is a valid token. Returns true if server responds 200 and false if 403. Throws an error otherwise.
+    /**
+     - Description: Checks if JWT string is a valid token. Returns true if server responds 200 and false if 403. Throws an error otherwise.
+     */
     internal func checkToken(jwt: String) throws -> Bool {
         let url = URL(string: "https://" + baseUrl  + "/app/checkToken")!
         var request = URLRequest(url: url)
@@ -286,6 +288,79 @@ class Api:ObservableObject {
         }
      }
     
+    /**
+     - Parameters:
+            - collectionType: Defines the type of query.
+     - Throws: `ApiError.httpError` if the return value is not 200. Check README.md for clarification on codes.
+     */
+    func getPageCount(collectionType: CollectionStruct.CollectionRequestType) throws -> Int {
+        //Builds URL
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = baseUrl
+        
+        if collectionType == CollectionStruct.CollectionRequestType.none {
+            return -1
+        }
+
+        urlComponents.path = "/app/totalPages"
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        var parameters:[URLQueryItem] = getQueryParameters()
+        parameters.append(URLQueryItem(name: "queryType", value: collectionType.rawValue))
+        urlComponents.queryItems = parameters
+        
+        //Sends request
+        var responseStatusCode: Int = -4
+        if let jwt = self.jwt {
+            var request = URLRequest(url: urlComponents.url!)
+            
+            request.httpMethod = "GET"
+            request.allHTTPHeaderFields = [
+                "Host": baseUrl,
+                "Authorization":"Bearer " + jwt
+            ]
+            
+            var pageCount: Int = -1
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let response = response as? HTTPURLResponse {
+                    responseStatusCode = response.statusCode
+                } else {
+                    responseStatusCode = -1
+                    semaphore.signal()
+                    return
+                }
+                
+                if let data = data {
+                    do {
+                        pageCount = try JSONDecoder().decode([String:Int].self, from: data)["totalPages"]!
+                    } catch {
+                        if responseStatusCode == 200 {
+                            responseStatusCode = -5
+                        }
+                    }
+                }
+                semaphore.signal()
+            }.resume()
+            
+            _ = semaphore.wait(timeout: .distantFuture)
+            if responseStatusCode == 200 {
+                return pageCount
+            }
+        }
+        
+        throw Api.getApiError(statusCode: responseStatusCode)
+    }
+    
+    /**
+        - Parameters:
+                - collectionType: `CollectionStruct.CollectionRequestType` representing the request type.
+                - pageNumber: An optional integer representing the page requested.
+                - completion: A function of the form `[ClothingItem])->()` that deals with the clothing queried
+        - Throws: `ApiError.httpError` if the return value is not 200. Check README.md for clarification on codes.
+     */
+    
     func loadClothingPage(collectionType: CollectionStruct.CollectionRequestType, pageNumber: Int?, completion:@escaping ([ClothingItem])->()) throws {
         //Builds URL
         var urlComponents = URLComponents()
@@ -330,7 +405,8 @@ class Api:ObservableObject {
                 if let data = data {
                     do {
 //                        print(String(data: data, encoding: .utf8)!)
-                        responseData = try JSONDecoder().decode(embeddedStruct.self, from: data).getCollectionStruct()
+                        let response = try JSONDecoder().decode(embeddedStruct.self, from: data)
+                        responseData = response.getCollectionStruct()
                     } catch {
                         if responseStatusCode == 200 {
                             responseStatusCode = -5
@@ -357,7 +433,10 @@ class Api:ObservableObject {
     }
     
     
-    //Loads the filter options from the API
+    /**
+        - Description: Loads the filter options from the API.
+        - Throws: `ApiError.httpError` if the return value is not 200. Check README.md for clarification on codes.
+     */
     func loadFilterOptions() throws {
         let semaphore = DispatchSemaphore(value: 0)
         
@@ -404,10 +483,10 @@ class Api:ObservableObject {
     }
     
     /**
-                - Parameters:
-                    - latitude: A double representing the users latitude.
-                    - longitude: A double representing the users longitude.
-                - Throws: `ApiError.httpError` if the return value is not 200. Check documentation for clarification on codes.
+        - Parameters:
+            - latitude: A double representing the users latitude.
+            - longitude: A double representing the users longitude.
+        - Throws: `ApiError.httpError` if the return value is not 200. Check README.md for clarification on codes.
      */
     func updateLocation(latitude: Double, longitude: Double) throws {
         var responseStatusCode: Int = -4
@@ -445,6 +524,55 @@ class Api:ObservableObject {
         throw Api.getApiError(statusCode: responseStatusCode)
     }
     
+    /**
+        - Parameters:
+            - deviceId: A string representing the device's ARN token.
+        - Throws: `ApiError.httpError` if the return value is not 200. Check README.md for clarification on codes.
+     */
+    func updateDeviceId(deviceId: String) throws {
+        var responseStatusCode: Int = -4
+        let semaphore = DispatchSemaphore(value: 0)
+        if let jwt = self.jwt {
+            var request = URLRequest(url: URL(string: "https://" + baseUrl + "/app/updateDeviceId")!)
+            request.httpMethod = "POST"
+            request.allHTTPHeaderFields = [
+                "Authorization":"Bearer " + jwt,
+                "Host": baseUrl,
+                "Content-Type":"application/json"
+            ]
+            
+            var locationData: [String: String] = [:]
+            locationData["deviceId"] = deviceId
+            
+            
+            request.httpBody = try JSONEncoder().encode(locationData)
+            
+            URLSession.shared.dataTask(with: request) { _, response, error in
+                if let response = response as? HTTPURLResponse {
+                    responseStatusCode = response.statusCode
+                } else {
+                    responseStatusCode = -1
+                }
+                semaphore.signal()
+            }.resume()
+            
+            _ = semaphore.wait(timeout: .distantFuture)
+            if responseStatusCode == 200 {
+                return
+            }
+        }
+        
+        throw Api.getApiError(statusCode: responseStatusCode)
+    }
+    
+    /**
+        - Parameters:
+            - userEmail:  A string representing the users email.
+        - Returns:
+            - A bool that represents if the email verification was sent.
+        - Throws:
+            - `ApiError.httpError` if the return value is not 200. Check README.md for clarification on codes.
+     */
     func requestVerification(userEmail: String) throws -> Bool {
         var responseStatusCode: Int = -4
         let semaphore = DispatchSemaphore(value: 0)

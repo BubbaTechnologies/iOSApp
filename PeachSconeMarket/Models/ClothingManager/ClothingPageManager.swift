@@ -13,6 +13,7 @@ class ClothingPageManager: ObservableObject, ClothingManager {
     
     var requestType: CollectionStruct.CollectionRequestType
     var currentPage: Int
+    var totalPages: Int
     var api: Api
     
     init() {
@@ -21,6 +22,7 @@ class ClothingPageManager: ObservableObject, ClothingManager {
         self.currentPage = 0
         self.api = Api()
         self.allClothingItemsLoaded = false
+        self.totalPages = 0
     }
     
     init(clothingItems: [ClothingItem]) {
@@ -29,6 +31,7 @@ class ClothingPageManager: ObservableObject, ClothingManager {
         self.currentPage = 0
         self.api = Api()
         self.allClothingItemsLoaded = false
+        self.totalPages = 0
     }
     
     init(api: Api, requestType: CollectionStruct.CollectionRequestType) {
@@ -37,6 +40,15 @@ class ClothingPageManager: ObservableObject, ClothingManager {
         self.currentPage = 0
         self.api = api
         self.allClothingItemsLoaded = false
+        self.totalPages = ClothingPageManager.getTotalPages(api: api, requestType: requestType)
+    }
+    
+    static func getTotalPages(api: Api, requestType: CollectionStruct.CollectionRequestType) -> Int {
+        do {
+            return try api.getPageCount(collectionType: requestType)
+        } catch {
+            return -1
+        }
     }
     
     func loadItems() throws -> Void {
@@ -44,12 +56,12 @@ class ClothingPageManager: ObservableObject, ClothingManager {
     }
     
     func loadNext() throws -> Void {
+        if (self.currentPage >= self.totalPages) {
+            self.allClothingItemsLoaded = true
+            return
+        }
+        
         try api.loadClothingPage(collectionType: requestType, pageNumber: self.currentPage) { items in
-            if items.isEmpty {
-                self.allClothingItemsLoaded = true
-                return
-            }
-            
             self.clothingItems.append(contentsOf: items)
             self.currentPage += 1
         }
@@ -57,13 +69,13 @@ class ClothingPageManager: ObservableObject, ClothingManager {
     
     func loadNext(completion: @escaping (Result<Bool,Error>)->Void) -> Void {
         do {
+            if (self.currentPage >= self.totalPages) {
+                self.allClothingItemsLoaded = true
+                completion(.success(true))
+                return
+            }
+            
             try self.api.loadClothingPage(collectionType: self.requestType, pageNumber: self.currentPage) { items in
-                if items.isEmpty {
-                    self.allClothingItemsLoaded = true
-                    completion(.success(true))
-                    return
-                }
-                
                 self.clothingItems.append(contentsOf: items)
                 self.currentPage += 1
                 completion(.success(false))

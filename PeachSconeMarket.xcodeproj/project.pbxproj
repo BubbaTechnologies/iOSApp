@@ -43,6 +43,8 @@
 		926AB5082AE7851C0037B937 /* CardScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 926AB5072AE7851C0037B937 /* CardScrollView.swift */; };
 		9273B0852A0D6077002140C4 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9273B0842A0D6077002140C4 /* KeychainHelper.swift */; };
 		9277F8842AC52FFB001E7110 /* CardImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9277F8832AC52FFB001E7110 /* CardImageView.swift */; };
+		927E8E5D2B002DC80007853E /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927E8E5C2B002DC80007853E /* NotificationManager.swift */; };
+		927E8E652B003B260007853E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 927E8E642B003B260007853E /* AppDelegate.swift */; };
 		9286DB2F2A0C953D007FA46E /* NavigationButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB2E2A0C953D007FA46E /* NavigationButtonsView.swift */; };
 		9286DB312A0C9B39007FA46E /* CardCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB302A0C9B39007FA46E /* CardCollectionView.swift */; };
 		9286DB332A0C9BBF007FA46E /* MiniCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9286DB322A0C9BBF007FA46E /* MiniCardView.swift */; };
@@ -127,6 +129,8 @@
 		9273B0832A0D5EDA002140C4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9273B0842A0D6077002140C4 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		9277F8832AC52FFB001E7110 /* CardImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardImageView.swift; sourceTree = "<group>"; };
+		927E8E5C2B002DC80007853E /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		927E8E642B003B260007853E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9286DB2E2A0C953D007FA46E /* NavigationButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButtonsView.swift; sourceTree = "<group>"; };
 		9286DB302A0C9B39007FA46E /* CardCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionView.swift; sourceTree = "<group>"; };
 		9286DB322A0C9BBF007FA46E /* MiniCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniCardView.swift; sourceTree = "<group>"; };
@@ -323,6 +327,8 @@
 				921F0AD32AB50BFC00CEEC26 /* CardManager.swift */,
 				92A7A1902ACB38D20070C26E /* LikeStore.swift */,
 				92DB4DAB2AFEE01700DB6F27 /* LocationManager.swift */,
+				927E8E5C2B002DC80007853E /* NotificationManager.swift */,
+				927E8E642B003B260007853E /* AppDelegate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -489,11 +495,13 @@
 				92ADCC7B2A97C7DF0070136A /* ClothingPageManager.swift in Sources */,
 				92F1371F2A16D898000C0546 /* FilterView.swift in Sources */,
 				9266D3952A0E03A200976757 /* SignUpClass.swift in Sources */,
+				927E8E652B003B260007853E /* AppDelegate.swift in Sources */,
 				92524A7B2A14A45F00CE0FD4 /* SelectedView.swift in Sources */,
 				92C623D92A0EECB5006B5940 /* MainView.swift in Sources */,
 				9214DEB92A0B5D33000A5A2D /* TitleView.swift in Sources */,
 				9277F8842AC52FFB001E7110 /* CardImageView.swift in Sources */,
 				92A7A1912ACB38D20070C26E /* LikeStore.swift in Sources */,
+				927E8E5D2B002DC80007853E /* NotificationManager.swift in Sources */,
 				9234A9A72A0B278200EC036A /* CustomFontFactory.swift in Sources */,
 				9286DB312A0C9B39007FA46E /* CardCollectionView.swift in Sources */,
 				9214DEC52A0B72FD000A5A2D /* ClothingItem.swift in Sources */,
@@ -697,7 +705,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PeachSconeMarket/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Peach Scone";
+				INFOPLIST_KEY_CFBundleDisplayName = "Peach Scone Market";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "To help us better recommend clothing.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "To help us better recommend clothing.";
@@ -738,7 +746,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PeachSconeMarket/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Peach Scone";
+				INFOPLIST_KEY_CFBundleDisplayName = "Peach Scone Market";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "To help us better recommend clothing.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "To help us better recommend clothing.";
