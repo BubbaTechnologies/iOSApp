@@ -162,8 +162,8 @@ class Api:ObservableObject {
         throw Api.getApiError(statusCode: responseStatusCode)
     }
     
-    func sendSignUp(signUpClass: SignUpClass) throws -> Bool {
-        let url = URL(string: "https://" + baseUrl + "/create")!
+    func sendSignUp(signUpClass: SignUpClass, verificationCode: String) throws -> Bool {
+        let url = URL(string: "https://" + baseUrl + "/create?code=" + verificationCode)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = try JSONEncoder().encode(signUpClass)
@@ -403,6 +403,12 @@ class Api:ObservableObject {
         throw Api.getApiError(statusCode: responseStatusCode)
     }
     
+    /**
+                - Parameters:
+                    - latitude: A double representing the users latitude.
+                    - longitude: A double representing the users longitude.
+                - Throws: `ApiError.httpError` if the return value is not 200. Check documentation for clarification on codes.
+     */
     func updateLocation(latitude: Double, longitude: Double) throws {
         var responseStatusCode: Int = -4
         let semaphore = DispatchSemaphore(value: 0)
@@ -435,6 +441,41 @@ class Api:ObservableObject {
                 return
             }
         }
+        
+        throw Api.getApiError(statusCode: responseStatusCode)
+    }
+    
+    func requestVerification(userEmail: String) throws -> Bool {
+        var responseStatusCode: Int = -4
+        let semaphore = DispatchSemaphore(value: 0)
+        var request = URLRequest(url: URL(string: "https://" + baseUrl + "/verify")!)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = [
+            "Host": baseUrl,
+            "Content-Type":"application/json"
+        ]
+        
+        var requestData: [String: String] = [:]
+        requestData["email"] = userEmail
+        
+        request.httpBody = try JSONEncoder().encode(requestData)
+        
+        URLSession.shared.dataTask(with: request) { _, response, error in
+            if let response = response as? HTTPURLResponse {
+                responseStatusCode = response.statusCode
+            } else {
+                responseStatusCode = -1
+            }
+            semaphore.signal()
+        }.resume()
+        
+        _ = semaphore.wait(timeout: .distantFuture)
+        if responseStatusCode == 200 {
+            return true
+        } else if responseStatusCode == 400 {
+            return false
+        }
+        
         
         throw Api.getApiError(statusCode: responseStatusCode)
     }
