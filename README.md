@@ -11,7 +11,7 @@
 Checks if JWT string is a valid token. Returns true if server responds 200 and false if 403. Throws an ApiError otherwise.
 
 **Mobile Status Codes**
--1 : Did not recieve a response from request.
+-1 : Did not receive a response from request.
 
 ### Send Login
 **TODO**
@@ -31,8 +31,8 @@ Checks if JWT string is a valid token. Returns true if server responds 200 and f
 Loads a clothing page (reference pagination) for clothing collections. Upon request comepletion the clothing is passed into the completion.
 
 **Mobile Status Codes**
--1 : Did not recieve a response from request.
--5 :  Recieved 200 API response but a error was thrown. Most likely JSON Decoding error.
+-1 : Did not receive a response from request.
+-5 :  Received 200 API response but a error was thrown. Most likely JSON Decoding error.
 
 
 ### Load Filter Options

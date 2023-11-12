@@ -40,15 +40,20 @@ class ClothingPageManager: ObservableObject, ClothingManager {
         self.currentPage = 0
         self.api = api
         self.allClothingItemsLoaded = false
-        self.totalPages = ClothingPageManager.getTotalPages(api: api, requestType: requestType)
+        self.totalPages = 0
     }
     
-    static func getTotalPages(api: Api, requestType: CollectionStruct.CollectionRequestType) -> Int {
+    func getTotalPages() {
+        var value: Int = 0
+        
         do {
-            return try api.getPageCount(collectionType: requestType)
+            value = try self.api.getPageCount(collectionType: self.requestType)
         } catch {
-            return -1
+            print("\(error)")
+            value = -1
         }
+        
+        self.totalPages = value
     }
     
     func loadItems() throws -> Void {
@@ -62,8 +67,11 @@ class ClothingPageManager: ObservableObject, ClothingManager {
         }
         
         try api.loadClothingPage(collectionType: requestType, pageNumber: self.currentPage) { items in
-            self.clothingItems.append(contentsOf: items)
-            self.currentPage += 1
+            //Updates variables on main thread.
+            DispatchQueue.main.sync{
+                self.clothingItems.append(contentsOf: items)
+                self.currentPage += 1
+            }
         }
     }
     

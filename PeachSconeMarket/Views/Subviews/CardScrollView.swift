@@ -139,7 +139,8 @@ struct CardScrollView: View {
                 }
             }
             .onAppear{
-                DispatchQueue.global(qos: .userInitiated).async{
+                DispatchQueue.main.async{
+                    clothingManager.getTotalPages()
                     clothingManager.loadNext() { result in
                         switch result {
                         case .success(let empty):
