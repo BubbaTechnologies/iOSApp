@@ -46,7 +46,7 @@ struct SuperDatePicker: View {
                     Text(selectedOnce ? dateFormatter.string(from: selection) : placeholder)
                         .background(Color.clear)
                 } else {
-                    DatePicker("Birthdate" ,selection: $selection, in: ...Calendar.current.date(byAdding: .year, value: -13, to: Date())!, displayedComponents: .date)
+                    DatePicker("Birthdate" ,selection: $selection, in: ...Date(), displayedComponents: .date)
                         .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.05, relativeTo: .body))
                         .preferredColorScheme(.light)
                         .datePickerStyle(.wheel)

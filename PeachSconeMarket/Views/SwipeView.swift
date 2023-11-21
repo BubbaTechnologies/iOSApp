@@ -34,7 +34,7 @@ struct SwipeView: View {
             VStack{
                 InlineTitleView()
                     .frame(width: reader.size.width, height: reader.size.height * 0.07)
-                    .padding(.top, reader.size.height * 0.025)
+                    .padding(.top, reader.size.height * 0.028)
                     .padding(.bottom, reader.size.height * 0.01)
                 VStack{
                     if (clothingManager.clothingItems.count <= (maximumLoadingCount)) {
@@ -77,7 +77,7 @@ struct SwipeView: View {
                 }.frame(height: reader.size.height * 0.85)
                 NavigationButtonView(showFilter: true, showEdit: false, options: .constant(false), buttonAction: changeFunction)
                 .frame(height: reader.size.height * NavigationViewDesignVariables.frameHeightFactor)
-                .padding(.bottom, reader.size.height * 0.005)
+                .padding(.bottom, reader.size.height * NavigationViewDesignVariables.BOTTOM_PADDING_FACTOR)
             }.frame(width: reader.size.width, height: reader.size.height)
         }
     }

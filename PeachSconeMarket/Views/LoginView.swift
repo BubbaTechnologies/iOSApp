@@ -24,7 +24,7 @@ struct LoginView: View {
                         Color("BackgroundColor").ignoresSafeArea()
                         ScrollView(showsIndicators: false) {
                             VStack{
-                                Spacer(minLength: reader.size.height * 0.2)
+                                Spacer()
                                 TitleView()
                                     .frame(height: max(125, reader.size.height * 0.2))
                                 TextInputView(promptText: "Email", input: $loginClass.username, secure: false)
@@ -34,7 +34,6 @@ struct LoginView: View {
                                 TextInputView(promptText: "Password", input: $loginClass.password, secure: true)
                                     .textContentType(.password)
                                     .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
-                                    .padding(.bottom, reader.size.height * 0.01)
                                 ButtonView(text: "Sign In") {
                                     if loginClass.username.isEmpty || loginClass.password.isEmpty {
                                         errorMessage = "Fill in username and/or password."

@@ -11,12 +11,14 @@ struct SignUpView: View {
     @ObservedObject var api: Api
     var completionFunction: ()->Void
     var backFunction: ()->Void
-    @ObservedObject private var signUpClass: SignUpClass = SignUpClass()
+    @ObservedObject private var userClass: UserClass = UserClass()
     @State private var confirmPassword: String = ""
     @State private var genderSelected:Bool = false
     @State private var errorMessage: String = ""
     @State private var verifyView: Bool = false
     @State private var verificationCode: String = ""
+    
+    @State var displayPermissionAlert: Bool = false
     var body: some View {
         ZStack{
             GeometryReader {reader in
@@ -27,14 +29,14 @@ struct SignUpView: View {
                             Spacer(minLength: reader.size.height * 0.15)
                             TitleView()
                                 .frame(height: max(125, reader.size.height * 0.2))
-                            TextInputView(promptText: "Email", input: $signUpClass.username, secure: false)
+                            TextInputView(promptText: "Email", input: $userClass.username, secure: false)
                                 .textContentType(.emailAddress)
                                 .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                                 .padding(.bottom, reader.size.height * 0.01)
-                            PickerView(selection: $signUpClass.gender, promptText: "Gender", options: api.filterOptionsStruct.getGenders().reversed(), selected: $genderSelected)
+                            PickerView(selection: $userClass.gender, promptText: "Preferred Clothing Gender", options: api.filterOptionsStruct.getGenders().reversed(), selected: $genderSelected)
                                 .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                                 .padding(.bottom, reader.size.height * 0.01)
-                            TextInputView(promptText: "Password", input: $signUpClass.password, secure: true)
+                            TextInputView(promptText: "Password", input: $userClass.password, secure: true)
                                 .textContentType(.newPassword)
                                 .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                                 .padding(.bottom, reader.size.height * 0.01)
@@ -42,21 +44,25 @@ struct SignUpView: View {
                                 .textContentType(.newPassword)
                                 .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                                 .padding(.bottom, reader.size.height * 0.01)
-                            DatePickerView(placeholder: "Birthdate", birthdate: $signUpClass.birthdate)
+                            DatePickerView(placeholder: "Date of Birth", birthdate: $userClass.birthdate)
                                 .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                                 .padding(.bottom, reader.size.height * 0.01)
                             ButtonView(text: "Sign Up") {
-                                if signUpClass.username.isEmpty || signUpClass.password.isEmpty || signUpClass.gender.isEmpty || confirmPassword.isEmpty {
+                                if userClass.username.isEmpty || userClass.password.isEmpty || userClass.gender.isEmpty || confirmPassword.isEmpty {
                                     errorMessage = "Please fill in all fields."
                                     return
                                 }
                                 
-                                if signUpClass.birthdate > Calendar.current.date(byAdding: .year, value: -13, to: Date())! {
-                                    errorMessage = "Please fill your birthdate."
+                                if userClass.birthdate > Calendar.current.date(byAdding: .year, value: -13, to: Date())! {
+                                    errorMessage = "You must be 13 years or older."
                                     return
                                 }
                                 
-                                verify()
+                                if self.userClass.dataCollectionPermission == nil {
+                                    displayPermissionAlert = true
+                                } else {
+                                    verify()
+                                }
                             }
                             .frame(height: max(LoginSequenceDesignVariables.buttonMinHeight, reader.size.height * LoginSequenceDesignVariables.buttonHeightFactor))
                             Text("\(errorMessage)")
@@ -93,7 +99,22 @@ struct SignUpView: View {
                                 Spacer()
                                 
                             }
-                        }.frame(height: reader.size.height)
+                        }
+                        .frame(height: reader.size.height)
+                        .alert(isPresented: $displayPermissionAlert) {
+                            Alert(
+                                title: Text("Can we store your date of birth?"),
+                                message: Text("This data will be used to help us better recommend clothing."),
+                                primaryButton: .default(Text("Yes")){
+                                    self.userClass.dataCollectionPermission = true
+                                    verify()
+                                },
+                                secondaryButton: .default(Text("No")){
+                                    //Hides birthdate information
+                                    self.userClass.dataCollectionPermission = false
+                                    verify()
+                                })
+                        }
                     } else {
                         VerificationView(verificationCode: $verificationCode, viewIsPresent: $verifyView, buttonAction: signUp)
                             .frame(height: reader.size.height)
@@ -119,18 +140,18 @@ struct SignUpView: View {
 
 extension SignUpView {
     func verify() {
-        if confirmPassword != signUpClass.password {
+        if confirmPassword != userClass.password {
             errorMessage = "You're supposed to type the same password to confirm."
             return
         }
         
-        if !signUpClass.username.contains(/@[a-zA-Z-\.0]+\.[a-zA-Z]+$/) {
+        if !userClass.username.contains(/@[a-zA-Z-\.0]+\.[a-zA-Z]+$/) {
             errorMessage = "That's not an email!"
             return
         }
         
         do {
-            if try api.requestVerification(userEmail: self.signUpClass.username) {
+            if try api.requestVerification(userEmail: self.userClass.username) {
                 verifyView = true
             }
         } catch Api.ApiError.httpError(let message) {
@@ -142,7 +163,7 @@ extension SignUpView {
     
     func signUp() {
         do {
-            if try api.sendSignUp(signUpClass: signUpClass, verificationCode: self.verificationCode) {
+            if try api.sendSignUp(userClass: userClass, verificationCode: self.verificationCode) {
                 completionFunction()
             } else {
                 errorMessage = "You done goofed.\nTry again."
@@ -154,36 +175,6 @@ extension SignUpView {
             errorMessage = "Something isn't right. Error Message: \(error)"
         }
         return
-    }
-}
-
-struct VerificationView: View {
-    @Binding var verificationCode: String
-    @Binding var viewIsPresent: Bool
-    var buttonAction: ()->Void
-    
-    var body: some View {
-        GeometryReader { reader in
-            VStack (alignment: .center){
-                Spacer()
-                TitleView()
-                    .frame(height: max(125, reader.size.height * 0.2))
-                Text("Please enter the verification code sent to your email.")
-                    .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.05, relativeTo: .body))
-                    .multilineTextAlignment(.leading)
-                    .foregroundColor(Color("DarkFontColor"))
-                    .frame(width: reader.size.width * 0.9)
-                TextInputView(promptText: "Verification Code", input: $verificationCode, secure: false)
-                    .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
-                    .padding(.bottom, reader.size.height * 0.01)
-                ButtonView(text: "Sign Up") {
-                    viewIsPresent = false
-                    buttonAction()
-                }
-                .frame(height: max(LoginSequenceDesignVariables.buttonMinHeight, reader.size.height * LoginSequenceDesignVariables.buttonHeightFactor))
-                Spacer()
-            }
-        }
     }
 }
 

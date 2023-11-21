@@ -1,5 +1,5 @@
 //
-//  SignUpClass.swift
+//  UserClass.swift
 //  PeachSconeMarket
 //
 //  Created by Matt Groholski on 5/11/23.
@@ -7,11 +7,12 @@
 
 import Foundation
 
-class SignUpClass: ObservableObject, Encodable {
+class UserClass: ObservableObject, Encodable {
     @Published var username: String
     @Published var password: String
     @Published var gender: String
     @Published var birthdate: Date
+    @Published var dataCollectionPermission: Bool? = nil
     
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -45,7 +46,11 @@ class SignUpClass: ObservableObject, Encodable {
         try container.encode(username, forKey: .username)
         try container.encode(password, forKey: .password)
         try container.encode(gender, forKey: .gender)
-        try container.encode(dateFormatter.string(from: birthdate), forKey: .birthdate)
+        if dataCollectionPermission == true {
+            try container.encode(dateFormatter.string(from: birthdate), forKey: .birthdate)
+        } else {
+            try container.encode("null" ,forKey: .birthdate)
+        }
     }
 }
 

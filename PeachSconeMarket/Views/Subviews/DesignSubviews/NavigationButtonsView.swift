@@ -14,7 +14,7 @@ struct NavigationButtonView: View {
     let buttonAction: (PageState)->Void
     
     private let scaleFactor: Double = 0.7
-    private let padding: Double = 3.0
+    private let padding: Double = 2.5
     private let heightPadding: Double = 0.0025
     
     var body: some View {
@@ -52,13 +52,14 @@ struct NavigationButtonView: View {
                     .padding(.top, reader.size.height * heightPadding)
                 
                 //Collection View Button
-                Button(action: {buttonAction(.closet)}) {
+                Button(action: {buttonAction(.settings)}) {
                     Circle()
                         .fill(Color("DarkBackgroundColor"))
                         .overlay(
-                            Image("BagIcon")
+                            Image(systemName: "gearshape.fill")
                                 .resizable()
                                 .scaledToFit()
+                                .foregroundColor(.black)
                                 .frame(height: reader.size.height * (scaleFactor - 0.2))
                         )
                 }.frame(height: reader.size.height * scaleFactor)

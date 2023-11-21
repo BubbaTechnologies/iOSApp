@@ -24,13 +24,13 @@ struct ClosetView: View {
             VStack {
                 InlineTitleView()
                     .frame(width: reader.size.width, height: reader.size.height * 0.07)
-                    .padding(.top, reader.size.height * 0.025)
+                    .padding(.top, reader.size.height * 0.028)
                     .padding(.bottom, reader.size.height * 0.01)
                 CardScrollView(name: "Closet", clothingManager: clothingManager, likeStore: likeStore, selectedClothingItems: $selectedClothingItems, editing: $editing)
                     .frame(height: reader.size.height * 0.85, alignment: .center)
                 NavigationButtonView(showFilter: false, showEdit: false, options: .constant(false), buttonAction: changeFunction)
                     .frame(height: reader.size.height * NavigationViewDesignVariables.frameHeightFactor)
-                    .padding(.bottom, reader.size.height * 0.005)
+                    .padding(.bottom, reader.size.height * NavigationViewDesignVariables.BOTTOM_PADDING_FACTOR)
             }
             .frame(width: reader.size.width, height: reader.size.height)
         }

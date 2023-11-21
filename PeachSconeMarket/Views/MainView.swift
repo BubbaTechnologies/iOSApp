@@ -65,6 +65,12 @@ struct MainView: View {
                             pageState = newState
                         }
                         .frame(width: reader.size.width, height: reader.size.height)
+                    } else if pageState == .settings {
+                        SettingsView(api: api) { newState in
+                            previousPageState = pageState
+                            pageState = newState
+                        }
+                        .frame(width: reader.size.width, height: reader.size.height)
                     }
                     Spacer()
                 }
@@ -99,4 +105,6 @@ enum PageState {
     case closet
     case filtering
     case editing
+    case settings
+    case logout
 }

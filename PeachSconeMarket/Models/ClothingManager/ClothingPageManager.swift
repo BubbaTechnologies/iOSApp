@@ -78,7 +78,9 @@ class ClothingPageManager: ObservableObject, ClothingManager {
     func loadNext(completion: @escaping (Result<Bool,Error>)->Void) -> Void {
         do {
             if (self.currentPage >= self.totalPages) {
-                self.allClothingItemsLoaded = true
+                DispatchQueue.main.sync{
+                    self.allClothingItemsLoaded = true
+                }
                 completion(.success(true))
                 return
             }

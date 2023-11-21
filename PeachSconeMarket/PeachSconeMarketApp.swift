@@ -116,18 +116,10 @@ extension PeachSconeMarketApp {
             group.leave()
         }
         
-        //Sends location data.
+        //Sends location and deviceId data.
         DispatchQueue.global(qos: .background).async{
             do {
                 try self.api.updateLocation(latitude: locationManager.region.center.latitude, longitude: locationManager.region.center.longitude)
-            } catch {
-                print("\(error)")
-            }
-        }
-        
-        //Sends deviceId data
-        DispatchQueue.global(qos: .background).async{
-            do {
                 try self.api.updateDeviceId(deviceId: NotificationManager.deviceId)
             } catch {
                 print("\(error)")

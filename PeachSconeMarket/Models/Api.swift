@@ -164,16 +164,15 @@ class Api:ObservableObject {
         throw Api.getApiError(statusCode: responseStatusCode)
     }
     
-    func sendSignUp(signUpClass: SignUpClass, verificationCode: String) throws -> Bool {
+    func sendSignUp(userClass: UserClass, verificationCode: String) throws -> Bool {
         let url = URL(string: "https://" + baseUrl + "/create?code=" + verificationCode)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.httpBody = try JSONEncoder().encode(signUpClass)
+        request.httpBody = try JSONEncoder().encode(userClass)
         request.allHTTPHeaderFields = [
             "Content-Type": "application/json",
             "Host": baseUrl
         ]
-        
         
         var responseStatusCode: Int = 0
         let semaphore = DispatchSemaphore(value: 0)
@@ -187,6 +186,7 @@ class Api:ObservableObject {
                 responseStatusCode = -1
                 return
             }
+            
             if responseStatusCode == 200 {
                 if let data = data {
                     do {
@@ -203,6 +203,44 @@ class Api:ObservableObject {
         
         _ = semaphore.wait(timeout: .distantFuture)
         if responseStatusCode == 200 {
+            return true
+        } else if responseStatusCode == 400 {
+            return false
+        } else if responseStatusCode == 403 {
+            //Too many attempts
+            responseStatusCode = -3
+        }
+        
+        throw Api.getApiError(statusCode: responseStatusCode)
+    }
+    
+    func deleteAccount() throws -> Bool {
+        let url = URL(string: "https://" + baseUrl + "/delete")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.allHTTPHeaderFields = [
+            "Host": baseUrl
+        ]
+        
+        var responseStatusCode: Int = 0
+        let semaphore = DispatchSemaphore(value: 0)
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let response = response as? HTTPURLResponse {
+                responseStatusCode = response.statusCode
+                if responseStatusCode != 200 {
+                    return
+                }
+            } else {
+                responseStatusCode = -1
+                return
+            }
+            
+            semaphore.signal()
+        }.resume()
+        
+        _ = semaphore.wait(timeout: .distantFuture)
+        if responseStatusCode == 200 {
+            self.jwt = ""
             return true
         } else if responseStatusCode == 400 {
             return false
