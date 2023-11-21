@@ -36,6 +36,12 @@ struct SettingsView: View {
                         }
                         .frame(height: max(LoginSequenceDesignVariables.buttonMinHeight * 0.9, reader.size.height * LoginSequenceDesignVariables.buttonHeightFactor * 0.9))
                         
+                        ButtonView(text: "Logout", confirmation: true, widthFactor: 0.5, fontFactor: 0.06) {
+                            KeychainHelper.standard.delete(service: "access-token", account: "peachSconeMarket")
+                            
+                        }
+                        .frame(height: max(LoginSequenceDesignVariables.buttonMinHeight * 0.95, reader.size.height * LoginSequenceDesignVariables.buttonHeightFactor * 0.95))
+                        
                         ButtonView(text: "Delete", confirmation: true, widthFactor: 0.5, fontFactor: 0.06) {
                             do {
                                 let responseValue = try api.deleteAccount()
