@@ -38,7 +38,7 @@ struct SettingsView: View {
                         
                         ButtonView(text: "Logout", confirmation: true, widthFactor: 0.5, fontFactor: 0.06) {
                             KeychainHelper.standard.delete(service: "access-token", account: "peachSconeMarket")
-                            
+                            exit(0)
                         }
                         .frame(height: max(LoginSequenceDesignVariables.buttonMinHeight * 0.95, reader.size.height * LoginSequenceDesignVariables.buttonHeightFactor * 0.95))
                         
