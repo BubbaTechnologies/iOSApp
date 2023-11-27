@@ -35,7 +35,7 @@ struct CardScrollView: View {
                         .font(CustomFontFactory.getFont(style: "Bold", size: reader.size.width * 0.075, relativeTo: .title3))
                         .foregroundColor(Color("DarkFontColor"))
                     if errorMessage.isEmpty && attemptedLoad {
-                        CardCollectionView(items: $clothingManager.clothingItems, safariItem: $safariItem, editing: $editing, selectedItems: $selectedClothingItems)
+                        CardCollectionView(items: $clothingManager.clothingItems, safariItem: $safariItem, editing: $editing, selectedItems: $selectedClothingItems, browser: clothingManager.api.browser)
                             .frame(height: reader.size.height * (Double(
                                 (clothingManager.clothingItems.count % 2 == 0 ? clothingManager.clothingItems.count : clothingManager.clothingItems.count + 1)) / 4.25))
                         if !clothingManager.allClothingItemsLoaded {

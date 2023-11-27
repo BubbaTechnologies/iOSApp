@@ -68,6 +68,8 @@ extension PeachSconeMarketApp {
             
             do {
                 if try api.loadToken() {
+                    //Loads browser settings
+                    try self.api.loadBrowsing()
                     //Loads clothing
                     self.swipeClothingManager.api = api
                     try self.loadDataAsync()

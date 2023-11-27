@@ -12,6 +12,7 @@ struct MiniCardView: View {
     @Binding var safariItem: ClothingItem?
     @Binding var editing: Bool
     @Binding var selectedItems: [Int]
+    var browser: Bool
     
     @State var selected: Bool = false
     private let widthFactor: Double = 0.35
@@ -54,7 +55,15 @@ struct MiniCardView: View {
                                     }
                                 }
                             } else {
-                                safariItem = item
+                                if self.browser {
+                                    //In-App Safari Browsing
+                                    safariItem = item
+                                } else {
+                                    //External Browser
+                                    if let url = URL(string: item.productURL) {
+                                        UIApplication.shared.open(url)
+                                    }
+                                }
                             }
                         }
                         HStack{
@@ -82,6 +91,6 @@ struct MiniCardView: View {
 
 struct MiniCardView_Previews: PreviewProvider {
     static var previews: some View {
-        MiniCardView(item:ClothingItem.sampleItems[0], safariItem: .constant(ClothingItem.sampleItems[0]), editing: .constant(true), selectedItems: .constant([]))
+        MiniCardView(item:ClothingItem.sampleItems[0], safariItem: .constant(ClothingItem.sampleItems[0]), editing: .constant(true), selectedItems: .constant([]), browser: false)
     }
 }

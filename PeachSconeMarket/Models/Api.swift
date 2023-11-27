@@ -9,6 +9,7 @@ import Foundation
 
 class Api:ObservableObject {
     var jwt: String?
+    @Published var browser: Bool = false
     @Published var genderFilter: String = ""
     @Published var typeFilters: [String:Bool] = [:]
     @Published var filterOptionsStruct: FilterOptionsStruct = FilterOptionsStruct.sampleOptions
@@ -640,6 +641,37 @@ class Api:ObservableObject {
             return true
         } else if responseStatusCode == 400 {
             return false
+        }
+        
+        
+        throw Api.getApiError(statusCode: responseStatusCode)
+    }
+    
+    func loadBrowsing() throws {
+        var responseStatusCode: Int = -4
+        let semaphore = DispatchSemaphore(value: 0)
+        var request = URLRequest(url: URL(string: "https://" + baseUrl + "/browsing")!)
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = [
+            "Host": baseUrl
+        ]
+        
+        URLSession.shared.dataTask(with: request) { _, response, error in
+            if let response = response as? HTTPURLResponse {
+                responseStatusCode = response.statusCode
+            } else {
+                responseStatusCode = -1
+            }
+            semaphore.signal()
+        }.resume()
+        
+        _ = semaphore.wait(timeout: .distantFuture)
+        if responseStatusCode == 200 {
+            self.browser = true
+            return
+        } else if responseStatusCode == 400 {
+            self.browser = false
+            return
         }
         
         
