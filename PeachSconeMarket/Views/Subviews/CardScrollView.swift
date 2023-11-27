@@ -10,7 +10,7 @@ import SwiftUI
 struct CardScrollView: View {
     var name: String
     
-    @ObservedObject var clothingManager: ClothingPageManager
+    @StateObject var clothingManager: ClothingPageManager
     @ObservedObject var likeStore: LikeStore
     
     @Binding var selectedClothingItems: [Int]
@@ -19,7 +19,6 @@ struct CardScrollView: View {
     @State var loading: Bool = false
     
     @State var errorMessage: String = ""
-    @State var attemptedLoad: Bool = false
     
     @State var isPresentingSafari:Bool = false
     @State var safariItem: ClothingItem? = nil
@@ -34,7 +33,7 @@ struct CardScrollView: View {
                     Text(editing ? "Editing \(name)" : "\(name)")
                         .font(CustomFontFactory.getFont(style: "Bold", size: reader.size.width * 0.075, relativeTo: .title3))
                         .foregroundColor(Color("DarkFontColor"))
-                    if errorMessage.isEmpty && attemptedLoad {
+                    if errorMessage.isEmpty && clothingManager.attemptedLoad {
                         CardCollectionView(items: $clothingManager.clothingItems, safariItem: $safariItem, editing: $editing, selectedItems: $selectedClothingItems, browser: clothingManager.api.browser)
                             .frame(height: reader.size.height * (Double(
                                 (clothingManager.clothingItems.count % 2 == 0 ? clothingManager.clothingItems.count : clothingManager.clothingItems.count + 1)) / 4.25))
@@ -68,7 +67,7 @@ struct CardScrollView: View {
                             EmptyView()
                                 .frame(height: reader.size.height * 0.1)
                         }
-                    } else if !attemptedLoad {
+                    } else if !clothingManager.attemptedLoad {
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkFontColor")))
                             .scaleEffect(3)
@@ -139,7 +138,7 @@ struct CardScrollView: View {
                 }
             }
             .onAppear{
-                DispatchQueue.main.async{
+                DispatchQueue.global(qos: .userInitiated).async{
                     clothingManager.getTotalPages()
                     clothingManager.loadNext() { result in
                         switch result {
@@ -149,7 +148,6 @@ struct CardScrollView: View {
                                     errorMessage = "Start liking clothing!"
                                 }
                             }
-                            attemptedLoad = true
                         case .failure(let error):
                             if case Api.ApiError.httpError(let message) = error {
                                 errorMessage = message
@@ -159,10 +157,6 @@ struct CardScrollView: View {
                         }
                     }
                 }
-            }
-            .onDisappear{
-                clothingManager.reset()
-                attemptedLoad = false
             }
         }
     }

@@ -10,6 +10,8 @@ import Foundation
 class ClothingPageManager: ObservableObject, ClothingManager {
     @Published var clothingItems: [ClothingItem]
     @Published var allClothingItemsLoaded: Bool
+
+    @Published var attemptedLoad: Bool = false
     
     var requestType: CollectionStruct.CollectionRequestType
     var currentPage: Int
@@ -62,17 +64,22 @@ class ClothingPageManager: ObservableObject, ClothingManager {
     
     func loadNext() throws -> Void {
         if (self.currentPage >= self.totalPages) {
-            self.allClothingItemsLoaded = true
-            return
-        }
-        
-        try api.loadClothingPage(collectionType: requestType, pageNumber: self.currentPage) { items in
-            //Updates variables on main thread.
             DispatchQueue.main.sync{
-                self.clothingItems.append(contentsOf: items)
-                self.currentPage += 1
+                self.allClothingItemsLoaded = true
+            }
+        } else {
+            try api.loadClothingPage(collectionType: requestType, pageNumber: self.currentPage) { items in
+                //Updates variables on main thread.
+                DispatchQueue.main.sync{
+                    self.clothingItems.append(contentsOf: items)
+                    self.currentPage += 1
+                }
             }
         }
+        DispatchQueue.main.sync{
+            self.attemptedLoad = true
+        }
+        return
     }
     
     func loadNext(completion: @escaping (Result<Bool,Error>)->Void) -> Void {
@@ -82,21 +89,25 @@ class ClothingPageManager: ObservableObject, ClothingManager {
                     self.allClothingItemsLoaded = true
                 }
                 completion(.success(true))
-                return
-            }
-            
-            try self.api.loadClothingPage(collectionType: self.requestType, pageNumber: self.currentPage) { items in
-                self.clothingItems.append(contentsOf: items)
-                self.currentPage += 1
-                completion(.success(false))
+            } else {
+                try self.api.loadClothingPage(collectionType: self.requestType, pageNumber: self.currentPage) { items in
+                    self.clothingItems.append(contentsOf: items)
+                    self.currentPage += 1
+                    completion(.success(false))
+                }
             }
         } catch {
             completion(.failure(error))
+        }
+        
+        DispatchQueue.main.sync{
+            self.attemptedLoad = true
         }
     }
     
     func reset() {
         self.clothingItems.removeAll()
         self.currentPage = 0
+        self.attemptedLoad = false
     }
 }

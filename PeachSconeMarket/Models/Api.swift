@@ -666,11 +666,15 @@ class Api:ObservableObject {
         }.resume()
         
         _ = semaphore.wait(timeout: .distantFuture)
-        if responseStatusCode == 200 {
-            self.browser = true
-            return
-        } else if responseStatusCode == 400 {
-            self.browser = false
+        DispatchQueue.main.sync {
+            if responseStatusCode == 200 {
+                self.browser = true
+            } else if responseStatusCode == 400 {
+                self.browser = false
+            }
+        }
+        
+        if responseStatusCode == 400 || responseStatusCode == 200 {
             return
         }
         

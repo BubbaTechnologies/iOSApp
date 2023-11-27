@@ -70,6 +70,10 @@ extension LikesView {
             return
         }
         
+        if pageState != .likes {
+            clothingManager.reset()
+        }
+        
         changeFunction(pageState)
     }
 }
