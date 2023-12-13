@@ -12,9 +12,10 @@ struct SwipeView: View {
     
     @ObservedObject var api:Api
     @ObservedObject var clothingManager: ClothingListManager
-    @ObservedObject var store: LikeStore
+    @ObservedObject var likeStore: LikeStore
     
     @Binding var pageState:PageState
+    var customCardFunction:((ClothingItem, Int, Bool)->Void)?
     var changeFunction: (PageState)->Void
     
     @State var errorMessage: String = ""
@@ -27,6 +28,7 @@ struct SwipeView: View {
      */
     private let maximumLoadingCount: Int = 2
     private let maxZIndex = 12
+    
     
     var body: some View {
         GeometryReader { reader in
@@ -56,7 +58,7 @@ struct SwipeView: View {
                         ZStack{
                             //Creates card for each clothing item in list
                             ForEach(Array(clothingManager.clothingItems.enumerated()), id: \.element.id) { index, item in
-                                CardView(cardManager: clothingManager.clothingCardManagers[index], swipeAction: cardAction, preloadImages: index < SwipeView.clothingWithPreloadedImages)
+                                CardView(cardManager: clothingManager.clothingCardManagers[index], swipeAction: customCardFunction ?? cardAction, preloadImages: index < SwipeView.clothingWithPreloadedImages)
                                 .frame(height: reader.size.height * 0.75)
                                 .disabled(index != 0)
                                 .zIndex(Double(maxZIndex - index))
@@ -84,9 +86,9 @@ struct SwipeView: View {
 }
 
 extension SwipeView {
-    func cardAction(item: ClothingItem, imageTapRatio: Double, userLiked: Bool) {
+    func cardAction(item: ClothingItem, imageTaps: Int, userLiked: Bool) {
         //Sends like/dislike
-        let likeStruct: LikeStruct = LikeStruct(clothingId: item.id, imageTapRatio: imageTapRatio, likeType: userLiked ? .like : .dislike)
+        let likeStruct: LikeStruct = LikeStruct(clothingId: item.id, imageTaps: imageTaps, likeType: userLiked ? .like : .dislike)
         
         DispatchQueue.global(qos: .background).async {
             do {
@@ -95,7 +97,7 @@ extension SwipeView {
                 //Adds like to likeStore
                 print("\(error)")
                 print("Adding like to likeStore: \(likeStruct)")
-                self.store.likes.append(likeStruct)
+                self.likeStore.likes.append(likeStruct)
             }
         }
         
@@ -117,6 +119,6 @@ extension SwipeView {
 
 struct SwipeView_Previews: PreviewProvider {
     static var previews: some View {
-        SwipeView(api: Api(), clothingManager: ClothingListManager(clothingItems: ClothingItem.sampleItems), store: LikeStore(), pageState: .constant(.swipe), changeFunction: {_ in return})
+        SwipeView(api: Api(), clothingManager: ClothingListManager(clothingItems: ClothingItem.sampleItems), likeStore: LikeStore(), pageState: .constant(.swipe), changeFunction: {_ in return})
     }
 }

@@ -17,7 +17,7 @@ struct CardView: View {
     
     @ObservedObject var cardManager: CardManager
     //Paramters represent item swiped, imageTapRatio, and userLiked
-    public var swipeAction: (ClothingItem, Double, Bool)->Void
+    public var swipeAction: (ClothingItem, Int, Bool)->Void
     public var preloadImages: Bool
     
     var body: some View {
@@ -87,10 +87,10 @@ extension CardView {
             switch width {
             case -500...(-150):
                 offset = CGSize(width: -500, height: 0)
-                swipeAction(cardManager.getItem(), Double(imageTapCount) / Double(cardManager.getItem().imageURL.count), false)
+                swipeAction(cardManager.getItem(), imageTapCount, false)
             case 150...500:
                 offset = CGSize(width: 500, height: 0)
-                swipeAction(cardManager.getItem(), Double(imageTapCount) / Double(cardManager.getItem().imageURL.count), true)
+                swipeAction(cardManager.getItem(), imageTapCount, true)
             default:
                 offset = .zero
             }

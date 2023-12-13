@@ -8,19 +8,19 @@
 import Foundation
 
 struct LikeStruct: Codable {
-    private let imageTapRatio: Double
+    private let imageTaps: Int
     private let clothingId: Int
     public let likeType: LikeType
     
     
-    init (clothingId: Int, imageTapRatio:Double, likeType: LikeType) {
+    init (clothingId: Int, imageTaps: Int, likeType: LikeType) {
         self.clothingId = clothingId
-        self.imageTapRatio = imageTapRatio
+        self.imageTaps = imageTaps
         self.likeType = likeType
     }
     
     enum EncodingKeys: String, CodingKey {
-        case imageTapRatio
+        case imageTaps
         case clothingId
     }
     

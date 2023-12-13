@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct PeachSconeMarketApp: App {
-    @State var appStage: stage = .loading
+    @State var appStage: Stage = .loading
     @ObservedObject var api: Api = Api()
     @ObservedObject var swipeClothingManager: ClothingListManager = ClothingListManager()
     @ObservedObject var likeStore: LikeStore = LikeStore()
@@ -52,6 +52,8 @@ struct PeachSconeMarketApp: App {
                             print("\(error)")
                         }
                     }
+            } else if appStage == .preview {
+                PreviewView(swipeClothingManager: swipeClothingManager, store: likeStore, appStage: $appStage)
             }
         }
     }
@@ -65,7 +67,6 @@ extension PeachSconeMarketApp {
         //Loading async allows the view to update.
         DispatchQueue.global(qos: .userInitiated).async{
             NotificationManager.shared.requestAuthorization()
-            
             do {
                 if try api.loadToken() {
                     //Loads browser settings
@@ -75,7 +76,7 @@ extension PeachSconeMarketApp {
                     try self.loadDataAsync()
                     appStage = .main
                 } else {
-                    appStage = .authentication
+                    appStage = .preview
                 }
             } catch Api.ApiError.httpError(let message) {
                 errorMessage = message
@@ -135,10 +136,14 @@ extension PeachSconeMarketApp {
         }
     }
     
-    enum stage {
+    /**
+            - Description: Defines the paths taken from PeachSconeMarketApp.swift
+     */
+    enum Stage {
         case loading
         case authentication
         case main
+        case preview
     }
 }
 

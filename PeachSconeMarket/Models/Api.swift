@@ -253,6 +253,12 @@ class Api:ObservableObject {
         throw Api.getApiError(statusCode: responseStatusCode)
     }
     
+    /**
+        - Description: Sends like data to API.
+        - Parameters:
+            - likeStruct: A likeStruct representing the data being sent.
+        - Throws: Throws an api error if a 200 response is not received.
+     */
     func sendLike(likeStruct: LikeStruct) throws -> Void {
         var responseStatusCode: Int = -4
         let semaphore = DispatchSemaphore(value: 0)
@@ -280,9 +286,11 @@ class Api:ObservableObject {
             if responseStatusCode == 200 {
                 return
             }
+            
+            throw Api.getApiError(statusCode: responseStatusCode)
         }
         
-        throw Api.getApiError(statusCode: responseStatusCode)
+        
     }
     
     func loadClothing(completion:@escaping (Result<ClothingItem, Error>)->()) throws {
@@ -332,6 +340,7 @@ class Api:ObservableObject {
             - collectionType: Defines the type of query.
      - Throws: `ApiError.httpError` if the return value is not 200. Check README.md for clarification on codes.
      */
+    @available(*, deprecated, message: "Pages are returned in loadClothingPage.")
     func getPageCount(collectionType: CollectionStruct.CollectionRequestType) throws -> Int {
         //Builds URL
         var urlComponents = URLComponents()
@@ -431,7 +440,7 @@ class Api:ObservableObject {
                 "Authorization":"Bearer " + jwt
             ]
             
-            var responseData:CollectionStruct = CollectionStruct()
+            var responseData:CollectionStruct?
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let response = response as? HTTPURLResponse {
                     responseStatusCode = response.statusCode
@@ -444,8 +453,7 @@ class Api:ObservableObject {
                 if let data = data {
                     do {
 //                        print(String(data: data, encoding: .utf8)!)
-                        let response = try JSONDecoder().decode(embeddedStruct.self, from: data)
-                        responseData = response.getCollectionStruct()
+                        responseData = Optional.some(try JSONDecoder().decode(CollectionStruct.self, from: data))
                     } catch {
                         if responseStatusCode == 200 {
                             responseStatusCode = -5
@@ -457,14 +465,16 @@ class Api:ObservableObject {
             
             _ = semaphore.wait(timeout: .distantFuture)
             if responseStatusCode == 200 {
-                DispatchQueue.main.async {
-                    var itemCollection = responseData.getItems()
-                    if (collectionType == CollectionStruct.CollectionRequestType.cardList) {
-                        itemCollection.reverse()
+                if let responseData = responseData {
+                    DispatchQueue.main.async {
+                        var itemCollection = responseData.getItems()
+                        if (collectionType == CollectionStruct.CollectionRequestType.cardList) {
+                            itemCollection.reverse()
+                        }
+                        completion(itemCollection)
                     }
-                    completion(itemCollection)
+                    return
                 }
-                return
             }
         }
         

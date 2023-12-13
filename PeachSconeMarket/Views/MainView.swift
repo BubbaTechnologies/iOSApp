@@ -32,7 +32,6 @@ struct MainView: View {
                             } else if newState == .editing {
                                 pageState = previousPageState
                                 swipeClothingManager.reset()
-                                
                                 //confirm
                                 DispatchQueue.global(qos: .userInitiated).async {
                                     do {
