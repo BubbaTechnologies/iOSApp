@@ -46,7 +46,7 @@ struct MainView: View {
                         }
                         .frame(width: reader.size.width, height: reader.size.height)
                     } else if pageState == .swipe {
-                        SwipeView(api: api, clothingManager: swipeClothingManager, store: store, pageState: $pageState) { newState in
+                        SwipeView(api: api, clothingManager: swipeClothingManager, likeStore: store, pageState: $pageState) { newState in
                             previousPageState = pageState
                             pageState = newState
                         }

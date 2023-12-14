@@ -36,9 +36,13 @@ struct CollectionStruct: Codable {
         return self.clothingList
     }
     
+    func getTotalPageCount()->Int {
+        return self.totalPageCount
+    }
+    
     private enum CodingKeys: String, CodingKey {
         case clothingList = "clothingList"
-        case totalPageCount = "totalPageCount"
+        case totalPageCount = "totalPages"
     }
     
     
@@ -46,6 +50,7 @@ struct CollectionStruct: Codable {
         case likes = "likes"
         case collection = "collection"
         case cardList = "cardList"
+        case preview = "preview"
         case none = "none"
     }
 }

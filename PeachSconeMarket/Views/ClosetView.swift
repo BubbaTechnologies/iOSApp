@@ -47,7 +47,7 @@ extension ClosetView {
                 }
                 
                 for id in selectedClothingItems {
-                    let likeStruct:LikeStruct = LikeStruct(clothingId: id, imageTapRatio: 0, likeType: .removeLike)
+                    let likeStruct:LikeStruct = LikeStruct(clothingId: id, imageTaps: 0, likeType: .removeLike)
                     DispatchQueue.global(qos: .background).async{
                         do {
                             try clothingManager.api.sendLike(likeStruct: likeStruct)

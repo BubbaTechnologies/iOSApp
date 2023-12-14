@@ -97,7 +97,7 @@ struct CardScrollView: View {
                         buyAlertActive = false
                         DispatchQueue.global(qos: .background).async {
                             //Sends buy like to server
-                            let buyLike:LikeStruct = LikeStruct(clothingId: self.previousItem.id, imageTapRatio: 0.0, likeType: .bought)
+                            let buyLike:LikeStruct = LikeStruct(clothingId: self.previousItem.id, imageTaps: 0, likeType: .bought)
                             do {
                                 try clothingManager.api.sendLike(likeStruct: buyLike)
                             } catch {
@@ -139,7 +139,6 @@ struct CardScrollView: View {
             }
             .onAppear{
                 DispatchQueue.global(qos: .userInitiated).async{
-                    clothingManager.getTotalPages()
                     clothingManager.loadNext() { result in
                         switch result {
                         case .success(let empty):

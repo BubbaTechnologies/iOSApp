@@ -16,12 +16,13 @@ struct PreviewView: View {
     // Sets preview count
     let PREVIEW_COUNT = 5
     // Checks current preview card count.
-    var cardCount = 0
+    @State var cardCount = 0
     
     var body: some View {
         GeometryReader { reader in
             Color("BackgroundColor").ignoresSafeArea()
             ZStack {
+                Text("\(swipeClothingManager.clothingItems.count)")
                 SwipeView(api: swipeClothingManager.api, clothingManager: swipeClothingManager, likeStore: likeStore, pageState: .constant(.swipe), customCardFunction: previewCardAction){ newState in
                     appStage = .authentication
                 }
@@ -41,6 +42,8 @@ extension PreviewView {
         
         if cardCount >= PREVIEW_COUNT {
             appStage = .authentication
+        } else {
+            self.cardCount = cardCount + 1
         }
     }
 }

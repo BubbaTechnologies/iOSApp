@@ -402,6 +402,7 @@ class Api:ObservableObject {
     }
     
     /**
+        - Description: Requests a clothing page from the server. 
         - Parameters:
                 - collectionType: `CollectionStruct.CollectionRequestType` representing the request type.
                 - pageNumber: An optional integer representing the page requested.
@@ -409,7 +410,7 @@ class Api:ObservableObject {
         - Throws: `ApiError.httpError` if the return value is not 200. Check README.md for clarification on codes.
      */
     
-    func loadClothingPage(collectionType: CollectionStruct.CollectionRequestType, pageNumber: Int?, completion:@escaping ([ClothingItem])->()) throws {
+    func loadClothingPage(collectionType: CollectionStruct.CollectionRequestType, pageNumber: Int?, completion:@escaping ([ClothingItem], Int)->()) throws {
         //Builds URL
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
@@ -431,54 +432,59 @@ class Api:ObservableObject {
         
         //Sends request
         var responseStatusCode: Int = -4
+        
+        var request = URLRequest(url: urlComponents.url!)
+        request.httpMethod = "GET"
+        
         if let jwt = self.jwt {
-            var request = URLRequest(url: urlComponents.url!)
-            
-            request.httpMethod = "GET"
             request.allHTTPHeaderFields = [
                 "Host": baseUrl,
                 "Authorization":"Bearer " + jwt
             ]
-            
-            var responseData:CollectionStruct?
-            URLSession.shared.dataTask(with: request) { data, response, error in
-                if let response = response as? HTTPURLResponse {
-                    responseStatusCode = response.statusCode
-                } else {
-                    responseStatusCode = -1
-                    semaphore.signal()
-                    return
-                }
-                
-                if let data = data {
-                    do {
-//                        print(String(data: data, encoding: .utf8)!)
-                        responseData = Optional.some(try JSONDecoder().decode(CollectionStruct.self, from: data))
-                    } catch {
-                        if responseStatusCode == 200 {
-                            responseStatusCode = -5
-                        }
-                    }
-                }
-                semaphore.signal()
-            }.resume()
-            
-            _ = semaphore.wait(timeout: .distantFuture)
-            if responseStatusCode == 200 {
-                if let responseData = responseData {
-                    DispatchQueue.main.async {
-                        var itemCollection = responseData.getItems()
-                        if (collectionType == CollectionStruct.CollectionRequestType.cardList) {
-                            itemCollection.reverse()
-                        }
-                        completion(itemCollection)
-                    }
-                    return
-                }
-            }
+        } else if collectionType == .preview {
+            request.allHTTPHeaderFields = [
+                "Host": baseUrl
+            ]
+        } else {
+            throw Api.getApiError(statusCode: responseStatusCode)
         }
         
-        throw Api.getApiError(statusCode: responseStatusCode)
+        var responseData:CollectionStruct?
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let response = response as? HTTPURLResponse {
+                responseStatusCode = response.statusCode
+            } else {
+                responseStatusCode = -1
+                semaphore.signal()
+                return
+            }
+            
+            if let data = data {
+                do {
+//                    print(String(data: data, encoding: .utf8)!)
+                    responseData = Optional.some(try JSONDecoder().decode(CollectionStruct.self, from: data))
+                } catch {
+                    if responseStatusCode == 200 {
+                        responseStatusCode = -5
+                    }
+                }
+            }
+            semaphore.signal()
+        }.resume()
+        
+        _ = semaphore.wait(timeout: .distantFuture)
+        if responseStatusCode == 200 {
+            if let responseData = responseData {
+                DispatchQueue.main.async {
+                    var itemCollection = responseData.getItems()
+                    if (collectionType == CollectionStruct.CollectionRequestType.cardList) {
+                        itemCollection.reverse()
+                    }
+                    completion(itemCollection, responseData.getTotalPageCount())
+                }
+                return
+            }
+        }
     }
     
     

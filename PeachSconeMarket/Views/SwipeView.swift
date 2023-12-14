@@ -97,7 +97,9 @@ extension SwipeView {
                 //Adds like to likeStore
                 print("\(error)")
                 print("Adding like to likeStore: \(likeStruct)")
-                self.likeStore.likes.append(likeStruct)
+                DispatchQueue.main.sync {
+                    self.likeStore.likes.append(likeStruct)
+                }
             }
         }
         

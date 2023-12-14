@@ -53,7 +53,7 @@ struct PeachSconeMarketApp: App {
                         }
                     }
             } else if appStage == .preview {
-                PreviewView(swipeClothingManager: swipeClothingManager, store: likeStore, appStage: $appStage)
+                PreviewView(swipeClothingManager: swipeClothingManager, likeStore: likeStore, appStage: $appStage)
             }
         }
     }
@@ -68,14 +68,36 @@ extension PeachSconeMarketApp {
         DispatchQueue.global(qos: .userInitiated).async{
             NotificationManager.shared.requestAuthorization()
             do {
+                //Loads browser settings
+                try self.api.loadBrowsing()
+                self.swipeClothingManager.api = api
                 if try api.loadToken() {
-                    //Loads browser settings
-                    try self.api.loadBrowsing()
-                    //Loads clothing
-                    self.swipeClothingManager.api = api
                     try self.loadDataAsync()
                     appStage = .main
                 } else {
+                    self.swipeClothingManager.collectionType = .preview
+                    let group = DispatchGroup()
+                    var returnError: Error? = nil
+                    
+                    //Loads preview clothing items.
+                    group.enter()
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        do {
+                            try self.swipeClothingManager.loadItems()
+                        } catch {
+                            print("\(error)")
+                            returnError = error
+                        }
+                        group.leave()
+                    }
+                    
+                    if returnError != nil {
+                        throw returnError!
+                    }
+                    
+                    group.wait()
+                    
+                    print("\(self.swipeClothingManager.clothingItems.count)")
                     appStage = .preview
                 }
             } catch Api.ApiError.httpError(let message) {

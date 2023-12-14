@@ -13,6 +13,7 @@ class ClothingListManager: ObservableObject, ClothingManager {
     //Avoids unexpected behavior with images.
     @Published var clothingCardManagers: [CardManager]
     var api: Api
+    var collectionType: CollectionStruct.CollectionRequestType = .cardList
     
     init() {
         self.clothingItems = []
@@ -38,7 +39,7 @@ class ClothingListManager: ObservableObject, ClothingManager {
     
     
     func loadItems() throws {
-        try api.loadClothingPage(collectionType: .cardList, pageNumber: nil) { items in
+        try api.loadClothingPage(collectionType: collectionType, pageNumber: nil) { items, _ in
             self.clothingItems.append(contentsOf: items)
             for item in items {
                 self.clothingCardManagers.append(CardManager(item: item))

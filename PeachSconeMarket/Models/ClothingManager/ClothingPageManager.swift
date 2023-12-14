@@ -45,52 +45,32 @@ class ClothingPageManager: ObservableObject, ClothingManager {
         self.totalPages = 0
     }
     
-    func getTotalPages() {
-        var value: Int = 0
-        
-        do {
-            value = try self.api.getPageCount(collectionType: self.requestType)
-        } catch {
-            print("\(error)")
-            value = -1
-        }
-        
-        self.totalPages = value
+    func loadItems() -> Void {
+        self.loadNext()
     }
     
-    func loadItems() throws -> Void {
-        try self.loadNext()
+    /**
+     - Description: Provides a non-closure interface to load the next set of clothing.
+     */
+    func loadNext() -> Void {
+        self.loadNext{_ in return}
     }
     
-    func loadNext() throws -> Void {
-        if (self.currentPage >= self.totalPages) {
-            DispatchQueue.main.sync{
-                self.allClothingItemsLoaded = true
-            }
-        } else {
-            try api.loadClothingPage(collectionType: requestType, pageNumber: self.currentPage) { items in
-                //Updates variables on main thread.
-                DispatchQueue.main.sync{
-                    self.clothingItems.append(contentsOf: items)
-                    self.currentPage += 1
-                }
-            }
-        }
-        DispatchQueue.main.sync{
-            self.attemptedLoad = true
-        }
-        return
-    }
-    
+    /**
+        - Description: Loads the next page of clothing.
+        - Parameters:
+                - completion: Function to execute upon load completion.
+     */
     func loadNext(completion: @escaping (Result<Bool,Error>)->Void) -> Void {
         do {
-            if (self.currentPage >= self.totalPages) {
+            if (attemptedLoad && self.currentPage >= self.totalPages) {
                 DispatchQueue.main.sync{
                     self.allClothingItemsLoaded = true
                 }
                 completion(.success(true))
             } else {
-                try self.api.loadClothingPage(collectionType: self.requestType, pageNumber: self.currentPage) { items in
+                try self.api.loadClothingPage(collectionType: self.requestType, pageNumber: self.currentPage) { items, pageAmount in
+                    self.totalPages = pageAmount
                     self.clothingItems.append(contentsOf: items)
                     self.currentPage += 1
                     completion(.success(false))
