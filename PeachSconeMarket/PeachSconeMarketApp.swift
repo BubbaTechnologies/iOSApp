@@ -69,13 +69,18 @@ extension PeachSconeMarketApp {
             NotificationManager.shared.requestAuthorization()
             do {
                 //Loads browser settings
-                try self.api.loadBrowsing()
                 self.swipeClothingManager.api = api
                 if try api.loadToken() {
+                    DispatchQueue.main.sync {
+                        self.swipeClothingManager.changeCollectionType(collectionType: .cardList)
+                    }
+                    try self.api.loadBrowsing()
                     try self.loadDataAsync()
                     appStage = .main
                 } else {
-                    self.swipeClothingManager.collectionType = .preview
+                    DispatchQueue.main.sync{
+                        self.swipeClothingManager.changeCollectionType(collectionType: .preview)
+                    }
                     let group = DispatchGroup()
                     var returnError: Error? = nil
                     
@@ -85,7 +90,6 @@ extension PeachSconeMarketApp {
                         do {
                             try self.swipeClothingManager.loadItems()
                         } catch {
-                            print("\(error)")
                             returnError = error
                         }
                         group.leave()
@@ -97,7 +101,6 @@ extension PeachSconeMarketApp {
                     
                     group.wait()
                     
-                    print("\(self.swipeClothingManager.clothingItems.count)")
                     appStage = .preview
                 }
             } catch Api.ApiError.httpError(let message) {
@@ -147,7 +150,7 @@ extension PeachSconeMarketApp {
                 try self.api.updateLocation(latitude: locationManager.region.center.latitude, longitude: locationManager.region.center.longitude)
                 try self.api.updateDeviceId(deviceId: NotificationManager.deviceId)
             } catch {
-                print("\(error)")
+                print("Aux: \(error)")
             }
         }
         

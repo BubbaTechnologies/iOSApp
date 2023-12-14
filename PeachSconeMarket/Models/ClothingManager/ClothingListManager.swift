@@ -73,4 +73,9 @@ class ClothingListManager: ObservableObject, ClothingManager {
         self.clothingItems = []
         self.clothingCardManagers = []
     }
+    
+    func changeCollectionType(collectionType: CollectionStruct.CollectionRequestType)->Void {
+        self.collectionType = collectionType
+        self.reset()
+    }
 }
