@@ -765,7 +765,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PeachSconeMarket/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Peach Scone Market";
+				INFOPLIST_KEY_CFBundleDisplayName = Carou;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "To help us better recommend clothing.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "To help us better recommend clothing.";
@@ -781,7 +781,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Bubba-Technologies-Inc.PeachSconeMarket";
+				PRODUCT_BUNDLE_IDENTIFIER = "Bubba-Technologies-Inc.Carou";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -806,7 +806,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PeachSconeMarket/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Peach Scone Market";
+				INFOPLIST_KEY_CFBundleDisplayName = Carou;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "To help us better recommend clothing.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "To help us better recommend clothing.";
@@ -822,7 +822,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 2.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Bubba-Technologies-Inc.PeachSconeMarket";
+				PRODUCT_BUNDLE_IDENTIFIER = "Bubba-Technologies-Inc.Carou";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
