@@ -29,7 +29,7 @@
 		9214DEC52A0B72FD000A5A2D /* ClothingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214DEC42A0B72FD000A5A2D /* ClothingItem.swift */; };
 		9214DEC72A0B741F000A5A2D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214DEC62A0B741F000A5A2D /* CardView.swift */; };
 		921F0AD42AB50BFC00CEEC26 /* CardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921F0AD32AB50BFC00CEEC26 /* CardManager.swift */; };
-		9234A97B2A0B245600EC036A /* PeachSconeMarketApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A97A2A0B245600EC036A /* PeachSconeMarketApp.swift */; };
+		9234A97B2A0B245600EC036A /* CarouApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A97A2A0B245600EC036A /* CarouApp.swift */; };
 		9234A97D2A0B245600EC036A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A97C2A0B245600EC036A /* LoadingView.swift */; };
 		9234A97F2A0B245A00EC036A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9234A97E2A0B245A00EC036A /* Assets.xcassets */; };
 		9234A9822A0B245A00EC036A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9234A9812A0B245A00EC036A /* Preview Assets.xcassets */; };
@@ -114,14 +114,14 @@
 		9214DEC42A0B72FD000A5A2D /* ClothingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingItem.swift; sourceTree = "<group>"; };
 		9214DEC62A0B741F000A5A2D /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		921F0AD32AB50BFC00CEEC26 /* CardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardManager.swift; sourceTree = "<group>"; };
-		9234A9772A0B245600EC036A /* PeachSconeMarket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PeachSconeMarket.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9234A97A2A0B245600EC036A /* PeachSconeMarketApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeachSconeMarketApp.swift; sourceTree = "<group>"; };
+		9234A9772A0B245600EC036A /* Carou.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Carou.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9234A97A2A0B245600EC036A /* CarouApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouApp.swift; sourceTree = "<group>"; };
 		9234A97C2A0B245600EC036A /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		9234A97E2A0B245A00EC036A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9234A9812A0B245A00EC036A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		9234A9872A0B245A00EC036A /* PeachSconeMarketTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeachSconeMarketTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9234A9872A0B245A00EC036A /* CarouTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarouTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9234A98B2A0B245A00EC036A /* PeachSconeMarketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeachSconeMarketTests.swift; sourceTree = "<group>"; };
-		9234A9912A0B245A00EC036A /* PeachSconeMarketUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PeachSconeMarketUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9234A9912A0B245A00EC036A /* CarouUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarouUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9234A9952A0B245A00EC036A /* PeachSconeMarketUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeachSconeMarketUITests.swift; sourceTree = "<group>"; };
 		9234A9972A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeachSconeMarketUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9234A9A62A0B278200EC036A /* CustomFontFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFontFactory.swift; sourceTree = "<group>"; };
@@ -147,7 +147,7 @@
 		92ADCC7C2A97C7EB0070136A /* ClothingListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingListManager.swift; sourceTree = "<group>"; };
 		92ADCC7F2A9831DA0070136A /* LoginSequenceDesignVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSequenceDesignVariables.swift; sourceTree = "<group>"; };
 		92ADCC812A997DC20070136A /* NavigationViewDesignVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewDesignVariables.swift; sourceTree = "<group>"; };
-		92B416882A186BB4002F89DC /* PeachSconeMarket.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PeachSconeMarket.entitlements; sourceTree = "<group>"; };
+		92B416882A186BB4002F89DC /* Carou.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Carou.entitlements; sourceTree = "<group>"; };
 		92B937202A8C6F3F0025DCB1 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		92C623D42A0EB1AB006B5940 /* LikeStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeStruct.swift; sourceTree = "<group>"; };
 		92C623D62A0EE53C006B5940 /* CollectionStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionStruct.swift; sourceTree = "<group>"; };
@@ -235,9 +235,9 @@
 			isa = PBXGroup;
 			children = (
 				9273B0832A0D5EDA002140C4 /* README.md */,
-				9234A9792A0B245600EC036A /* PeachSconeMarket */,
-				9234A98A2A0B245A00EC036A /* PeachSconeMarketTests */,
-				9234A9942A0B245A00EC036A /* PeachSconeMarketUITests */,
+				9234A9792A0B245600EC036A /* Carou */,
+				9234A98A2A0B245A00EC036A /* CarouTests */,
+				9234A9942A0B245A00EC036A /* CarouUITests */,
 				9234A9782A0B245600EC036A /* Products */,
 				92022F9E2A1461EE007BE365 /* Frameworks */,
 			);
@@ -246,25 +246,25 @@
 		9234A9782A0B245600EC036A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9234A9772A0B245600EC036A /* PeachSconeMarket.app */,
-				9234A9872A0B245A00EC036A /* PeachSconeMarketTests.xctest */,
-				9234A9912A0B245A00EC036A /* PeachSconeMarketUITests.xctest */,
+				9234A9772A0B245600EC036A /* Carou.app */,
+				9234A9872A0B245A00EC036A /* CarouTests.xctest */,
+				9234A9912A0B245A00EC036A /* CarouUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		9234A9792A0B245600EC036A /* PeachSconeMarket */ = {
+		9234A9792A0B245600EC036A /* Carou */ = {
 			isa = PBXGroup;
 			children = (
 				9234A9A52A0B25D000EC036A /* Models */,
-				92B416882A186BB4002F89DC /* PeachSconeMarket.entitlements */,
+				92B416882A186BB4002F89DC /* Carou.entitlements */,
 				9214DE8A2A0B56AE000A5A2D /* Fonts */,
 				9234A9A42A0B25B500EC036A /* Views */,
-				9234A97A2A0B245600EC036A /* PeachSconeMarketApp.swift */,
+				9234A97A2A0B245600EC036A /* CarouApp.swift */,
 				9234A97E2A0B245A00EC036A /* Assets.xcassets */,
 				9234A9802A0B245A00EC036A /* Preview Content */,
 			);
-			path = PeachSconeMarket;
+			path = Carou;
 			sourceTree = "<group>";
 		};
 		9234A9802A0B245A00EC036A /* Preview Content */ = {
@@ -275,21 +275,21 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		9234A98A2A0B245A00EC036A /* PeachSconeMarketTests */ = {
+		9234A98A2A0B245A00EC036A /* CarouTests */ = {
 			isa = PBXGroup;
 			children = (
 				9234A98B2A0B245A00EC036A /* PeachSconeMarketTests.swift */,
 			);
-			path = PeachSconeMarketTests;
+			path = CarouTests;
 			sourceTree = "<group>";
 		};
-		9234A9942A0B245A00EC036A /* PeachSconeMarketUITests */ = {
+		9234A9942A0B245A00EC036A /* CarouUITests */ = {
 			isa = PBXGroup;
 			children = (
 				9234A9952A0B245A00EC036A /* PeachSconeMarketUITests.swift */,
 				9234A9972A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift */,
 			);
-			path = PeachSconeMarketUITests;
+			path = CarouUITests;
 			sourceTree = "<group>";
 		};
 		9234A9A42A0B25B500EC036A /* Views */ = {
@@ -312,7 +312,7 @@
 		9234A9A52A0B25D000EC036A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				92A1CED52B2962FB009B155C /* ComStructs */,
+				92A1CED52B2962FB009B155C /* CommunicationStructs */,
 				92ADCC792A97C7C90070136A /* ClothingManager */,
 				92B937202A8C6F3F0025DCB1 /* Api.swift */,
 				9234A9A62A0B278200EC036A /* CustomFontFactory.swift */,
@@ -326,7 +326,7 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		92A1CED52B2962FB009B155C /* ComStructs */ = {
+		92A1CED52B2962FB009B155C /* CommunicationStructs */ = {
 			isa = PBXGroup;
 			children = (
 				92C623D42A0EB1AB006B5940 /* LikeStruct.swift */,
@@ -336,7 +336,7 @@
 				92C623D62A0EE53C006B5940 /* CollectionStruct.swift */,
 				9266D3942A0E03A200976757 /* UserClass.swift */,
 			);
-			path = ComStructs;
+			path = CommunicationStructs;
 			sourceTree = "<group>";
 		};
 		92ADCC792A97C7C90070136A /* ClothingManager */ = {
@@ -412,9 +412,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9234A9762A0B245600EC036A /* PeachSconeMarket */ = {
+		9234A9762A0B245600EC036A /* Carou */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9234A99B2A0B245A00EC036A /* Build configuration list for PBXNativeTarget "PeachSconeMarket" */;
+			buildConfigurationList = 9234A99B2A0B245A00EC036A /* Build configuration list for PBXNativeTarget "Carou" */;
 			buildPhases = (
 				9234A9732A0B245600EC036A /* Sources */,
 				9234A9742A0B245600EC036A /* Frameworks */,
@@ -424,14 +424,14 @@
 			);
 			dependencies = (
 			);
-			name = PeachSconeMarket;
+			name = Carou;
 			productName = PeachSconeMarket;
-			productReference = 9234A9772A0B245600EC036A /* PeachSconeMarket.app */;
+			productReference = 9234A9772A0B245600EC036A /* Carou.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9234A9862A0B245A00EC036A /* PeachSconeMarketTests */ = {
+		9234A9862A0B245A00EC036A /* CarouTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9234A99E2A0B245A00EC036A /* Build configuration list for PBXNativeTarget "PeachSconeMarketTests" */;
+			buildConfigurationList = 9234A99E2A0B245A00EC036A /* Build configuration list for PBXNativeTarget "CarouTests" */;
 			buildPhases = (
 				9234A9832A0B245A00EC036A /* Sources */,
 				9234A9842A0B245A00EC036A /* Frameworks */,
@@ -442,14 +442,14 @@
 			dependencies = (
 				9234A9892A0B245A00EC036A /* PBXTargetDependency */,
 			);
-			name = PeachSconeMarketTests;
+			name = CarouTests;
 			productName = PeachSconeMarketTests;
-			productReference = 9234A9872A0B245A00EC036A /* PeachSconeMarketTests.xctest */;
+			productReference = 9234A9872A0B245A00EC036A /* CarouTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		9234A9902A0B245A00EC036A /* PeachSconeMarketUITests */ = {
+		9234A9902A0B245A00EC036A /* CarouUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9234A9A12A0B245A00EC036A /* Build configuration list for PBXNativeTarget "PeachSconeMarketUITests" */;
+			buildConfigurationList = 9234A9A12A0B245A00EC036A /* Build configuration list for PBXNativeTarget "CarouUITests" */;
 			buildPhases = (
 				9234A98D2A0B245A00EC036A /* Sources */,
 				9234A98E2A0B245A00EC036A /* Frameworks */,
@@ -460,9 +460,9 @@
 			dependencies = (
 				9234A9932A0B245A00EC036A /* PBXTargetDependency */,
 			);
-			name = PeachSconeMarketUITests;
+			name = CarouUITests;
 			productName = PeachSconeMarketUITests;
-			productReference = 9234A9912A0B245A00EC036A /* PeachSconeMarketUITests.xctest */;
+			productReference = 9234A9912A0B245A00EC036A /* CarouUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -488,7 +488,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 9234A9722A0B245600EC036A /* Build configuration list for PBXProject "PeachSconeMarket" */;
+			buildConfigurationList = 9234A9722A0B245600EC036A /* Build configuration list for PBXProject "Carou" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -501,9 +501,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9234A9762A0B245600EC036A /* PeachSconeMarket */,
-				9234A9862A0B245A00EC036A /* PeachSconeMarketTests */,
-				9234A9902A0B245A00EC036A /* PeachSconeMarketUITests */,
+				9234A9762A0B245600EC036A /* Carou */,
+				9234A9862A0B245A00EC036A /* CarouTests */,
+				9234A9902A0B245A00EC036A /* CarouUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -587,7 +587,7 @@
 				92ADCC782A97BE270070136A /* ClothingManager.swift in Sources */,
 				92C623D72A0EE53C006B5940 /* CollectionStruct.swift in Sources */,
 				9214DEC12A0B6CC8000A5A2D /* SwipeView.swift in Sources */,
-				9234A97B2A0B245600EC036A /* PeachSconeMarketApp.swift in Sources */,
+				9234A97B2A0B245600EC036A /* CarouApp.swift in Sources */,
 				9286DB2F2A0C953D007FA46E /* NavigationButtonsView.swift in Sources */,
 				92F137212A16EE9D000C0546 /* ListView.swift in Sources */,
 				92A1CED42B292018009B155C /* PreviewView.swift in Sources */,
@@ -622,12 +622,12 @@
 /* Begin PBXTargetDependency section */
 		9234A9892A0B245A00EC036A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9234A9762A0B245600EC036A /* PeachSconeMarket */;
+			target = 9234A9762A0B245600EC036A /* Carou */;
 			targetProxy = 9234A9882A0B245A00EC036A /* PBXContainerItemProxy */;
 		};
 		9234A9932A0B245A00EC036A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9234A9762A0B245600EC036A /* PeachSconeMarket */;
+			target = 9234A9762A0B245600EC036A /* Carou */;
 			targetProxy = 9234A9922A0B245A00EC036A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -757,14 +757,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = PeachSconeMarket/PeachSconeMarket.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Carou/Carou.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"PeachSconeMarket/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Carou/Preview Content\"";
 				DEVELOPMENT_TEAM = 29M3BZ9YYL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PeachSconeMarket/Info.plist;
+				INFOPLIST_FILE = Carou/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Carou;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "To help us better recommend clothing.";
@@ -798,14 +798,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = PeachSconeMarket/PeachSconeMarket.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Carou/Carou.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"PeachSconeMarket/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Carou/Preview Content\"";
 				DEVELOPMENT_TEAM = 29M3BZ9YYL;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PeachSconeMarket/Info.plist;
+				INFOPLIST_FILE = Carou/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Carou;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "To help us better recommend clothing.";
@@ -844,12 +844,12 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Bubba-Technologies-Inc.PeachSconeMarketTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "Bubba-Technologies-Inc.CarouTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PeachSconeMarket.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PeachSconeMarket";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Carou.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Carou";
 			};
 			name = Debug;
 		};
@@ -864,12 +864,12 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Bubba-Technologies-Inc.PeachSconeMarketTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "Bubba-Technologies-Inc.CarouTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PeachSconeMarket.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PeachSconeMarket";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Carou.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Carou";
 			};
 			name = Release;
 		};
@@ -882,12 +882,12 @@
 				DEVELOPMENT_TEAM = 29M3BZ9YYL;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Bubba-Technologies-Inc.PeachSconeMarketUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "Bubba-Technologies-Inc.CarouUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = PeachSconeMarket;
+				TEST_TARGET_NAME = Carou;
 			};
 			name = Debug;
 		};
@@ -900,19 +900,19 @@
 				DEVELOPMENT_TEAM = 29M3BZ9YYL;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Bubba-Technologies-Inc.PeachSconeMarketUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = "Bubba-Technologies-Inc.CarouUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = PeachSconeMarket;
+				TEST_TARGET_NAME = Carou;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9234A9722A0B245600EC036A /* Build configuration list for PBXProject "PeachSconeMarket" */ = {
+		9234A9722A0B245600EC036A /* Build configuration list for PBXProject "Carou" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9234A9992A0B245A00EC036A /* Debug */,
@@ -921,7 +921,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9234A99B2A0B245A00EC036A /* Build configuration list for PBXNativeTarget "PeachSconeMarket" */ = {
+		9234A99B2A0B245A00EC036A /* Build configuration list for PBXNativeTarget "Carou" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9234A99C2A0B245A00EC036A /* Debug */,
@@ -930,7 +930,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9234A99E2A0B245A00EC036A /* Build configuration list for PBXNativeTarget "PeachSconeMarketTests" */ = {
+		9234A99E2A0B245A00EC036A /* Build configuration list for PBXNativeTarget "CarouTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9234A99F2A0B245A00EC036A /* Debug */,
@@ -939,7 +939,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9234A9A12A0B245A00EC036A /* Build configuration list for PBXNativeTarget "PeachSconeMarketUITests" */ = {
+		9234A9A12A0B245A00EC036A /* Build configuration list for PBXNativeTarget "CarouUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9234A9A22A0B245A00EC036A /* Debug */,

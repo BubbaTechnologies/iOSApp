@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9234A9762A0B245600EC036A"
-               BuildableName = "PeachSconeMarket.app"
-               BlueprintName = "PeachSconeMarket"
-               ReferencedContainer = "container:PeachSconeMarket.xcodeproj">
+               BuildableName = "Carou.app"
+               BlueprintName = "Carou"
+               ReferencedContainer = "container:Carou.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,9 +35,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9234A9862A0B245A00EC036A"
-               BuildableName = "PeachSconeMarketTests.xctest"
-               BlueprintName = "PeachSconeMarketTests"
-               ReferencedContainer = "container:PeachSconeMarket.xcodeproj">
+               BuildableName = "CarouTests.xctest"
+               BlueprintName = "CarouTests"
+               ReferencedContainer = "container:Carou.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -46,9 +46,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9234A9902A0B245A00EC036A"
-               BuildableName = "PeachSconeMarketUITests.xctest"
-               BlueprintName = "PeachSconeMarketUITests"
-               ReferencedContainer = "container:PeachSconeMarket.xcodeproj">
+               BuildableName = "CarouUITests.xctest"
+               BlueprintName = "CarouUITests"
+               ReferencedContainer = "container:Carou.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -68,9 +68,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9234A9762A0B245600EC036A"
-            BuildableName = "PeachSconeMarket.app"
-            BlueprintName = "PeachSconeMarket"
-            ReferencedContainer = "container:PeachSconeMarket.xcodeproj">
+            BuildableName = "Carou.app"
+            BlueprintName = "Carou"
+            ReferencedContainer = "container:Carou.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <EnvironmentVariables>
@@ -92,9 +92,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9234A9762A0B245600EC036A"
-            BuildableName = "PeachSconeMarket.app"
-            BlueprintName = "PeachSconeMarket"
-            ReferencedContainer = "container:PeachSconeMarket.xcodeproj">
+            BuildableName = "Carou.app"
+            BlueprintName = "Carou"
+            ReferencedContainer = "container:Carou.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

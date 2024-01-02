@@ -1,5 +1,5 @@
-#  Peach Scone Market iOS Application
-**Updated 10/17/23**
+#  Carou iOS Application
+**Updated 1/1/24**
 
 ## Software Design
 **TODO**
