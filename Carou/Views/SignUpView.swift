@@ -76,7 +76,7 @@ struct SignUpView: View {
                                 .multilineTextAlignment(.center)
                             HStack(spacing: 0){
                                 Spacer()
-                                Link("Privacy Policy ", destination: URL(string: "https://www.peachsconemarket.com/privacypolicy/privacy_policy_tos.pdf")!)
+                                Link("Privacy Policy ", destination: URL(string: "https://www.clothingcarou.com/privacypolicy/privacy_policy_tos.pdf")!)
                                     .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.03, relativeTo: .caption))
                                     .multilineTextAlignment(.center)
                                     .padding(.horizontal, 0)
@@ -86,7 +86,7 @@ struct SignUpView: View {
                                     .multilineTextAlignment(.center)
                                     .foregroundColor(Color("DarkFontColor"))
                                     .padding(.horizontal, 0)
-                                Link("Terms of Service", destination: URL(string: "https://www.peachsconemarket.com/privacypolicy/privacy_policy_tos.pdf")!)
+                                Link("Terms of Service", destination: URL(string: "https://www.clothingcarou.com/privacypolicy/privacy_policy_tos.pdf")!)
                                     .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.03, relativeTo: .caption))
                                     .multilineTextAlignment(.center)
                                     .foregroundColor(.blue)
@@ -105,13 +105,13 @@ struct SignUpView: View {
                             Alert(
                                 title: Text("Can we store your date of birth?"),
                                 message: Text("This data will be used to help us better recommend clothing."),
-                                primaryButton: .default(Text("Yes")){
-                                    self.userClass.dataCollectionPermission = true
-                                    verify()
-                                },
-                                secondaryButton: .default(Text("No")){
+                                primaryButton: .default(Text("No")){
                                     //Hides birthdate information
                                     self.userClass.dataCollectionPermission = false
+                                    verify()
+                                },
+                                secondaryButton: .default(Text("Yes")){
+                                    self.userClass.dataCollectionPermission = true
                                     verify()
                                 })
                         }

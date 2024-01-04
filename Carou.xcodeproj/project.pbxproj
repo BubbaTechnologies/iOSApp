@@ -33,9 +33,9 @@
 		9234A97D2A0B245600EC036A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A97C2A0B245600EC036A /* LoadingView.swift */; };
 		9234A97F2A0B245A00EC036A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9234A97E2A0B245A00EC036A /* Assets.xcassets */; };
 		9234A9822A0B245A00EC036A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9234A9812A0B245A00EC036A /* Preview Assets.xcassets */; };
-		9234A98C2A0B245A00EC036A /* PeachSconeMarketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A98B2A0B245A00EC036A /* PeachSconeMarketTests.swift */; };
-		9234A9962A0B245A00EC036A /* PeachSconeMarketUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A9952A0B245A00EC036A /* PeachSconeMarketUITests.swift */; };
-		9234A9982A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A9972A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift */; };
+		9234A98C2A0B245A00EC036A /* CarouTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A98B2A0B245A00EC036A /* CarouTests.swift */; };
+		9234A9962A0B245A00EC036A /* CarouUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A9952A0B245A00EC036A /* CarouUITests.swift */; };
+		9234A9982A0B245A00EC036A /* CarouUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A9972A0B245A00EC036A /* CarouUITestsLaunchTests.swift */; };
 		9234A9A72A0B278200EC036A /* CustomFontFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A9A62A0B278200EC036A /* CustomFontFactory.swift */; };
 		92524A7B2A14A45F00CE0FD4 /* SelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92524A7A2A14A45F00CE0FD4 /* SelectedView.swift */; };
 		9266D3952A0E03A200976757 /* UserClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9266D3942A0E03A200976757 /* UserClass.swift */; };
@@ -120,10 +120,10 @@
 		9234A97E2A0B245A00EC036A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9234A9812A0B245A00EC036A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9234A9872A0B245A00EC036A /* CarouTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarouTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9234A98B2A0B245A00EC036A /* PeachSconeMarketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeachSconeMarketTests.swift; sourceTree = "<group>"; };
+		9234A98B2A0B245A00EC036A /* CarouTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouTests.swift; sourceTree = "<group>"; };
 		9234A9912A0B245A00EC036A /* CarouUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarouUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9234A9952A0B245A00EC036A /* PeachSconeMarketUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeachSconeMarketUITests.swift; sourceTree = "<group>"; };
-		9234A9972A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeachSconeMarketUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		9234A9952A0B245A00EC036A /* CarouUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouUITests.swift; sourceTree = "<group>"; };
+		9234A9972A0B245A00EC036A /* CarouUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9234A9A62A0B278200EC036A /* CustomFontFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFontFactory.swift; sourceTree = "<group>"; };
 		92524A7A2A14A45F00CE0FD4 /* SelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedView.swift; sourceTree = "<group>"; };
 		9266D3942A0E03A200976757 /* UserClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserClass.swift; sourceTree = "<group>"; };
@@ -278,7 +278,7 @@
 		9234A98A2A0B245A00EC036A /* CarouTests */ = {
 			isa = PBXGroup;
 			children = (
-				9234A98B2A0B245A00EC036A /* PeachSconeMarketTests.swift */,
+				9234A98B2A0B245A00EC036A /* CarouTests.swift */,
 			);
 			path = CarouTests;
 			sourceTree = "<group>";
@@ -286,8 +286,8 @@
 		9234A9942A0B245A00EC036A /* CarouUITests */ = {
 			isa = PBXGroup;
 			children = (
-				9234A9952A0B245A00EC036A /* PeachSconeMarketUITests.swift */,
-				9234A9972A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift */,
+				9234A9952A0B245A00EC036A /* CarouUITests.swift */,
+				9234A9972A0B245A00EC036A /* CarouUITestsLaunchTests.swift */,
 			);
 			path = CarouUITests;
 			sourceTree = "<group>";
@@ -604,7 +604,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9234A98C2A0B245A00EC036A /* PeachSconeMarketTests.swift in Sources */,
+				9234A98C2A0B245A00EC036A /* CarouTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,8 +612,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9234A9962A0B245A00EC036A /* PeachSconeMarketUITests.swift in Sources */,
-				9234A9982A0B245A00EC036A /* PeachSconeMarketUITestsLaunchTests.swift in Sources */,
+				9234A9962A0B245A00EC036A /* CarouUITests.swift in Sources */,
+				9234A9982A0B245A00EC036A /* CarouUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -754,7 +754,7 @@
 		9234A99C2A0B245A00EC036A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Icon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Carou/Carou.entitlements;
@@ -780,7 +780,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Bubba-Technologies-Inc.Carou";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -795,7 +795,7 @@
 		9234A99D2A0B245A00EC036A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Icon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Carou/Carou.entitlements;
@@ -821,7 +821,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.0;
+				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Bubba-Technologies-Inc.Carou";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

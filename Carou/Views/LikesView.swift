@@ -23,7 +23,7 @@ struct LikesView: View {
             VStack(alignment: .center) {
                 InlineTitleView()
                     .frame(width: reader.size.width, height: reader.size.height * 0.07)
-                    .padding(.top, reader.size.height * 0.028)
+                    .padding(.top, reader.size.height * 0.024)
                     .padding(.bottom, reader.size.height * 0.01)
                 CardScrollView(name: "Likes", clothingManager: clothingManager, likeStore: likeStore, selectedClothingItems: $selectedClothingItems, editing: $editing)
                     .frame(height: reader.size.height * 0.85, alignment: .center)

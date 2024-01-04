@@ -10,7 +10,7 @@ import SwiftUI
 struct InlineTitleView: View {
     var body: some View {
         GeometryReader{ reader in
-            Text("Carou")
+            Text("Clothing Carou")
                 .font(CustomFontFactory.getFont(style: "Bold", size: reader.size.width * 0.09, relativeTo: .title2))
                 .minimumScaleFactor(0.25)
                 .lineLimit(1)

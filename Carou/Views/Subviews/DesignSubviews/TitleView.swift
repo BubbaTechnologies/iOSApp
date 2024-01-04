@@ -10,7 +10,7 @@ import SwiftUI
 struct TitleView: View {
     var body: some View {
         GeometryReader{ reader in
-            Text("Carou")
+            Text("Clothing Carou")
                 .font(CustomFontFactory.getFont(style: "Bold", size: 60, relativeTo: .title))
                 .foregroundColor(Color("DarkFontColor"))
                 .padding(.horizontal, reader.size.width * 0.08)

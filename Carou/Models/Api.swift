@@ -13,7 +13,7 @@ class Api:ObservableObject {
     @Published var genderFilter: String = ""
     @Published var typeFilters: [String:Bool] = [:]
     @Published var filterOptionsStruct: FilterOptionsStruct = FilterOptionsStruct.sampleOptions
-    let baseUrl = "api.peachsconemarket.com"
+    let baseUrl = "api.clothingcarou.com"
     
     init() {
         self.jwt = nil
@@ -43,13 +43,13 @@ class Api:ObservableObject {
     
     //Deteremines if previous token is valid. Returns true if token is valid or else false.
     func loadToken() throws -> Bool {
-        if let jwtData = KeychainHelper.standard.read(service: "access-token", account: "peachSconeMarket") {
+        if let jwtData = KeychainHelper.standard.read(service: "access-token", account: "clothingCarou") {
             if let jwtDataUnwrapped = String(data: jwtData, encoding: .utf8) {
                 if try checkToken(jwt: jwtDataUnwrapped) {
                     self.jwt = jwtDataUnwrapped
                     return true
                 } else {
-                    KeychainHelper.standard.delete(service: "access-token", account: "peachSconeMarket")
+                    KeychainHelper.standard.delete(service: "access-token", account: "clothingCarou")
                 }
             }
         }
@@ -144,7 +144,7 @@ class Api:ObservableObject {
                     do {
                         let responseData = try JSONDecoder().decode(LoginResponseStruct.self, from: data)
                         self.jwt = responseData.jwt
-                        KeychainHelper.standard.save(Data(responseData.jwt.utf8), service: "access-token", account: "peachSconeMarket")
+                        KeychainHelper.standard.save(Data(responseData.jwt.utf8), service: "access-token", account: "clothingCarou")
                     } catch {
                         responseStatusCode = -2
                     }
@@ -193,7 +193,7 @@ class Api:ObservableObject {
                     do {
                         let responseData = try JSONDecoder().decode(LoginResponseStruct.self, from: data)
                         self.jwt = responseData.jwt
-                        KeychainHelper.standard.save(Data(responseData.jwt.utf8), service: "access-token", account: "peachSconeMarket")
+                        KeychainHelper.standard.save(Data(responseData.jwt.utf8), service: "access-token", account: "clothingCarou")
                     } catch {
                         responseStatusCode = -2
                     }
@@ -485,6 +485,8 @@ class Api:ObservableObject {
                 return
             }
         }
+        
+        throw Api.getApiError(statusCode: responseStatusCode)
     }
     
     

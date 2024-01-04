@@ -23,7 +23,7 @@ struct SettingsView: View {
             VStack{
                 InlineTitleView()
                     .frame(width: reader.size.width, height: reader.size.height * 0.07)
-                    .padding(.top, reader.size.height * 0.028)
+                    .padding(.top, reader.size.height * 0.024)
                     .padding(.bottom, reader.size.height * 0.01)
                 ScrollView{
                     VStack{
@@ -37,7 +37,7 @@ struct SettingsView: View {
                         .frame(height: max(LoginSequenceDesignVariables.buttonMinHeight * 0.9, reader.size.height * LoginSequenceDesignVariables.buttonHeightFactor * 0.9))
                         
                         ButtonView(text: "Logout", confirmation: true, widthFactor: 0.5, fontFactor: 0.06) {
-                            KeychainHelper.standard.delete(service: "access-token", account: "peachSconeMarket")
+                            KeychainHelper.standard.delete(service: "access-token", account: "clothingCarou")
                             exit(0)
                         }
                         .frame(height: max(LoginSequenceDesignVariables.buttonMinHeight * 0.95, reader.size.height * LoginSequenceDesignVariables.buttonHeightFactor * 0.95))
@@ -49,7 +49,7 @@ struct SettingsView: View {
                                     errorMessage = "Could not delete account."
                                     displayErrorMessage = true
                                 } else {
-                                    KeychainHelper.standard.delete(service: "access-token", account: "peachSconeMarket")
+                                    KeychainHelper.standard.delete(service: "access-token", account: "clothingCarou")
                                     exit(0)
                                 }
                             } catch {

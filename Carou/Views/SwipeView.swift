@@ -36,7 +36,7 @@ struct SwipeView: View {
             VStack{
                 InlineTitleView()
                     .frame(width: reader.size.width, height: reader.size.height * 0.07)
-                    .padding(.top, reader.size.height * 0.028)
+                    .padding(.top, reader.size.height * 0.024)
                     .padding(.bottom, reader.size.height * 0.01)
                 VStack{
                     if (clothingManager.clothingItems.count <= (maximumLoadingCount)) {

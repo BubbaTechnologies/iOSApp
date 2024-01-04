@@ -31,7 +31,7 @@ struct NavigationButtonView: View {
                                     ZStack{
                                         if (options) {
                                             Text("X")
-                                                .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.08, relativeTo: .body))
+                                                .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.0825, relativeTo: .body))
                                                 .foregroundColor(Color("DarkFontColor"))
                                         } else {
                                             Image("FilterIcon")
