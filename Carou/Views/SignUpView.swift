@@ -46,21 +46,24 @@ struct SignUpView: View {
                                 .padding(.bottom, reader.size.height * 0.01)
                             DatePickerView(placeholder: "Date of Birth", birthdate: $userClass.birthdate)
                                 .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
-                                .padding(.bottom, reader.size.height * 0.01)
+                            HStack {
+                                Text("Optional")
+                                    .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.03, relativeTo: .caption))
+                                    .foregroundColor(Color("DarkFontColor"))
+                                    .padding(.leading,  reader.size.height * 0.055)
+                                Spacer()
+                            }
                             ButtonView(text: "Sign Up") {
                                 if userClass.username.isEmpty || userClass.password.isEmpty || userClass.gender.isEmpty || confirmPassword.isEmpty {
                                     errorMessage = "Please fill in all fields."
                                     return
                                 }
-                                
-                                if userClass.birthdate > Calendar.current.date(byAdding: .year, value: -13, to: Date())! {
-                                    errorMessage = "You must be 13 years or older."
-                                    return
-                                }
-                                
-                                if self.userClass.dataCollectionPermission == nil {
+                                if self.userClass.dataCollectionPermission == nil && userClass.birthdate <= Calendar.current.date(byAdding: .year, value: -13, to: Date())! {
                                     displayPermissionAlert = true
                                 } else {
+                                    DispatchQueue.main.sync {
+                                        self.userClass.dataCollectionPermission = false
+                                    }
                                     verify()
                                 }
                             }
