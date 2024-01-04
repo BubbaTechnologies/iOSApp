@@ -100,7 +100,7 @@ struct FilterOptions: Codable {
 }
 
 extension FilterOptionsStruct {
-    static let sampleOptions: FilterOptionsStruct = FilterOptionsStruct(genders: ["FEMALE", "MALE","BOY","GIRL","KIDS","UNISEX"]
+    static let sampleOptions: FilterOptionsStruct = FilterOptionsStruct(genders: ["FEMALE", "MALE","UNISEX"]
                                                                         , types: [
                                                                             ["TOP","BOTTOM","SHOES","UNDERCLOTHING","JACKET","ONE_PIECE","SKIRT","ACCESSORY","SWIMWEAR","DRESS","SLEEPWEAR"],
                                                                             ["TOP","BOTTOM","SHOES","UNDERCLOTHING","JACKET","ACCESSORY","SWIMWEAR","SLEEPWEAR"],
