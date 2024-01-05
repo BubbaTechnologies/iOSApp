@@ -71,9 +71,13 @@ class ClothingPageManager: ObservableObject, ClothingManager {
             } else {
                 try self.api.loadClothingPage(collectionType: self.requestType, pageNumber: self.currentPage) { items, pageAmount in
                     self.totalPages = pageAmount
-                    self.clothingItems.append(contentsOf: items)
-                    self.currentPage += 1
-                    completion(.success(false))
+                    if self.totalPages == 0 {
+                        completion(.success(true))
+                    } else {
+                        self.clothingItems.append(contentsOf: items)
+                        self.currentPage += 1
+                        completion(.success(false))
+                    }
                 }
             }
         } catch {

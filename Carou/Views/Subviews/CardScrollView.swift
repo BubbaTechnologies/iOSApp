@@ -146,7 +146,7 @@ struct CardScrollView: View {
                                 if clothingManager.clothingItems.count == 0 {
                                     errorMessage = "Start liking clothing!"
                                 }
-                            }
+                            } 
                         case .failure(let error):
                             if case Api.ApiError.httpError(let message) = error {
                                 errorMessage = message
