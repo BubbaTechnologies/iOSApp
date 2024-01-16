@@ -47,7 +47,7 @@ struct MainView: View {
                         }
                         .frame(width: reader.size.width, height: reader.size.height)
                     } else if pageState == .swipe {
-                        SwipeView(api: api, clothingManager: swipeClothingManager, likeStore: store, pageState: $pageState) { newState in
+                        SwipeView(api: api, clothingManager: swipeClothingManager, likeStore: store, initials: api.profileInformation.getInitials(), pageState: $pageState) { newState in
                             previousPageState = pageState
                             pageState = newState
                             switchFunction(newState: newState)
@@ -68,13 +68,15 @@ struct MainView: View {
                             switchFunction(newState: newState)
                         }
                         .frame(width: reader.size.width, height: reader.size.height)
-                    } else if pageState == .settings {
-                        SettingsView(api: api) { newState in
+                    } else if pageState == .profile {
+                        ProfileView(api: api) { newState in
                             previousPageState = pageState
                             pageState = newState
-                            switchFunction(newState: newState)
                         }
                         .frame(width: reader.size.width, height: reader.size.height)
+                    } else if pageState == .activity {
+                        //TODO
+                        EmptyView()
                     }
                     Spacer()
                 }
@@ -106,7 +108,7 @@ extension MainView {
     }
     
     /**
-            - Description: Executes at the end of each state switch.
+            - Description: Executes at the end of each state switch except profile.
             - Parameters:
                 - newState: The new pageState.
      */
@@ -138,6 +140,6 @@ enum PageState {
     case closet
     case filtering
     case editing
-    case settings
-    case logout
+    case profile
+    case activity
 }

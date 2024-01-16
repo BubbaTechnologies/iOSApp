@@ -12,6 +12,7 @@ class Api:ObservableObject {
     @Published var browser: Bool = false
     @Published var filters: Dictionary<String, [String]> = [:]
     @Published var filterOptionsStruct: FilterOptionsStruct = FilterOptionsStruct.sampleOptions
+    @Published var profileInformation: ProfileStruct = ProfileStruct()
     let baseUrl = "api.clothingcarou.com"
     
     init() {
@@ -596,6 +597,51 @@ class Api:ObservableObject {
     }
     
     /**
+        - Description: Loads profile information and stores within API class.
+     */
+    func loadProfile() throws {
+        var responseStatusCode: Int = -4
+        let semaphore = DispatchSemaphore(value: 0)
+        if let jwt = self.jwt {
+            var request = URLRequest(url: URL(string: "https://" + baseUrl + "/app/userInfo")!)
+            request.httpMethod = "GET"
+            request.allHTTPHeaderFields = [
+                "Authorization":"Bearer " + jwt,
+                "Host": baseUrl
+            ]
+            
+            var responseData: ProfileStruct = ProfileStruct()
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let response = response as? HTTPURLResponse {
+                    responseStatusCode = response.statusCode
+                } else {
+                    responseStatusCode = -1
+                }
+                
+                if let data = data  {
+                    do {
+                        responseData = try JSONDecoder().decode(ProfileStruct.self, from: data)
+                    } catch {
+                        if responseStatusCode == 200 {
+                            responseStatusCode = -5
+                        }
+                    }
+                }
+                semaphore.signal()
+            }.resume()
+            
+            _ = semaphore.wait(timeout: .distantFuture)
+            if responseStatusCode == 200 {
+                DispatchQueue.main.sync{
+                    self.profileInformation = responseData
+                }
+                return
+            }
+        }
+        throw Api.getApiError(statusCode: responseStatusCode)
+    }
+    
+    /**
         - Parameters:
             - deviceId: A string representing the device's ARN token.
         - Throws: `ApiError.httpError` if the return value is not 200. Check README.md for clarification on codes.
@@ -710,6 +756,60 @@ class Api:ObservableObject {
             return
         }
         
+        
+        throw Api.getApiError(statusCode: responseStatusCode)
+    }
+    
+    /**
+        - Parameters:
+            - userClass: The class holding the updated information.
+        - Throws: `ApiError.httpError` if the return value is not 200. Check README.md for clarification on codes.
+     */
+    func sendUpdate(userClass: UserClass) throws {
+        var responseStatusCode: Int = -4
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        let url = URL(string: "https://" + baseUrl + "/update")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.httpBody = try JSONEncoder().encode(userClass)
+        if let jwt = jwt {
+            request.allHTTPHeaderFields = [
+                "Authorization" : "Bearer " + jwt,
+                "Content-Type": "application/json",
+                "Host": baseUrl
+            ]
+            
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let response = response as? HTTPURLResponse {
+                    responseStatusCode = response.statusCode
+                    if responseStatusCode != 200 {
+                        return
+                    }
+                } else {
+                    responseStatusCode = -1
+                    return
+                }
+                
+                if responseStatusCode == 200 {
+                    if let data = data {
+                        do {
+                            let responseData = try JSONDecoder().decode(LoginResponseStruct.self, from: data)
+                            self.jwt = responseData.jwt
+                            KeychainHelper.standard.save(Data(responseData.jwt.utf8), service: "access-token", account: "clothingCarou")
+                        } catch {
+                            responseStatusCode = -2
+                        }
+                    }
+                }
+                semaphore.signal()
+            }.resume()
+            
+            _ = semaphore.wait(timeout: .distantFuture)
+            if responseStatusCode == 200 {
+                return
+            } 
+        }
         
         throw Api.getApiError(statusCode: responseStatusCode)
     }

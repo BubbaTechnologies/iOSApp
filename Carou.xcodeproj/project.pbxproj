@@ -29,6 +29,7 @@
 		9214DEC52A0B72FD000A5A2D /* ClothingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214DEC42A0B72FD000A5A2D /* ClothingItem.swift */; };
 		9214DEC72A0B741F000A5A2D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9214DEC62A0B741F000A5A2D /* CardView.swift */; };
 		921F0AD42AB50BFC00CEEC26 /* CardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921F0AD32AB50BFC00CEEC26 /* CardManager.swift */; };
+		9227FCFF2B5631F000345ABD /* ProfileStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9227FCFE2B5631EF00345ABD /* ProfileStruct.swift */; };
 		9234A97B2A0B245600EC036A /* CarouApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A97A2A0B245600EC036A /* CarouApp.swift */; };
 		9234A97D2A0B245600EC036A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9234A97C2A0B245600EC036A /* LoadingView.swift */; };
 		9234A97F2A0B245A00EC036A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9234A97E2A0B245A00EC036A /* Assets.xcassets */; };
@@ -64,7 +65,7 @@
 		92C623D92A0EECB5006B5940 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C623D82A0EECB5006B5940 /* MainView.swift */; };
 		92DB4DAC2AFEE01700DB6F27 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB4DAB2AFEE01700DB6F27 /* LocationManager.swift */; };
 		92DB4DAE2AFEF07500DB6F27 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB4DAD2AFEF07500DB6F27 /* DatePickerView.swift */; };
-		92E445392B0C294300662AE8 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E445382B0C294300662AE8 /* SettingsView.swift */; };
+		92E445392B0C294300662AE8 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E445382B0C294300662AE8 /* ProfileView.swift */; };
 		92E445402B0C49DE00662AE8 /* VerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E4453F2B0C49DE00662AE8 /* VerificationView.swift */; };
 		92E682472AE9753900F3B09C /* CustomAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E682462AE9753900F3B09C /* CustomAsyncImage.swift */; };
 		92F1371D2A169230000C0546 /* FilterOptionsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F1371C2A169230000C0546 /* FilterOptionsStruct.swift */; };
@@ -114,6 +115,7 @@
 		9214DEC42A0B72FD000A5A2D /* ClothingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClothingItem.swift; sourceTree = "<group>"; };
 		9214DEC62A0B741F000A5A2D /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		921F0AD32AB50BFC00CEEC26 /* CardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardManager.swift; sourceTree = "<group>"; };
+		9227FCFE2B5631EF00345ABD /* ProfileStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileStruct.swift; sourceTree = "<group>"; };
 		9234A9772A0B245600EC036A /* Carou.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Carou.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9234A97A2A0B245600EC036A /* CarouApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouApp.swift; sourceTree = "<group>"; };
 		9234A97C2A0B245600EC036A /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -154,7 +156,7 @@
 		92C623D82A0EECB5006B5940 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		92DB4DAB2AFEE01700DB6F27 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		92DB4DAD2AFEF07500DB6F27 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
-		92E445382B0C294300662AE8 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		92E445382B0C294300662AE8 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		92E4453F2B0C49DE00662AE8 /* VerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationView.swift; sourceTree = "<group>"; };
 		92E682462AE9753900F3B09C /* CustomAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAsyncImage.swift; sourceTree = "<group>"; };
 		92F1371C2A169230000C0546 /* FilterOptionsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionsStruct.swift; sourceTree = "<group>"; };
@@ -303,7 +305,7 @@
 				9286DB342A0CA280007FA46E /* ClosetView.swift */,
 				9286DB362A0CA28F007FA46E /* LikesView.swift */,
 				92C623D82A0EECB5006B5940 /* MainView.swift */,
-				92E445382B0C294300662AE8 /* SettingsView.swift */,
+				92E445382B0C294300662AE8 /* ProfileView.swift */,
 				92A1CED32B292018009B155C /* PreviewView.swift */,
 			);
 			path = Views;
@@ -335,6 +337,7 @@
 				9286DB382A0CBE47007FA46E /* LoginClass.swift */,
 				92C623D62A0EE53C006B5940 /* CollectionStruct.swift */,
 				9266D3942A0E03A200976757 /* UserClass.swift */,
+				9227FCFE2B5631EF00345ABD /* ProfileStruct.swift */,
 			);
 			path = CommunicationStructs;
 			sourceTree = "<group>";
@@ -550,10 +553,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				92ADCC7B2A97C7DF0070136A /* ClothingPageManager.swift in Sources */,
-				92E445392B0C294300662AE8 /* SettingsView.swift in Sources */,
+				92E445392B0C294300662AE8 /* ProfileView.swift in Sources */,
 				92F1371F2A16D898000C0546 /* FilterView.swift in Sources */,
 				9266D3952A0E03A200976757 /* UserClass.swift in Sources */,
 				927E8E652B003B260007853E /* AppDelegate.swift in Sources */,
+				9227FCFF2B5631F000345ABD /* ProfileStruct.swift in Sources */,
 				92524A7B2A14A45F00CE0FD4 /* SelectedView.swift in Sources */,
 				92C623D92A0EECB5006B5940 /* MainView.swift in Sources */,
 				9214DEB92A0B5D33000A5A2D /* TitleView.swift in Sources */,

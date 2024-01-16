@@ -27,7 +27,7 @@ struct LoginView: View {
                                 Spacer()
                                 TitleView()
                                     .frame(height: max(125, reader.size.height * 0.2))
-                                TextInputView(promptText: "Email", input: $loginClass.username, secure: false)
+                                TextInputView(promptText: "Email", input: $loginClass.email, secure: false)
                                     .textContentType(.username)
                                     .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                                     .padding(.bottom, reader.size.height * 0.01)
@@ -35,7 +35,7 @@ struct LoginView: View {
                                     .textContentType(.password)
                                     .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                                 ButtonView(text: "Sign In") {
-                                    if loginClass.username.isEmpty || loginClass.password.isEmpty {
+                                    if loginClass.email.isEmpty || loginClass.password.isEmpty {
                                         errorMessage = "Fill in username and/or password."
                                         return
                                     }

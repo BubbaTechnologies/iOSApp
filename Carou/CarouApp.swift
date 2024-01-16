@@ -126,21 +126,11 @@ extension CarouApp {
         DispatchQueue.global(qos: .userInitiated).async {
             do {
                 try self.swipeClothingManager.loadItems()
-            } catch {
-                returnError = error
-            }
-            group.leave()
-        }
-        
-        //Loads filter options.
-        group.enter()
-        DispatchQueue.global(qos: .userInitiated).async {
-            do {
                 try self.api.loadFilterOptions(type: .general)
+                try self.api.loadProfile()
             } catch {
                 returnError = error
             }
-            
             group.leave()
         }
         

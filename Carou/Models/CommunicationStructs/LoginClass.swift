@@ -8,36 +8,36 @@
 import Foundation
 
 class LoginClass: ObservableObject, Encodable {
-    @Published var username: String
+    @Published var email: String
     @Published var password: String
     
     init () {
-        self.username = ""
+        self.email = ""
         self.password = ""
     }
     
-    init(username: String, password: String) {
-        self.username = username
+    init(email: String, password: String) {
+        self.email = email
         self.password = password
     }
     
     enum EncodingKeys: String, CodingKey {
-        case username
+        case email
         case password
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: EncodingKeys.self)
-        try container.encode(username, forKey: .username)
+        try container.encode(email, forKey: .email)
         try container.encode(password, forKey: .password)
     }
 }
 
 struct LoginResponseStruct:Decodable{
     let jwt: String
-    let username: String
+    let email: String
     init(jwt: String, username: String) {
         self.jwt = jwt
-        self.username = username
+        self.email = username
     }
 }

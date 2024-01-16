@@ -51,16 +51,16 @@ struct NavigationButtonView: View {
                     .padding(.horizontal, (padding))
                     .padding(.top, reader.size.height * heightPadding)
                 
-                //Collection View Button
-                Button(action: {buttonAction(.settings)}) {
+                //Activity View Button
+                Button(action: {buttonAction(.activity)}) {
                     Circle()
                         .fill(Color("DarkBackgroundColor"))
                         .overlay(
-                            Image(systemName: "gearshape.fill")
+                            Image(systemName: "person.fill")
                                 .resizable()
                                 .scaledToFit()
                                 .foregroundColor(.black)
-                                .frame(height: reader.size.height * (scaleFactor - 0.2))
+                                .frame(height: reader.size.height * (scaleFactor - 0.25))
                         )
                 }.frame(height: reader.size.height * scaleFactor)
                     .padding(.horizontal, padding)

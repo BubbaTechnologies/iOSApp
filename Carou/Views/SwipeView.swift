@@ -14,9 +14,12 @@ struct SwipeView: View {
     @ObservedObject var clothingManager: ClothingListManager
     @ObservedObject var likeStore: LikeStore
     
+    var initials: String
+    
     @Binding var pageState:PageState
     var customCardFunction:((ClothingItem, Int, Bool)->Void)?
     var changeFunction: (PageState)->Void
+    
     
     @State var errorMessage: String = ""
     
@@ -38,6 +41,22 @@ struct SwipeView: View {
                     .frame(width: reader.size.width, height: reader.size.height * 0.07)
                     .padding(.top, reader.size.height * 0.024)
                     .padding(.bottom, reader.size.height * 0.01)
+                    .overlay(alignment: .leading) {
+                        if !initials.isEmpty {
+                            Button(action: {pageState = .profile}) {
+                                Circle()
+                                    .fill(Color("DarkBackgroundColor"))
+                                    .overlay{
+                                        Text("\(initials)")
+                                            .font(CustomFontFactory.getFont(style: "Bold", size: reader.size.width * 0.038, relativeTo: .caption))
+                                            .foregroundColor(Color("DarkFontColor"))
+                                    }
+                            }
+                            .frame(width: reader.size.width * 0.09)
+                            .padding(.leading, reader.size.width * 0.045)
+                            .padding(.top, reader.size.height * 0.0185)
+                        }
+                    }
                 VStack{
                     if (clothingManager.clothingItems.count <= (maximumLoadingCount)) {
                         VStack{
@@ -121,6 +140,6 @@ extension SwipeView {
 
 struct SwipeView_Previews: PreviewProvider {
     static var previews: some View {
-        SwipeView(api: Api(), clothingManager: ClothingListManager(clothingItems: ClothingItem.sampleItems), likeStore: LikeStore(), pageState: .constant(.swipe), changeFunction: {_ in return})
+        SwipeView(api: Api(), clothingManager: ClothingListManager(clothingItems: ClothingItem.sampleItems), likeStore: LikeStore(), initials: "MG", pageState: .constant(.swipe), changeFunction: {_ in return})
     }
 }
