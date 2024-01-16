@@ -10,8 +10,7 @@ import Foundation
 class Api:ObservableObject {
     var jwt: String?
     @Published var browser: Bool = false
-    @Published var genderFilter: String = ""
-    @Published var typeFilters: [String:Bool] = [:]
+    @Published var filters: Dictionary<String, [String]> = [:]
     @Published var filterOptionsStruct: FilterOptionsStruct = FilterOptionsStruct.sampleOptions
     let baseUrl = "api.clothingcarou.com"
     
@@ -19,27 +18,22 @@ class Api:ObservableObject {
         self.jwt = nil
     }
     
-    func setGenderFitler(filter: String) -> Void {
-        genderFilter = filter.lowercased()
+    func setGenderFitler(gender: String) -> Void {
+        filters[gender] = []
     }
     
-    func addTypeFilter(filter: String) -> Void {
-        typeFilters[filter] = true
+    func addTypeFilter(gender: String, type: String) -> Void {
+        filters[gender]?.append(type)
     }
     
-    func resetTypeFilters() {
-        for filter in self.typeFilters.keys {
-            self.typeFilters[filter] = false
-        }
-    }
-    
-    func resetGenderFilter() {
-        self.genderFilter = ""
+    func resetFilters() {
+        self.filters = [:]
     }
     
     func setJwt(token: String) -> Void {
         self.jwt = token
     }
+
     
     //Deteremines if previous token is valid. Returns true if token is valid or else false.
     func loadToken() throws -> Bool {
@@ -57,17 +51,26 @@ class Api:ObservableObject {
         return false
     }
     
-    internal func getGenderFilter() -> String{
-        return genderFilter
+    internal func getGenderFilter() -> String {
+        let filterKeys = filters.keys.map{String($0)}
+        if filterKeys.count > 1 {
+            fatalError("Too many gender filter options.")
+        } else if filterKeys.count == 0 {
+            return ""
+        }
+        
+        return filters.keys.map{String($0)}[0]
     }
     
-    internal func getTypeFilter() -> String{
+    internal func getTypeFilter(gender: String) -> String{
+        guard let typeFilterArray = self.filters[gender] else {
+            fatalError("Filtering types without a gender set.")
+        }
+    
         var filterString: String = ""
         
-        for filter in typeFilters {
-            if filter.value {
-                filterString += filter.key.lowercased().replacingOccurrences(of: " & ", with: "_").replacingOccurrences(of: " ", with: "_") + ","
-            }
+        for filter in typeFilterArray {
+            filterString += filter.lowercased().replacingOccurrences(of: " & ", with: "_").replacingOccurrences(of: " ", with: "_") + ","
         }
         
         return String(filterString.dropLast());
@@ -77,13 +80,13 @@ class Api:ObservableObject {
         var urlParameters = [URLQueryItem]()
 
         let genderFilterString: String = getGenderFilter()
+        
         if !genderFilterString.isEmpty {
             urlParameters.append(URLQueryItem(name: "gender", value: genderFilterString))
-        }
-        
-        let typeFilterString: String = getTypeFilter()
-        if !typeFilterString.isEmpty {
-            urlParameters.append(URLQueryItem(name: "type", value: typeFilterString))
+            let typeFilterString: String = getTypeFilter(gender: genderFilterString)
+            if !typeFilterString.isEmpty {
+                urlParameters.append(URLQueryItem(name: "type", value: typeFilterString))
+            }
         }
         
         return urlParameters
@@ -98,7 +101,6 @@ class Api:ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("Bearer " + jwt, forHTTPHeaderField: "Authorization")
-        
         
         var responseStatusCode: Int = 0
         let semaphore = DispatchSemaphore(value: 0)
@@ -494,48 +496,60 @@ class Api:ObservableObject {
         - Description: Loads the filter options from the API.
         - Throws: `ApiError.httpError` if the return value is not 200. Check README.md for clarification on codes.
      */
-    func loadFilterOptions() throws {
+    func loadFilterOptions(type: FilterType) throws {
         let semaphore = DispatchSemaphore(value: 0)
         
         var responseStatusCode: Int = 0
-        var request = URLRequest(url: URL(string: "https://" + baseUrl + "/app/filterOptions")!)
-        request.httpMethod = "GET"
-        request.allHTTPHeaderFields = [
-            "Host": baseUrl
+        let urlString = "https://" + baseUrl + "/app/filterOptions"
+        var urlComponents = URLComponents(string: urlString)
+        urlComponents?.queryItems = [
+            URLQueryItem(name: "type", value: type.rawValue)
         ]
-
-        var responseData: FilterOptionsStruct = FilterOptionsStruct()
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let response = response as? HTTPURLResponse {
-                responseStatusCode = response.statusCode
-            } else {
-                responseStatusCode = -1
-                return
-            }
-
-            if let data = data {
-                do {
-                    let filterOptions = try JSONDecoder().decode(FilterOptions.self, from: data)
-                    responseData = FilterOptionsStruct(filterOptions: filterOptions)
-                } catch {
-                    responseStatusCode = -2
-                }
-            }
-            semaphore.signal()
-        }.resume()
-        
-        _ = semaphore.wait(timeout: .distantFuture)
-        if responseStatusCode == 200 {
-            DispatchQueue.main.sync {
-                for type in responseData.getUniqueTypes() {
-                    self.typeFilters[type] = false
-                }
-                
-                self.filterOptionsStruct = responseData
-            }
-            return
+        guard let finalUrl = urlComponents?.url else {
+            fatalError("Invalid URL in loadFilterOptions.")
         }
         
+        var request = URLRequest(url: finalUrl)
+        request.httpMethod = "GET"
+        if let jwt = self.jwt {
+            request.allHTTPHeaderFields = [
+                "Host": baseUrl,
+                "Authorization": "Bearer " + jwt
+            ]
+            
+            var responseData: FilterOptionsStruct = FilterOptionsStruct()
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let response = response as? HTTPURLResponse {
+                    responseStatusCode = response.statusCode
+                } else {
+                    responseStatusCode = -1
+                    return
+                }
+                
+                if let data = data {
+                    do {
+                        let filterData = try JSONDecoder().decode([String : [String : [String : [String]]]].self, from: data)
+                        responseData = FilterOptionsStruct(filterOptions: filterData["genders"]!)
+                    } catch {
+                        if String(data: data, encoding: .utf8) != Optional("") {
+                            print("Error in Filter Options: \(error)")
+                            responseStatusCode = -2
+                        } else {
+                            responseStatusCode = 200
+                        }
+                    }
+                }
+                semaphore.signal()
+            }.resume()
+            
+            _ = semaphore.wait(timeout: .distantFuture)
+            if responseStatusCode == 200 {
+                DispatchQueue.main.sync {
+                    self.filterOptionsStruct = responseData
+                }
+                return
+            }
+        }
         throw Api.getApiError(statusCode: responseStatusCode)
     }
     
@@ -702,6 +716,12 @@ class Api:ObservableObject {
     
     enum ApiError: Error {
         case httpError(String)
+    }
+    
+    enum FilterType: String {
+        case likes = "likes"
+        case activity = "activity"
+        case general = "general"
     }
     
     static func getApiError(statusCode: Int) -> ApiError{

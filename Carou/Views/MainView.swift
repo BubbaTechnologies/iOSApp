@@ -43,18 +43,21 @@ struct MainView: View {
                             } else {
                                 pageState = newState
                             }
+                            switchFunction(newState: newState)
                         }
                         .frame(width: reader.size.width, height: reader.size.height)
                     } else if pageState == .swipe {
                         SwipeView(api: api, clothingManager: swipeClothingManager, likeStore: store, pageState: $pageState) { newState in
                             previousPageState = pageState
                             pageState = newState
+                            switchFunction(newState: newState)
                         }
                         .frame(width: reader.size.width, height: reader.size.height)
                     } else if pageState == .likes {
                         LikesView(clothingManager: ClothingPageManager(api: api, requestType: .likes),likeStore: store, pageState: $pageState){ newState in
                             previousPageState = pageState
                             pageState = newState
+                            switchFunction(newState: newState)
                         }
                         .frame(width: reader.size.width, height: reader.size.height)
                     } else if pageState == .closet {
@@ -62,12 +65,14 @@ struct MainView: View {
                         ClosetView(clothingManager: ClothingPageManager(api: api, requestType: .collection), likeStore: store, pageState: $pageState) { newState in
                             previousPageState = pageState
                             pageState = newState
+                            switchFunction(newState: newState)
                         }
                         .frame(width: reader.size.width, height: reader.size.height)
                     } else if pageState == .settings {
                         SettingsView(api: api) { newState in
                             previousPageState = pageState
                             pageState = newState
+                            switchFunction(newState: newState)
                         }
                         .frame(width: reader.size.width, height: reader.size.height)
                     }
@@ -85,6 +90,35 @@ struct MainView: View {
                     }
                 }
             }
+        }
+    }
+}
+
+extension MainView {
+    func loadFilterOptions(page: Api.FilterType) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            do {
+                try self.api.loadFilterOptions(type: page)
+            } catch {
+                fatalError("Error while loading filter options. ErrorMessage: \(error)")
+            }
+        }
+    }
+    
+    /**
+            - Description: Executes at the end of each state switch.
+            - Parameters:
+                - newState: The new pageState.
+     */
+    func switchFunction(newState: PageState) {
+        //Loads new filter options
+        switch newState {
+        case .likes:
+            loadFilterOptions(page: .likes)
+        case .swipe:
+            loadFilterOptions(page: .general)
+        default:
+             break
         }
     }
 }

@@ -9,6 +9,7 @@ import Foundation
 
 class UserClass: ObservableObject, Encodable {
     @Published var username: String
+    @Published var email: String
     @Published var password: String
     @Published var gender: String
     @Published var birthdate: Date
@@ -24,12 +25,14 @@ class UserClass: ObservableObject, Encodable {
         self.username = ""
         self.password = ""
         self.gender = ""
+        self.email = ""
         self.birthdate = Date()
     }
     
-    init(username: String, password: String, gender:String, name:String, date: Date) {
+    init(username: String, email: String ,password: String, gender:String, name:String, date: Date) {
         self.username = username
         self.password = password
+        self.email = email
         self.gender = gender.lowercased()
         self.birthdate = Date()
     }
@@ -39,12 +42,14 @@ class UserClass: ObservableObject, Encodable {
         case password
         case gender
         case birthdate
+        case email
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: EncodingKeys.self)
         try container.encode(username, forKey: .username)
         try container.encode(password, forKey: .password)
+        try container.encode(email, forKey: .email)
         try container.encode(gender, forKey: .gender)
         if dataCollectionPermission == true {
             try container.encode(dateFormatter.string(from: birthdate), forKey: .birthdate)

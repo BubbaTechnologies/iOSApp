@@ -14,6 +14,8 @@ struct FilterView: View {
     @State var gender: String = ""
     @State var typeFilter: [String] = []
     
+    @State var sublistShowing = false
+    
     var body: some View {
         GeometryReader { reader in
             Color("BackgroundColor").ignoresSafeArea()
@@ -26,20 +28,33 @@ struct FilterView: View {
                     Text("Filters")
                         .font(CustomFontFactory.getFont(style: "Bold", size: reader.size.width * 0.075, relativeTo: .title3))
                         .foregroundColor(Color("DarkFontColor"))
-                    LazyVStack{
-                        ListView(list: api.filterOptionsStruct.getGenders(), selectedAction: genderSelectedAction, multipleSelections: false, subList: true, subListValues: api.filterOptionsStruct.getTypes(), subListMultipleSelections: true, subListSelectedAction: typeSelectedAction)
-                            .frame(height: reader.size.height * (gender.isEmpty ? Double(api.filterOptionsStruct.getGenders().count) : Double(api.filterOptionsStruct.getGenders().count + api.filterOptionsStruct.getLongestTypesArrayCount()))/20.0)
+                    if !api.filterOptionsStruct.isEmpty() {
+                        LazyVStack{
+                            ListView(list: api.filterOptionsStruct.getGenders().sorted(), multipleSelections: false, selectedAction: genderSelectedAction)
+                                .frame(height: reader.size.height * (sublistShowing ? CGFloat(1) : CGFloat(api.filterOptionsStruct.getGenders().count)) / 20)
+                            if sublistShowing {
+                                ListView(list: api.filterOptionsStruct.getTypes(gender: self.gender).sorted(), multipleSelections: true, selectedAction: typeSelectedAction)
+                                    .frame(height: reader.size.height * Double(api.filterOptionsStruct.getTypes(gender: self.gender).count) / 20)
+                                    .padding(.leading, reader.size.width * 0.025)
+                            }
+                        }
+                    } else {
+                        Spacer(minLength: reader.size.height * 0.3)
+                        Text("Could not load\n filter options.")
+                            .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.07, relativeTo: .body))
+                            .foregroundColor(.red)
+                            .multilineTextAlignment(.center)
+                        Spacer()
                     }
                 }.frame(height: reader.size.height * 0.85)
                 NavigationButtonView(showFilter: true, showEdit: true, options: .constant(true)){ pageState in
-                    api.resetTypeFilters()
-                    api.resetGenderFilter()
+                    api.resetFilters()
                     
                     
                     if pageState == .editing {
-                        api.setGenderFitler(filter: gender)
+                        api.setGenderFitler(gender: gender)
                         for filter in typeFilter {
-                            api.addTypeFilter(filter: filter)
+                            api.addTypeFilter(gender: gender, type: filter)
                         }
                     }
                     
@@ -57,8 +72,10 @@ extension FilterView {
     func genderSelectedAction(selectedValue: String, isSelected: Bool) {
         if isSelected {
             self.gender = selectedValue
+            self.sublistShowing = true
         } else {
             self.gender = ""
+            self.sublistShowing = false
         }
         self.typeFilter.removeAll()
     }
@@ -67,7 +84,7 @@ extension FilterView {
         if isSelected {
             self.typeFilter.append(selectedValue)
         } else {
-            self.typeFilter.removeAll{
+            self.typeFilter.removeAll {
                 $0 == selectedValue
             }
         }

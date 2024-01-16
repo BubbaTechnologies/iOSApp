@@ -26,14 +26,11 @@ struct SignUpView: View {
                 ScrollView(showsIndicators: false) {
                     if !verifyView {
                         VStack(alignment: .center) {
-                            Spacer(minLength: reader.size.height * 0.15)
+                            Spacer(minLength: reader.size.height * 0.1)
                             TitleView()
                                 .frame(height: max(125, reader.size.height * 0.2))
-                            TextInputView(promptText: "Email", input: $userClass.username, secure: false)
-                                .textContentType(.emailAddress)
-                                .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
-                                .padding(.bottom, reader.size.height * 0.01)
-                            PickerView(selection: $userClass.gender, promptText: "Preferred Clothing Gender", options: api.filterOptionsStruct.getGenders().reversed(), selected: $genderSelected)
+                            TextInputView(promptText: "Username", input: $userClass.username, secure: false)
+                                .textContentType(.username)
                                 .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                                 .padding(.bottom, reader.size.height * 0.01)
                             TextInputView(promptText: "Password", input: $userClass.password, secure: true)
@@ -42,6 +39,13 @@ struct SignUpView: View {
                                 .padding(.bottom, reader.size.height * 0.01)
                             TextInputView(promptText: "Confirm Password", input: $confirmPassword, secure: true)
                                 .textContentType(.newPassword)
+                                .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
+                                .padding(.bottom, reader.size.height * 0.01)
+                            TextInputView(promptText: "Email", input: $userClass.email, secure: false)
+                                .textContentType(.emailAddress)
+                                .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
+                                .padding(.bottom, reader.size.height * 0.01)
+                            PickerView(selection: $userClass.gender, promptText: "Preferred Clothing Gender", options: api.filterOptionsStruct.getGenders().reversed(), selected: $genderSelected)
                                 .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                                 .padding(.bottom, reader.size.height * 0.01)
                             DatePickerView(placeholder: "Date of Birth", birthdate: $userClass.birthdate)
@@ -154,7 +158,7 @@ extension SignUpView {
         }
         
         do {
-            if try api.requestVerification(userEmail: self.userClass.username) {
+            if try api.requestVerification(userEmail: self.userClass.email) {
                 verifyView = true
             }
         } catch Api.ApiError.httpError(let message) {

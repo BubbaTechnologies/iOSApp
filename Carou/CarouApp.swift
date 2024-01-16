@@ -136,7 +136,7 @@ extension CarouApp {
         group.enter()
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                try self.api.loadFilterOptions()
+                try self.api.loadFilterOptions(type: .general)
             } catch {
                 returnError = error
             }
@@ -150,7 +150,7 @@ extension CarouApp {
                 try self.api.updateLocation(latitude: locationManager.region.center.latitude, longitude: locationManager.region.center.longitude)
                 try self.api.updateDeviceId(deviceId: NotificationManager.deviceId)
             } catch {
-                print("Aux: \(error)")
+                print("Location Error: \(error)")
             }
         }
         
