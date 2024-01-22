@@ -24,6 +24,7 @@ struct SelectedView: View {
                                     .scaledToFill()
                                     .foregroundColor(Color("DarkFontColor"))
                                     .frame(width:abs(reader.size.width * scale), height: reader.size.height * scale)
+                                    .offset(x: reader.size.width * -0.0035)
                             }
                         }
                     }

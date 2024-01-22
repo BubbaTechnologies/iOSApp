@@ -45,7 +45,7 @@ struct SignUpView: View {
                                 .textContentType(.emailAddress)
                                 .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                                 .padding(.bottom, reader.size.height * 0.01)
-                            PickerView(selection: $userClass.gender, promptText: "Preferred Clothing Gender", options: api.filterOptionsStruct.getGenders().reversed(), selected: $genderSelected)
+                            PickerView(selection: $userClass.gender, promptText: "Preferred Clothing Gender", options: api.filterOptionsStruct.getGenders().sorted(), selected: $genderSelected)
                                 .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                                 .padding(.bottom, reader.size.height * 0.01)
                             DatePickerView(placeholder: "Date of Birth", birthdate: $userClass.birthdate)

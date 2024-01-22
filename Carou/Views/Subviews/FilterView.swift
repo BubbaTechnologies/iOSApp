@@ -47,11 +47,11 @@ struct FilterView: View {
                         Spacer()
                     }
                 }.frame(height: reader.size.height * 0.85)
-                NavigationButtonView(showFilter: true, showEdit: true, options: .constant(true)){ pageState in
+                NavigationButtonView(auxiliary: .constant((AuxiliaryType.cancel, AuxiliaryType.confirm))){ pageState in
                     api.resetFilters()
                     
-                    
-                    if pageState == .editing {
+                    //Checks if confirmed
+                    if pageState == .auxiliary(.confirm) {
                         api.setGenderFitler(gender: gender)
                         for filter in typeFilter {
                             api.addTypeFilter(gender: gender, type: filter)

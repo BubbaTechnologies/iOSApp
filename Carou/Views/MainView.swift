@@ -25,27 +25,29 @@ struct MainView: View {
             GeometryReader { reader in
                 Color("BackgroundColor").ignoresSafeArea()
                 VStack(alignment: .center){
-                    if pageState == .filtering {
-                        FilterView(api: api) { newState in
-                            if newState == .filtering {
-                                pageState = previousPageState
-                            } else if newState == .editing {
-                                pageState = previousPageState
-                                swipeClothingManager.reset()
-                                //confirm
-                                DispatchQueue.global(qos: .userInitiated).async {
-                                    do {
-                                        try swipeClothingManager.loadItems()
-                                    } catch {
-                                        print("\(error)")
+                    if case .auxiliary(let auxiliaryType) = pageState {
+                        if auxiliaryType == .filtering {
+                                FilterView(api: api) { newState in
+                                    if newState == .auxiliary(.cancel) {
+                                        pageState = previousPageState
+                                    } else if newState == .auxiliary(.confirm) {
+                                        pageState = previousPageState
+                                        swipeClothingManager.reset()
+                                        //confirm
+                                        DispatchQueue.global(qos: .userInitiated).async {
+                                            do {
+                                                try swipeClothingManager.loadItems()
+                                            } catch {
+                                                print("\(error)")
+                                            }
+                                        }
+                                    } else {
+                                        pageState = newState
                                     }
+                                    switchFunction(newState: newState)
                                 }
-                            } else {
-                                pageState = newState
+                                .frame(width: reader.size.width, height: reader.size.height)
                             }
-                            switchFunction(newState: newState)
-                        }
-                        .frame(width: reader.size.width, height: reader.size.height)
                     } else if pageState == .swipe {
                         SwipeView(api: api, clothingManager: swipeClothingManager, likeStore: store, initials: api.profileInformation.getInitials(), pageState: $pageState) { newState in
                             previousPageState = pageState
@@ -116,9 +118,17 @@ extension MainView {
         //Loads new filter options
         switch newState {
         case .likes:
+            api.resetFilters()
             loadFilterOptions(page: .likes)
+            break;
         case .swipe:
+            api.resetFilters()
             loadFilterOptions(page: .general)
+            break;
+        case .activity:
+            api.resetFilters()
+            loadFilterOptions(page: .activity)
+            break;
         default:
              break
         }
@@ -134,12 +144,4 @@ struct MainView_Previews: PreviewProvider {
     }
 }
 
-enum PageState {
-    case likes
-    case swipe
-    case closet
-    case filtering
-    case editing
-    case profile
-    case activity
-}
+

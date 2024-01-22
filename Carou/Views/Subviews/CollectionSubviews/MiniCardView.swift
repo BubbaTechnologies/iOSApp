@@ -9,12 +9,8 @@ import SwiftUI
 
 struct MiniCardView: View {
     public var item: ClothingItem
-    @Binding var safariItem: ClothingItem?
-    @Binding var editing: Bool
-    @Binding var selectedItems: [Int]
-    var browser: Bool
+    var tapAction: ()->Void
     
-    @State var selected: Bool = false
     private let widthFactor: Double = 0.35
     private let heightFactor: Double = 0.3
     
@@ -44,27 +40,7 @@ struct MiniCardView: View {
                         .background(Color("LightFontColor"))
                         .cornerRadius(reader.size.height * 0.05)
                         .onTapGesture {
-                            //Uploads interaction data
-                            if editing {
-                                selected.toggle()
-                                if selected {
-                                    selectedItems.append(item.id)
-                                } else {
-                                    selectedItems = selectedItems.filter{
-                                        $0 != item.id
-                                    }
-                                }
-                            } else {
-                                if self.browser {
-                                    //In-App Safari Browsing
-                                    safariItem = item
-                                } else {
-                                    //External Browser
-                                    if let url = URL(string: item.productURL) {
-                                        UIApplication.shared.open(url)
-                                    }
-                                }
-                            }
+                            tapAction()
                         }
                         HStack{
                             Text("\(item.name)")
@@ -76,14 +52,6 @@ struct MiniCardView: View {
                         }
                         Spacer()
                     }.frame(width: reader.size.width, height: reader.size.height)
-                if (editing) {
-                    SelectedView(selected: $selected)
-                        .frame(width: reader.size.width * 0.25, height: reader.size.height * 0.125)
-                        .position(x: reader.frame(in: .local).minX + reader.size.width * 0.04, y: reader.frame(in: .local).minY + reader.size.height * 0.02)
-                        .onDisappear{
-                            selected = false
-                        }
-                }
             }
         }
     }
@@ -91,6 +59,6 @@ struct MiniCardView: View {
 
 struct MiniCardView_Previews: PreviewProvider {
     static var previews: some View {
-        MiniCardView(item:ClothingItem.sampleItems[0], safariItem: .constant(ClothingItem.sampleItems[0]), editing: .constant(true), selectedItems: .constant([]), browser: false)
+        MiniCardView(item:ClothingItem.sampleItems[0], tapAction: {})
     }
 }

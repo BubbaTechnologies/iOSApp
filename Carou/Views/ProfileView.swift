@@ -61,7 +61,7 @@ struct ProfileView: View {
                                     .textContentType(.emailAddress)
                                     .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                                     .padding(.bottom, reader.size.height * 0.01)
-                                PickerView(selection: $userClass.gender, promptText: userClass.gender, options: api.filterOptionsStruct.getGenders().reversed(), selected: $genderSelected)
+                                PickerView(selection: $userClass.gender, promptText: userClass.gender, options: FilterOptionsStruct.sampleOptions.getGenders().sorted(), selected: $genderSelected)
                                     .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                                     .padding(.bottom, reader.size.height * 0.01)
                                 DatePickerView(placeholder: userClass.dataCollectionPermission! ? dateFormatter.string(from: userClass.birthdate) : "Date of Birth", birthdate: $userClass.birthdate)

@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct NavigationButtonView: View {
-    var showFilter: Bool
-    var showEdit: Bool
-    @Binding var options: Bool
+    @Binding var auxiliary: (AuxiliaryType, AuxiliaryType)
     let buttonAction: (PageState)->Void
     
     private let scaleFactor: Double = 0.7
@@ -23,23 +21,13 @@ struct NavigationButtonView: View {
                 Spacer()
                 //Exit/Filter Button
                 ZStack{
-                    if (showFilter || options) {
-                        Button(action: {buttonAction(.filtering)}) {
+                    if auxiliary.0 != .none {
+                        Button(action: {buttonAction(.auxiliary(auxiliary.0))}) {
                             Circle()
                                 .fill(Color("DarkBackgroundColor"))
                                 .overlay(
                                     ZStack{
-                                        if (options) {
-                                            Text("X")
-                                                .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.0825, relativeTo: .body))
-                                                .foregroundColor(Color("DarkFontColor"))
-                                        } else {
-                                            Image("FilterIcon")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .foregroundColor(Color("DarkFontColor"))
-                                                .frame(height: reader.size.height * ((scaleFactor - 0.4) * 0.75))
-                                        }
+                                        getAuxiliaryView(type: auxiliary.0, reader: reader)
                                     }
                                 )
                         }
@@ -97,27 +85,13 @@ struct NavigationButtonView: View {
                 
                 //Confirm/Edit Button
                 ZStack{
-                    if (showEdit || options) {
-                        Button(action: {buttonAction(.editing)}) {
+                    if auxiliary.1 != .none {
+                        Button(action: {buttonAction(.auxiliary(auxiliary.1))}) {
                             Circle()
                                 .fill(Color("DarkBackgroundColor"))
                                 .overlay(
                                     ZStack{
-                                        if (options) {
-                                            Image(systemName:"checkmark")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .foregroundColor(Color("DarkFontColor"))
-                                                .frame(height: reader.size.height * ((scaleFactor - 0.3) * 0.75))
-                                                .offset(x: reader.size.width * -0.001)
-                                        } else {
-                                            Image("EditIcon")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .foregroundColor(Color("DarkFontColor"))
-                                                .frame(height: reader.size.height * ((scaleFactor - 0.25) * 0.75))
-                                                .offset(y: reader.size.height * -0.0015)
-                                        }
+                                        getAuxiliaryView(type: auxiliary.1, reader: reader)
                                     }
                                 )
 
@@ -135,8 +109,51 @@ struct NavigationButtonView: View {
     }
 }
 
+extension NavigationButtonView {
+    /**
+        - Description: Returns view for auxiliary button type.
+        - Parameters:
+            - type: The Auxiliary Type requested.
+     */
+    func getAuxiliaryView(type: AuxiliaryType, reader: GeometryProxy) -> some View {
+        switch type {
+        case .none:
+            return AnyView(EmptyView())
+        case .filtering:
+            return AnyView(Image("FilterIcon")
+                .resizable()
+                .scaledToFit()
+                .foregroundColor(Color("DarkFontColor"))
+                .frame(height: reader.size.height * ((scaleFactor - 0.4) * 0.75)))
+        case .editing:
+            return AnyView(Image("EditIcon")
+                .resizable()
+                .scaledToFit()
+                .foregroundColor(Color("DarkFontColor"))
+                .frame(height: reader.size.height * ((scaleFactor - 0.25) * 0.75))
+                .offset(y: reader.size.height * -0.0015))
+        case .adding:
+            //TODO: Create adding icon
+            return AnyView(Text("+")
+                .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.15, relativeTo: .body))
+                .foregroundColor(Color("DarkFontColor")))
+        case .cancel:
+            return AnyView(Text("X")
+                        .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.0825, relativeTo: .body))
+                        .foregroundColor(Color("DarkFontColor")))
+        case .confirm:
+            return AnyView(Image(systemName:"checkmark")
+                .resizable()
+                .scaledToFit()
+                .foregroundColor(Color("DarkFontColor"))
+                .frame(height: reader.size.height * ((scaleFactor - 0.3) * 0.75))
+                .offset(x: reader.size.width * -0.001))
+        }
+    }
+}
+
 struct NavigationButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationButtonView(showFilter: true, showEdit: true, options: .constant(false), buttonAction: {_ in return})
+        NavigationButtonView(auxiliary: .constant((.cancel, .confirm)), buttonAction: {_ in return})
     }
 }

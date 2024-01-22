@@ -27,7 +27,7 @@ struct SwipeView: View {
     private let widthFactor: Double = 0.81
     private let heightFactor: Double = 0.10
     /**
-                Determines how low the card count can get before the loading screen appears.
+        - Description:Determines how low the card count can get before the loading screen appears.
      */
     private let maximumLoadingCount: Int = 2
     private let maxZIndex = 12
@@ -96,7 +96,7 @@ struct SwipeView: View {
                         }
                     }
                 }.frame(height: reader.size.height * 0.85)
-                NavigationButtonView(showFilter: true, showEdit: false, options: .constant(false), buttonAction: changeFunction)
+                NavigationButtonView(auxiliary: .constant((AuxiliaryType.filtering, AuxiliaryType.none)), buttonAction: changeFunction)
                 .frame(height: reader.size.height * NavigationViewDesignVariables.frameHeightFactor)
                 .padding(.bottom, reader.size.height * NavigationViewDesignVariables.BOTTOM_PADDING_FACTOR)
             }.frame(width: reader.size.width, height: reader.size.height)

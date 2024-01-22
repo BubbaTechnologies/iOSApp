@@ -16,6 +16,7 @@ struct CardScrollView: View {
     @Binding var selectedClothingItems: [Int]
 
     @Binding var editing: Bool
+    @State var selectionDict: [Int:Bool] = [:]
     @State var loading: Bool = false
     
     @State var errorMessage: String = ""
@@ -28,15 +29,66 @@ struct CardScrollView: View {
 
     var body: some View {
         GeometryReader { reader in
+            Color("BackgroundColor").ignoresSafeArea()
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .center) {
                     Text(editing ? "Editing \(name)" : "\(name)")
                         .font(CustomFontFactory.getFont(style: "Bold", size: reader.size.width * 0.075, relativeTo: .title3))
                         .foregroundColor(Color("DarkFontColor"))
                     if errorMessage.isEmpty && clothingManager.attemptedLoad {
-                        CardCollectionView(items: $clothingManager.clothingItems, safariItem: $safariItem, editing: $editing, selectedItems: $selectedClothingItems, browser: clothingManager.api.browser)
-                            .frame(height: reader.size.height * (Double(
-                                (clothingManager.clothingItems.count % 2 == 0 ? clothingManager.clothingItems.count : clothingManager.clothingItems.count + 1)) / 4.25))
+                        CardCollectionView(items: $clothingManager.clothingItems) { index in
+                            if selectionDict[index] == nil {
+                                selectionDict[index] = false
+                            }
+                            
+                            let item = clothingManager.clothingItems[index]
+                            
+                            //Uploads interaction data
+                            if editing {
+                                self.selectionDict[index]!.toggle()
+                                let selected = selectionDict[index]!
+                                if selected {
+                                    selectedClothingItems.append(item.id)
+                                } else {
+                                    selectedClothingItems = selectedClothingItems.filter{
+                                        $0 != item.id
+                                    }
+                                }
+                            } else {
+                                if self.clothingManager.api.browser {
+                                    //In-App Safari Browsing
+                                    safariItem = item
+                                } else {
+                                    //External Browser
+                                    if let url = URL(string: item.productURL) {
+                                        UIApplication.shared.open(url)
+                                    }
+                                }
+                            }
+                        }
+                        .suboverlay(alignment: .leading) { index in
+                            if editing {
+                                SelectedView(selected: Binding<Bool>(
+                                    get: {
+                                        if let val = selectionDict[index] {
+                                            return val
+                                        } else {
+                                            return false
+                                        }
+                                    },
+                                    set: { value in
+                                        selectionDict[index] = value
+                                    }
+                                ))
+                                .frame(width: reader.size.width * 0.15, height: reader.size.height * 0.07)
+                                .position(x: reader.frame(in: .local).minX + reader.size.width * 0.0425, y: reader.frame(in: .local).minY + reader.size.height * 0.01)
+                                .onDisappear{
+                                    selectionDict[index] = false
+                                }
+                            }
+                        }
+                        .frame(height: reader.size.height * (Double(
+                            (clothingManager.clothingItems.count % 2 == 0 ? clothingManager.clothingItems.count : clothingManager.clothingItems.count + 1)) / 4.25))
                         if !clothingManager.allClothingItemsLoaded {
                             LazyVStack{
                                 ProgressView()
@@ -162,5 +214,5 @@ struct CardScrollView: View {
 }
 
 #Preview {
-    CardScrollView(name: "Likes", clothingManager: ClothingPageManager(), likeStore: LikeStore(), selectedClothingItems: .constant([]), editing: .constant(false))
+    CardScrollView(name: "Likes", clothingManager: ClothingPageManager(clothingItems: ClothingItem.sampleItems), likeStore: LikeStore(), selectedClothingItems: .constant([]), editing: .constant(false))
 }

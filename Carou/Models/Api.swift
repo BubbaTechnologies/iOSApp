@@ -292,8 +292,6 @@ class Api:ObservableObject {
             
             throw Api.getApiError(statusCode: responseStatusCode)
         }
-        
-        
     }
     
     func loadClothing(completion:@escaping (Result<ClothingItem, Error>)->()) throws {
@@ -339,41 +337,38 @@ class Api:ObservableObject {
      }
     
     /**
-     - Parameters:
-            - collectionType: Defines the type of query.
-     - Throws: `ApiError.httpError` if the return value is not 200. Check README.md for clarification on codes.
+        - Description: Requests a activity page from the server.
+        - Parameters:
+                - pageNumber: An optional integer representing the page requested.
+                - completion: A function of the form `[ActivityObject])->()` that deals with the clothing queried
+        - Throws: `ApiError.httpError` if the return value is not 200. Check README.md for clarification on codes.
      */
-    @available(*, deprecated, message: "Pages are returned in loadClothingPage.")
-    func getPageCount(collectionType: CollectionStruct.CollectionRequestType) throws -> Int {
-        //Builds URL
+    func loadActivityPage(pageNumber: Int?, completion: @escaping ([ActivityObject], Int)->()) throws {
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = baseUrl
         
-        if collectionType == CollectionStruct.CollectionRequestType.none {
-            return -1
-        }
-
-        urlComponents.path = "/app/totalPages"
+        urlComponents.path = "/app/activity"
         
         let semaphore = DispatchSemaphore(value: 0)
         
         var parameters:[URLQueryItem] = getQueryParameters()
-        parameters.append(URLQueryItem(name: "queryType", value: collectionType.rawValue))
+        if let pageNumber = pageNumber {
+            parameters.append(URLQueryItem(name: "page", value: String(pageNumber)))
+        }
         urlComponents.queryItems = parameters
         
-        //Sends request
-        var responseStatusCode: Int = -4
+        var responseStatusCode = -4
+        var request = URLRequest(url: urlComponents.url!)
+        request.httpMethod = "GET"
+        
         if let jwt = self.jwt {
-            var request = URLRequest(url: urlComponents.url!)
-            
-            request.httpMethod = "GET"
             request.allHTTPHeaderFields = [
-                "Host": baseUrl,
-                "Authorization":"Bearer " + jwt
+                "Host":baseUrl,
+                "Authorization": "Bearer" + jwt
             ]
             
-            var pageCount: Int = -1
+            var responseData: [ActivityObject]?
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let response = response as? HTTPURLResponse {
                     responseStatusCode = response.statusCode
@@ -385,7 +380,7 @@ class Api:ObservableObject {
                 
                 if let data = data {
                     do {
-                        pageCount = try JSONDecoder().decode([String:Int].self, from: data)["totalPages"]!
+                        //TODO: Decode data to pass to activity manager
                     } catch {
                         if responseStatusCode == 200 {
                             responseStatusCode = -5
@@ -396,11 +391,15 @@ class Api:ObservableObject {
             }.resume()
             
             _ = semaphore.wait(timeout: .distantFuture)
+            
             if responseStatusCode == 200 {
-                return pageCount
+                if let responseData = responseData {
+                    DispatchQueue.main.async {
+                        //TODO: Pass data to completion
+                    }
+                }
             }
         }
-        
         throw Api.getApiError(statusCode: responseStatusCode)
     }
     

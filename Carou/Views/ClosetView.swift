@@ -18,6 +18,8 @@ struct ClosetView: View {
     @State var editing: Bool = false
     @State var loading: Bool = false
     
+    @State var auxNavButtons = (AuxiliaryType.filtering, AuxiliaryType.editing)
+    
     var body: some View {
         GeometryReader { reader in
             Color("BackgroundColor").ignoresSafeArea()
@@ -28,7 +30,7 @@ struct ClosetView: View {
                     .padding(.bottom, reader.size.height * 0.01)
                 CardScrollView(name: "Closet", clothingManager: clothingManager, likeStore: likeStore, selectedClothingItems: $selectedClothingItems, editing: $editing)
                     .frame(height: reader.size.height * 0.85, alignment: .center)
-                NavigationButtonView(showFilter: false, showEdit: false, options: .constant(false), buttonAction: changeFunction)
+                NavigationButtonView(auxiliary: $auxNavButtons, buttonAction: changeFunction)
                     .frame(height: reader.size.height * NavigationViewDesignVariables.frameHeightFactor)
                     .padding(.bottom, reader.size.height * NavigationViewDesignVariables.BOTTOM_PADDING_FACTOR)
             }
@@ -39,35 +41,35 @@ struct ClosetView: View {
 
 extension ClosetView {
     func navigationFunction(pageState: PageState) {
-        if editing {
-            //If editing and confirmed
-            if pageState == .editing {
-                clothingManager.clothingItems = clothingManager.clothingItems.filter{
-                    !selectedClothingItems.contains($0.id)
-                }
-                
-                for id in selectedClothingItems {
-                    let likeStruct:LikeStruct = LikeStruct(clothingId: id, imageTaps: 0, likeType: .removeLike)
-                    DispatchQueue.global(qos: .background).async{
-                        do {
-                            try clothingManager.api.sendLike(likeStruct: likeStruct)
-                        } catch {
-                            self.likeStore.likes.append(likeStruct)
-                        }
+        //Confirming an edit
+        if pageState == .auxiliary(.confirm) {
+            clothingManager.clothingItems = clothingManager.clothingItems.filter{
+                !selectedClothingItems.contains($0.id)
+            }
+            
+            for id in selectedClothingItems {
+                let likeStruct:LikeStruct = LikeStruct(clothingId: id, imageTaps: 0, likeType: .removeLike)
+                DispatchQueue.global(qos: .background).async{
+                    do {
+                        try clothingManager.api.sendLike(likeStruct: likeStruct)
+                    } catch {
+                        self.likeStore.likes.append(likeStruct)
                     }
                 }
             }
-            
-            if pageState == .editing || pageState == .filtering {
-                editing = false
-                selectedClothingItems = []
-                return
-            }
+        }
+        
+        if pageState == .auxiliary(.confirm) ||  pageState == .auxiliary(.cancel) {
+            editing = false
+            auxNavButtons = (AuxiliaryType.filtering, AuxiliaryType.editing)
+            selectedClothingItems = []
+            return
         }
         
         
-        if pageState == .editing {
+        if pageState == .auxiliary(.editing) {
             editing = true
+            auxNavButtons = (AuxiliaryType.cancel, AuxiliaryType.confirm)
             return
         }
         

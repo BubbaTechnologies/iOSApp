@@ -68,6 +68,10 @@
 		92E445392B0C294300662AE8 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E445382B0C294300662AE8 /* ProfileView.swift */; };
 		92E445402B0C49DE00662AE8 /* VerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E4453F2B0C49DE00662AE8 /* VerificationView.swift */; };
 		92E682472AE9753900F3B09C /* CustomAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E682462AE9753900F3B09C /* CustomAsyncImage.swift */; };
+		92EA1CD82B5766BB00AABD43 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EA1CD72B5766BB00AABD43 /* ActivityView.swift */; };
+		92EA1CDA2B57721100AABD43 /* PageStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EA1CD92B57721100AABD43 /* PageStateManager.swift */; };
+		92EA1CDC2B577F1D00AABD43 /* ActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EA1CDB2B577F1D00AABD43 /* ActivityManager.swift */; };
+		92EA1CDE2B57850100AABD43 /* ActivityProfileStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92EA1CDD2B57850100AABD43 /* ActivityProfileStruct.swift */; };
 		92F1371D2A169230000C0546 /* FilterOptionsStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F1371C2A169230000C0546 /* FilterOptionsStruct.swift */; };
 		92F1371F2A16D898000C0546 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F1371E2A16D898000C0546 /* FilterView.swift */; };
 		92F137212A16EE9D000C0546 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F137202A16EE9D000C0546 /* ListView.swift */; };
@@ -159,6 +163,10 @@
 		92E445382B0C294300662AE8 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		92E4453F2B0C49DE00662AE8 /* VerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationView.swift; sourceTree = "<group>"; };
 		92E682462AE9753900F3B09C /* CustomAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAsyncImage.swift; sourceTree = "<group>"; };
+		92EA1CD72B5766BB00AABD43 /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
+		92EA1CD92B57721100AABD43 /* PageStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageStateManager.swift; sourceTree = "<group>"; };
+		92EA1CDB2B577F1D00AABD43 /* ActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityManager.swift; sourceTree = "<group>"; };
+		92EA1CDD2B57850100AABD43 /* ActivityProfileStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityProfileStruct.swift; sourceTree = "<group>"; };
 		92F1371C2A169230000C0546 /* FilterOptionsStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionsStruct.swift; sourceTree = "<group>"; };
 		92F1371E2A16D898000C0546 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
 		92F137202A16EE9D000C0546 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
@@ -307,6 +315,7 @@
 				92C623D82A0EECB5006B5940 /* MainView.swift */,
 				92E445382B0C294300662AE8 /* ProfileView.swift */,
 				92A1CED32B292018009B155C /* PreviewView.swift */,
+				92EA1CD72B5766BB00AABD43 /* ActivityView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -314,6 +323,7 @@
 		9234A9A52A0B25D000EC036A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				92EA1CDB2B577F1D00AABD43 /* ActivityManager.swift */,
 				92A1CED52B2962FB009B155C /* CommunicationStructs */,
 				92ADCC792A97C7C90070136A /* ClothingManager */,
 				92B937202A8C6F3F0025DCB1 /* Api.swift */,
@@ -324,6 +334,7 @@
 				92DB4DAB2AFEE01700DB6F27 /* LocationManager.swift */,
 				927E8E5C2B002DC80007853E /* NotificationManager.swift */,
 				927E8E642B003B260007853E /* AppDelegate.swift */,
+				92EA1CD92B57721100AABD43 /* PageStateManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -338,6 +349,7 @@
 				92C623D62A0EE53C006B5940 /* CollectionStruct.swift */,
 				9266D3942A0E03A200976757 /* UserClass.swift */,
 				9227FCFE2B5631EF00345ABD /* ProfileStruct.swift */,
+				92EA1CDD2B57850100AABD43 /* ActivityProfileStruct.swift */,
 			);
 			path = CommunicationStructs;
 			sourceTree = "<group>";
@@ -560,6 +572,7 @@
 				9227FCFF2B5631F000345ABD /* ProfileStruct.swift in Sources */,
 				92524A7B2A14A45F00CE0FD4 /* SelectedView.swift in Sources */,
 				92C623D92A0EECB5006B5940 /* MainView.swift in Sources */,
+				92EA1CDC2B577F1D00AABD43 /* ActivityManager.swift in Sources */,
 				9214DEB92A0B5D33000A5A2D /* TitleView.swift in Sources */,
 				9277F8842AC52FFB001E7110 /* CardImageView.swift in Sources */,
 				92A7A1912ACB38D20070C26E /* LikeStore.swift in Sources */,
@@ -567,9 +580,11 @@
 				9234A9A72A0B278200EC036A /* CustomFontFactory.swift in Sources */,
 				9286DB312A0C9B39007FA46E /* CardCollectionView.swift in Sources */,
 				92E445402B0C49DE00662AE8 /* VerificationView.swift in Sources */,
+				92EA1CDA2B57721100AABD43 /* PageStateManager.swift in Sources */,
 				9214DEC52A0B72FD000A5A2D /* ClothingItem.swift in Sources */,
 				9266D3972A0E092C00976757 /* PickerView.swift in Sources */,
 				9273B0852A0D6077002140C4 /* KeychainHelper.swift in Sources */,
+				92EA1CDE2B57850100AABD43 /* ActivityProfileStruct.swift in Sources */,
 				92ADCC802A9831DA0070136A /* LoginSequenceDesignVariables.swift in Sources */,
 				9286DB332A0C9BBF007FA46E /* MiniCardView.swift in Sources */,
 				92E682472AE9753900F3B09C /* CustomAsyncImage.swift in Sources */,
@@ -595,6 +610,7 @@
 				9286DB2F2A0C953D007FA46E /* NavigationButtonsView.swift in Sources */,
 				92F137212A16EE9D000C0546 /* ListView.swift in Sources */,
 				92A1CED42B292018009B155C /* PreviewView.swift in Sources */,
+				92EA1CD82B5766BB00AABD43 /* ActivityView.swift in Sources */,
 				926AB5082AE7851C0037B937 /* CardScrollView.swift in Sources */,
 				9214DEC72A0B741F000A5A2D /* CardView.swift in Sources */,
 				92DB4DAC2AFEE01700DB6F27 /* LocationManager.swift in Sources */,
