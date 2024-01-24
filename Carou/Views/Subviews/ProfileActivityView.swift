@@ -84,6 +84,9 @@ struct ProfileActivityView: View {
                                         }
                                     }
                                 }
+                                .frame(height: reader.size.height * (Double(
+                                    (clothingManager.clothingItems.count % 2 == 0 ? clothingManager.clothingItems.count : clothingManager.clothingItems.count + 1)) / 4.25))
+                                
                                 if !clothingManager.allClothingItemsLoaded {
                                     LazyVStack{
                                         ProgressView()
@@ -114,48 +117,51 @@ struct ProfileActivityView: View {
                                     EmptyView()
                                         .frame(height: reader.size.height * 0.1)
                                 }
-                            } else {
+                            } else if errorMessage.isEmpty {
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle(tint: Color("DarkFontColor")))
                                     .scaleEffect(3)
                                     .frame(height: reader.size.height * 0.45)
+                                    .onAppear{
+                                        //Loads users activity list
+                                        DispatchQueue.global(qos: .userInitiated).async{
+                                            clothingManager.loadNext() { result in
+                                                switch result {
+                                                case .success(let empty):
+                                                    if empty {
+                                                        if clothingManager.clothingItems.count == 0 {
+                                                            errorMessage = "Start liking clothing!"
+                                                        }
+                                                    }
+                                                case .failure(let error):
+                                                    if case Api.ApiError.httpError(let message) = error {
+                                                        errorMessage = message
+                                                    } else {
+                                                        errorMessage = "Something isn't right. Error Message: \(error)"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                            } else {
+                                Spacer(minLength: reader.size.height * GeneralDesignVariables.errorMessageHeightRatio)
+                                Text("\(errorMessage)")
+                                    .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.07, relativeTo: .body))
+                                    .foregroundColor(.red)
+                                    .multilineTextAlignment(.center)
                             }
                         } else if profileInformation!.privateAccount && profileInformation!.followingStatus != .following {
                             Text("Private Account")
                                 .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.075, relativeTo: .headline))
                                 .foregroundColor(Color("DarkFontColor"))
                                 .frame(width: reader.size.width * 0.9)
+                                .padding(.top, reader.size.height * 0.2)
                                 .padding(.bottom, reader.size.height * 0.01)
-                        } else {
-                            Spacer(minLength: reader.size.height * GeneralDesignVariables.errorMessageHeightRatio)
-                            Text("\(errorMessage)")
-                                .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.07, relativeTo: .body))
-                                .foregroundColor(.red)
-                                .multilineTextAlignment(.center)
                         }
                     }
                     .onAppear{
                         self.clothingManager.userId = self.profileInformation!.id
                         self.buttonText = ActivityProfileStruct.FollowingStatus.followingStatusToString(self.profileInformation!.followingStatus)
-                        
-                        DispatchQueue.global(qos: .userInitiated).async{
-                            clothingManager.loadNext() { result in
-                                switch result {
-                                case .success(let empty):
-                                    if empty {
-                                        if clothingManager.clothingItems.count == 0 {
-                                            errorMessage = "Start liking clothing!"
-                                        }
-                                    }
-                                case .failure(let error):
-                                    if case Api.ApiError.httpError(let message) = error {
-                                        errorMessage = message
-                                    } else {
-                                        errorMessage = "Something isn't right. Error Message: \(error)"
-                                    }
-                                }
-                            }
-                        }
                     }
                 }
                 VStack(alignment: .leading){

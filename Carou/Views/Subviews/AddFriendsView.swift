@@ -17,9 +17,11 @@ struct AddFriendsView: View {
     
     @State var searchViewActive: Bool = false
     
+    @State var profileInformation: ActivityProfileStruct? = nil
+    
     var body: some View {
         GeometryReader { reader in
-            if !searchViewActive {
+            if !searchViewActive && profileInformation == nil {
                 ZStack {
                     VStack(alignment: .center){
                         InlineTitleView()
@@ -56,21 +58,26 @@ struct AddFriendsView: View {
                                             }
                                     } else {
                                         ForEach(requestedProfiles.indices, id: \.self) { index in
-                                            AddView(username: requestedProfiles[index].username, addAction: {
-                                                do {
-                                                    try api.requestAction(userId: requestedProfiles[index].id, approved: true)
-                                                    requestedProfiles.remove(at: index)
-                                                } catch {
-                                                    print("Error in AddView addAction: \(error)")
+                                            AddView(username: requestedProfiles[index].username, buttonAction: { val in
+                                                if val {
+                                                    do {
+                                                        try api.requestAction(userId: requestedProfiles[index].id, approved: true)
+                                                        requestedProfiles.remove(at: index)
+                                                    } catch {
+                                                        print("Error in AddView addAction: \(error)")
+                                                    }
                                                 }
-                                            }, denyAction: {
-                                                do {
-                                                    try api.requestAction(userId: requestedProfiles[index].id, approved: false)
-                                                } catch {
-                                                    print("Error in AddView denyAction: \(error)")
-                                                }
+                                            }, usernameTapAction: {
+                                                self.profileInformation = self.requestedProfiles[index]
                                             })
                                             .frame(height: reader.size.height * 0.05)
+                                            
+                                            //TODO: Deny Function
+//                                            do {
+//                                                try api.sendFollowRequest(newFollowingStatus: .following, userId: profiles[index].id)
+//                                            } catch {
+//                                                print("Something went wrong: \(error)")
+//                                            }
                                         }
                                     }
                                 } else {
@@ -105,9 +112,11 @@ struct AddFriendsView: View {
                     }
                     Spacer()
                 }
-            } else {
+            } else if self.profileInformation == nil {
                 SearchUserView(viewActive: $searchViewActive, api: self.api)
                     .frame(width: reader.size.width, height: reader.size.height)
+            } else {
+                ProfileActivityView(profileInformation: $profileInformation, clothingManager: ClothingPageManager(api: self.api, requestType: .activity))
             }
         }
     }

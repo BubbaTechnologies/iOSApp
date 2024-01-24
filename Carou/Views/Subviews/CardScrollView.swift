@@ -80,8 +80,8 @@ struct CardScrollView: View {
                                         selectionDict[index] = value
                                     }
                                 ))
-                                .frame(width: reader.size.width * 0.15, height: reader.size.height * 0.07)
-                                .position(x: reader.frame(in: .local).minX + reader.size.width * 0.03, y: reader.frame(in: .local).minY + reader.size.height * 0.01)
+                                .frame(width: reader.size.width * 0.15, height: reader.size.height * 0.06)
+                                .position(x: reader.frame(in: .local).minX + reader.size.width * 0.02, y: reader.frame(in: .local).minY + reader.size.height * 0.01)
                                 .onDisappear{
                                     selectionDict[index] = false
                                 }

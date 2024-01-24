@@ -389,13 +389,19 @@ class Api:ObservableObject {
                                 //Iterates over activityList and creates ActivityObject
                                 responseData = []
                                 for activityItem in activityList {
-                                    if let activityItemAsJson = try? JSONSerialization.data(withJSONObject: activityItem) {
-                                        responseData!.append(try JSONDecoder().decode(ActivityObject.self, from: activityItemAsJson))
+                                    if let clothingInformation = activityItem["clothingDTO"] as? [String: Any], let profileInformation = activityItem["userProfile"] as? [String: Any] {
+                                        //Deals with clothing info
+                                        if let clothingInfoAsData = try? JSONSerialization.data(withJSONObject: clothingInformation), let profileInfoAsData = try? JSONSerialization.data(withJSONObject: profileInformation) {
+                                            let clothingInfo = try JSONDecoder().decode(ClothingItem.self, from: clothingInfoAsData)
+                                            let profileInfo = try JSONDecoder().decode(ActivityProfileStruct.self, from: profileInfoAsData)
+                                            responseData?.append(ActivityObject(profile: profileInfo, clothingItem: clothingInfo))
+                                        }
                                     }
                                 }
                             }
                         }
                     } catch {
+                        print("\(error)")
                         if responseStatusCode == 200 {
                             responseStatusCode = -5
                         }
@@ -440,20 +446,21 @@ class Api:ObservableObject {
 
         urlComponents.path = "/app/" + collectionType.rawValue
         
-        if collectionType == .activity {
-            if let userId = userId {
-                urlComponents.path += "?userId" + String(userId)
-            } else {
-                throw Api.getApiError(statusCode: -8)
-            }
-        }
-        
         let semaphore = DispatchSemaphore(value: 0)
         
         var parameters:[URLQueryItem] = getQueryParameters()
         if let pageNumber = pageNumber {
             parameters.append(URLQueryItem(name: "page", value: String(pageNumber)))
         }
+        
+        if collectionType == .activity {
+            if let userId {
+                parameters.append(URLQueryItem(name: "userId", value: String(userId)))
+            } else {
+                throw Api.getApiError(statusCode: -8)
+            }
+        }
+        
         urlComponents.queryItems = parameters
         
         //Sends request
@@ -745,12 +752,11 @@ class Api:ObservableObject {
                 }
                 
                 if let data = data {
-                    print(String(data: data, encoding: .utf8)!)
                     do {
                         //Decode data to pass to activity manager
                         if let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                             if let profileList = jsonObject["profiles"] as? [[String:Any]] {
-                                //Iterates over activityList and creates ActivityObject
+                                //Iterates over activityList
                                 responseData = []
                                 for profile in profileList {
                                     if let profile = try? JSONSerialization.data(withJSONObject: profile) {
@@ -820,7 +826,7 @@ class Api:ObservableObject {
                         //Decode data to pass to activity manager
                         if let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                             if let profileList = jsonObject["profiles"] as? [[String:Any]] {
-                                //Iterates over activityList and creates ActivityObject
+                                //Iterates over activityList
                                 responseData = []
                                 for profile in profileList {
                                     if let profile = try? JSONSerialization.data(withJSONObject: profile) {
