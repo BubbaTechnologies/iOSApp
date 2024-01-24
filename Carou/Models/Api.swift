@@ -1045,7 +1045,6 @@ class Api:ObservableObject {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         
-        //TODO: Properly encode
         request.httpBody = try JSONEncoder().encode(profileStruct)
         if let jwt = jwt {
             request.allHTTPHeaderFields = [

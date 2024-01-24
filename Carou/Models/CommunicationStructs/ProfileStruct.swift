@@ -75,6 +75,12 @@ class ProfileStruct: ObservableObject, Codable {
         return initials
     }
     
+    var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }
+    
     enum CodingKeys: String, CodingKey {
         case username = "username"
         case email = "email"
@@ -90,7 +96,13 @@ class ProfileStruct: ObservableObject, Codable {
         try container.encode(self.password, forKey: .password)
         try container.encode(self.email, forKey: .email)
         try container.encode(self.gender, forKey: .gender)
-        try container.encode(self.birthdate, forKey: .birthdate)
+        
+        if !dataCollectionPermission {
+            try container.encodeNil(forKey: .birthdate)
+        } else {
+            try container.encode(dateFormatter.string(from: self.birthdate), forKey: .birthdate)
+        }
+        
         try container.encode(self.privateAccount, forKey: .privateAccount)
     }
     

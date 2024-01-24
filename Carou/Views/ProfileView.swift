@@ -70,6 +70,11 @@ struct ProfileView: View {
                                     .padding(.bottom, reader.size.height * 0.01)
                                     .padding(.horizontal, reader.size.width * 0.1)
                                 ButtonView(text: "Update", confirmation: false, widthFactor: 0.5, fontFactor: 0.06) {
+                                    if self.api.profileInformation.birthdate <= Calendar.current.date(byAdding: .year, value: -13, to: Date())! {
+                                        self.api.profileInformation.dataCollectionPermission = true
+                                    }
+                                    
+                                    
                                     do {
                                         try api.sendUpdate(profileStruct: self.api.profileInformation)
                                         try api.loadProfile()
