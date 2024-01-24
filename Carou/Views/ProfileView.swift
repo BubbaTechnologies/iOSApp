@@ -70,13 +70,11 @@ struct ProfileView: View {
                                     .padding(.bottom, reader.size.height * 0.01)
                                     .padding(.horizontal, reader.size.width * 0.1)
                                 ButtonView(text: "Update", confirmation: false, widthFactor: 0.5, fontFactor: 0.06) {
-                                    DispatchQueue.global(qos: .background).async {
-                                        do {
-                                            try api.sendUpdate(profileStruct: self.api.profileInformation)
-                                            try api.loadProfile()
-                                        } catch {
-                                            print("Error in updating: \(error)")
-                                        }
+                                    do {
+                                        try api.sendUpdate(profileStruct: self.api.profileInformation)
+                                        try api.loadProfile()
+                                    } catch {
+                                        print("Error in updating: \(error)")
                                     }
                                 }
                                 .frame(height: max(LoginSequenceDesignVariables.buttonMinHeight * 0.9, reader.size.height * LoginSequenceDesignVariables.buttonHeightFactor * 0.9))

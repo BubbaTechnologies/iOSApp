@@ -1041,7 +1041,7 @@ class Api:ObservableObject {
         var responseStatusCode: Int = -4
         let semaphore = DispatchSemaphore(value: 0)
         
-        let url = URL(string: "https://" + baseUrl + "/updateUserInfo")!
+        let url = URL(string: "https://" + baseUrl + "/app/updateUserInfo")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         
