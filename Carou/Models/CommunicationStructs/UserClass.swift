@@ -40,21 +40,6 @@ class UserClass: ObservableObject, Encodable {
         self.birthdate = Date()
     }
     
-    init(from profileStruct: ProfileStruct) {
-        self.username = profileStruct.username
-        self.email = profileStruct.email
-        self.password = ""
-        let dateFormatter = ISO8601DateFormatter()
-        if let date = dateFormatter.date(from: profileStruct.birthdate){
-            self.birthdate = date
-            self.dataCollectionPermission = true
-        } else {
-            self.birthdate = Date()
-            self.dataCollectionPermission = false
-        }
-        self.gender = profileStruct.gender
-    }
-    
     enum EncodingKeys: String, CodingKey {
         case username
         case password

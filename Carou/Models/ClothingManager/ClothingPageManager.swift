@@ -13,6 +13,7 @@ class ClothingPageManager: ObservableObject, ClothingManager {
 
     @Published var attemptedLoad: Bool = false
     
+    var userId: Int
     var requestType: CollectionStruct.CollectionRequestType
     var currentPage: Int
     var totalPages: Int
@@ -25,6 +26,7 @@ class ClothingPageManager: ObservableObject, ClothingManager {
         self.api = Api()
         self.allClothingItemsLoaded = false
         self.totalPages = 0
+        self.userId = -1
     }
     
     init(clothingItems: [ClothingItem]) {
@@ -34,15 +36,17 @@ class ClothingPageManager: ObservableObject, ClothingManager {
         self.api = Api()
         self.allClothingItemsLoaded = false
         self.totalPages = 0
+        self.userId = -1
     }
     
-    init(api: Api, requestType: CollectionStruct.CollectionRequestType) {
+    init(api: Api, requestType: CollectionStruct.CollectionRequestType) {        
         self.clothingItems = []
         self.requestType = requestType
         self.currentPage = 0
         self.api = api
         self.allClothingItemsLoaded = false
         self.totalPages = 0
+        self.userId = -1
     }
     
     func loadItems() -> Void {
@@ -69,7 +73,7 @@ class ClothingPageManager: ObservableObject, ClothingManager {
                 }
                 completion(.success(true))
             } else {
-                try self.api.loadClothingPage(collectionType: self.requestType, pageNumber: self.currentPage) { items, pageAmount in
+                try self.api.loadClothingPage(collectionType: self.requestType, pageNumber: self.currentPage, userId: self.userId) { items, pageAmount in
                     self.totalPages = pageAmount
                     if self.totalPages == 0 {
                         completion(.success(true))

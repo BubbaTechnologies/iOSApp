@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ProfileView: View {
     @ObservedObject var api: Api
-    @ObservedObject var userClass: UserClass
     @State private var confirmPassword: String = ""
     @State private var genderSelected:Bool = false
     var changeFunction: (PageState)->Void
@@ -25,7 +24,6 @@ struct ProfileView: View {
     
     init(api: Api, changeFunction: @escaping (PageState)->Void) {
         self.api = api
-        self.userClass = UserClass(from: api.profileInformation)
         self.changeFunction = changeFunction
     }
     
@@ -45,11 +43,11 @@ struct ProfileView: View {
                                     }
                                     .frame(width: reader.size.width * 0.5)
                                     .padding(.bottom, reader.size.height * 0.01)
-                                TextInputView(promptText: userClass.username, input: $userClass.username, secure: false)
+                                TextInputView(promptText: self.api.profileInformation.username, input: self.$api.profileInformation.username, secure: false)
                                     .textContentType(.username)
                                     .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                                     .padding(.bottom, reader.size.height * 0.01)
-                                TextInputView(promptText: "New Password", input: $userClass.password, secure: true)
+                                TextInputView(promptText: "New Password", input: self.$api.profileInformation.password, secure: true)
                                     .textContentType(.newPassword)
                                     .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                                     .padding(.bottom, reader.size.height * 0.01)
@@ -57,21 +55,24 @@ struct ProfileView: View {
                                     .textContentType(.newPassword)
                                     .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                                     .padding(.bottom, reader.size.height * 0.01)
-                                TextInputView(promptText: userClass.email, input: $userClass.email, secure: false)
+                                TextInputView(promptText: self.api.profileInformation.email, input: self.$api.profileInformation.email, secure: false)
                                     .textContentType(.emailAddress)
                                     .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                                     .padding(.bottom, reader.size.height * 0.01)
-                                PickerView(selection: $userClass.gender, promptText: userClass.gender, options: FilterOptionsStruct.sampleOptions.getGenders().sorted(), selected: $genderSelected)
+                                PickerView(selection: self.$api.profileInformation.gender, promptText: self.api.profileInformation.gender, options: FilterOptionsStruct.sampleOptions.getGenders().sorted(), selected: $genderSelected)
                                     .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                                     .padding(.bottom, reader.size.height * 0.01)
-                                DatePickerView(placeholder: userClass.dataCollectionPermission! ? dateFormatter.string(from: userClass.birthdate) : "Date of Birth", birthdate: $userClass.birthdate)
+                                DatePickerView(placeholder: self.api.profileInformation.dataCollectionPermission ? dateFormatter.string(from: self.api.profileInformation.birthdate) : "Date of Birth", birthdate: self.$api.profileInformation.birthdate)
                                     .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                                     .padding(.bottom, reader.size.height * 0.01)
+                                ToggleView(text: "Private Account",  toggleValue: self.$api.profileInformation.privateAccount)
+                                    .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
+                                    .padding(.bottom, reader.size.height * 0.01)
+                                    .padding(.horizontal, reader.size.width * 0.1)
                                 ButtonView(text: "Update", confirmation: false, widthFactor: 0.5, fontFactor: 0.06) {
-                                    self.updateProfile(from: self.userClass)
                                     DispatchQueue.global(qos: .background).async {
                                         do {
-                                            try api.sendUpdate(userClass: self.userClass)
+                                            try api.sendUpdate(profileStruct: self.api.profileInformation)
                                             try api.loadProfile()
                                         } catch {
                                             print("Error in updating: \(error)")
@@ -109,6 +110,7 @@ struct ProfileView: View {
                 }
                 .frame(width: reader.size.width, height: reader.size.height)
                 VStack(alignment: .leading){
+                    //Switches view to swipe
                     Button(action: {changeFunction(.swipe)}) {
                         Image(systemName:"chevron.backward")
                             .resizable()
@@ -125,16 +127,6 @@ struct ProfileView: View {
         }
     }
 }
-
-extension ProfileView {
-    func updateProfile(from user: UserClass) {
-        self.api.profileInformation = ProfileStruct(username: user.username, email: user.email, gender: user.gender, birthdate: user.birthdate.ISO8601Format(), privateAccount: false)
-    }
-}
-
-
-
-
 
 #Preview {
     ProfileView(api: Api(), changeFunction: {_ in return})

@@ -26,13 +26,26 @@ class ActivityManager: ObservableObject {
         self.api = Api()
     }
     
+    init(clothingItems: [ClothingItem]) {
+        self.activityItems = []
+        self.allItemsLoaded = true
+        self.attemptedLoad = true
+        self.currentPage = 0
+        self.totalPages = 0
+        self.api = Api()
+        
+        for item in clothingItems {
+            self.activityItems.append(ActivityObject(profile: ActivityProfileStruct(id: 1, username: "Matthew Groholski", privateAccount: false, followingStatus: .following), clothingItem: item))
+        }
+    }
+    
     init (api: Api) {
         self.activityItems = []
         self.allItemsLoaded = false
         self.attemptedLoad = false
         self.currentPage = 0
         self.totalPages = 0
-        self.api = Api()
+        self.api = api
     }
     
     func loadItems() -> Void {
@@ -78,7 +91,7 @@ class ActivityManager: ObservableObject {
     }
 }
 
-struct ActivityObject {
+struct ActivityObject: Decodable {
     var profile: ActivityProfileStruct
     var clothingItem: ClothingItem
 }

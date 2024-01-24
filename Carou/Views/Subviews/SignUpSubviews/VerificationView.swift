@@ -27,7 +27,6 @@ struct VerificationView: View {
                     .frame(height: max(LoginSequenceDesignVariables.fieldMinHeight, reader.size.height * LoginSequenceDesignVariables.fieldHeightFactor))
                     .padding(.bottom, reader.size.height * 0.01)
                 ButtonView(text: "Sign Up") {
-                    viewIsPresent = false
                     buttonAction()
                 }
                 .frame(height: max(LoginSequenceDesignVariables.buttonMinHeight, reader.size.height * LoginSequenceDesignVariables.buttonHeightFactor))

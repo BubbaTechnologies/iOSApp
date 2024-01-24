@@ -81,7 +81,7 @@ struct CardScrollView: View {
                                     }
                                 ))
                                 .frame(width: reader.size.width * 0.15, height: reader.size.height * 0.07)
-                                .position(x: reader.frame(in: .local).minX + reader.size.width * 0.0425, y: reader.frame(in: .local).minY + reader.size.height * 0.01)
+                                .position(x: reader.frame(in: .local).minX + reader.size.width * 0.03, y: reader.frame(in: .local).minY + reader.size.height * 0.01)
                                 .onDisappear{
                                     selectionDict[index] = false
                                 }
@@ -125,7 +125,7 @@ struct CardScrollView: View {
                             .scaleEffect(3)
                             .frame(height: reader.size.height * 0.9)
                     } else {
-                        Spacer(minLength: reader.size.height * 0.4)
+                        Spacer(minLength: reader.size.height * GeneralDesignVariables.errorMessageHeightRatio)
                         Text("\(errorMessage)")
                             .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.07, relativeTo: .body))
                             .foregroundColor(.red)
@@ -188,6 +188,7 @@ struct CardScrollView: View {
                 )).onAppear() {
                    self.startTime = Date()
                 }
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
             }
             .onAppear{
                 DispatchQueue.global(qos: .userInitiated).async{

@@ -1,14 +1,14 @@
 //
-//  ButtonView.swift
+//  DynamicButtonView.swift
 //  Carou
 //
-//  Created by Matt Groholski on 5/9/23.
+//  Created by Matt Groholski on 1/23/24.
 //
 
 import SwiftUI
 
-struct ButtonView: View {
-    var text: String
+struct DynamicButtonView: View {
+    @Binding var text: String
     var confirmation: Bool = false
     var action: () -> Void
     
@@ -21,6 +21,17 @@ struct ButtonView: View {
     
     @State private var confirmationState: Bool = false
     @State private var buttonBackgroundColor: Color = Color("DarkFontColor")
+    
+    init(text: Binding<String>, action: @escaping ()->Void) {
+        self._text = text
+        self.action = action
+    }
+    
+    init (text: Binding<String>, widthFactor: CGFloat, action: @escaping ()->Void) {
+        self._text = text
+        self.widthFactor = widthFactor
+        self.action = action
+    }
     
     var body: some View {
         GeometryReader{ reader in
@@ -62,16 +73,16 @@ struct ButtonView: View {
     }
 }
 
-extension ButtonView{
-    init (text: String, confirmation: Bool, widthFactor: Double, action: @escaping ()->Void) {
-        self.text = text
+extension DynamicButtonView{
+    init (text: Binding<String>, confirmation: Bool, widthFactor: Double, action: @escaping ()->Void) {
+        self._text = text
         self.action = action
         self.widthFactor = widthFactor
         self.confirmation = confirmation
     }
     
-    init (text: String, confirmation: Bool, widthFactor: Double, fontFactor: Double, action: @escaping ()->Void) {
-        self.text = text
+    init (text: Binding<String>, confirmation: Bool, widthFactor: Double, fontFactor: Double, action: @escaping ()->Void) {
+        self._text = text
         self.action = action
         self.widthFactor = widthFactor
         self.fontFactor = fontFactor
@@ -79,19 +90,9 @@ extension ButtonView{
     }
 }
 
-struct SmallButtonView: View {
-    var text: String
-    var confirmation: Bool
-    var action: () -> Void
-    
-    var body: some View {
-        ButtonView(text: text, confirmation: confirmation, action: action, fontFactor: 0.055, relativeToValue: .caption, widthFactor: 0.22)
+struct DyanmicButtonView_Previews: PreviewProvider {
+    static var previews: some View {
+        DynamicButtonView(text: .constant("Sign In"), action: {() -> Void in return})
     }
 }
 
-struct ButtonView_Previews: PreviewProvider {
-    static var previews: some View {
-        ButtonView(text: "Sign In", confirmation: true, action: {() -> Void in return})
-        SmallButtonView(text: "Cancel", confirmation: false, action: {() -> Void in return})
-    }
-}

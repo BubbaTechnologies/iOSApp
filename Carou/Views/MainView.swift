@@ -47,7 +47,14 @@ struct MainView: View {
                                     switchFunction(newState: newState)
                                 }
                                 .frame(width: reader.size.width, height: reader.size.height)
+                        } else if auxiliaryType == .adding {
+                            AddFriendsView(api: self.api) { newState in
+                                previousPageState = pageState
+                                pageState = newState
+                                switchFunction(newState: newState)
                             }
+                            .frame(width: reader.size.width, height: reader.size.height)
+                        }
                     } else if pageState == .swipe {
                         SwipeView(api: api, clothingManager: swipeClothingManager, likeStore: store, initials: api.profileInformation.getInitials(), pageState: $pageState) { newState in
                             previousPageState = pageState
@@ -77,8 +84,12 @@ struct MainView: View {
                         }
                         .frame(width: reader.size.width, height: reader.size.height)
                     } else if pageState == .activity {
-                        //TODO
-                        EmptyView()
+                        ActivityView(activityManager: ActivityManager(api: api), pageState: $pageState, likeStore: store) { newState in
+                            previousPageState = pageState
+                            pageState = newState
+                            switchFunction(newState: newState)
+                        }
+                        .frame(width: reader.size.width, height: reader.size.height)
                     }
                     Spacer()
                 }

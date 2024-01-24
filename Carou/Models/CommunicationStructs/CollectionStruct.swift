@@ -51,6 +51,7 @@ struct CollectionStruct: Codable {
         case collection = "collection"
         case cardList = "cardList"
         case preview = "preview"
+        case activity = "profileActivity"
         case none = "none"
     }
 }

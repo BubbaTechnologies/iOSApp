@@ -29,17 +29,25 @@ struct CardCollectionView: View {
     var body: some View {
         GeometryReader{ reader in
             LazyVStack(alignment: .center, spacing: 0){
-                LazyVGrid(columns: columns, spacing: 0) {
-                    ForEach(items.indices, id: \.self){ i in
-                        MiniCardView(item: items[i]) {
-                            tapAction(i)
+                if items.isEmpty {
+                    Spacer(minLength: reader.size.height * GeneralDesignVariables.errorMessageHeightRatio)
+                    Text("No clothing!")
+                        .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.07, relativeTo: .body))
+                        .foregroundColor(.red)
+                        .multilineTextAlignment(.center)
+                } else {
+                    LazyVGrid(columns: columns, spacing: 0) {
+                        ForEach(items.indices, id: \.self){ i in
+                            MiniCardView(item: items[i]) {
+                                tapAction(i)
+                            }
+                            .overlay(alignment: suboverlay.0) {
+                                suboverlay.1(i)
+                            }
+                            .frame(width: reader.size.width * 0.4, height: reader.size.height * (2.0/Double(
+                                (items.count % 2 == 0 ? items.count : items.count + 1)
+                            )))
                         }
-                        .overlay(alignment: suboverlay.0) {
-                            suboverlay.1(i)
-                        }
-                        .frame(width: reader.size.width * 0.4, height: reader.size.height * (2.0/Double(
-                            (items.count % 2 == 0 ? items.count : items.count + 1)
-                        )))
                     }
                 }
             }

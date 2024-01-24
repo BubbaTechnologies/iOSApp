@@ -39,7 +39,7 @@ class ClothingListManager: ObservableObject, ClothingManager {
     
     
     func loadItems() throws {
-        try api.loadClothingPage(collectionType: collectionType, pageNumber: nil) { items, _ in
+        try api.loadClothingPage(collectionType: collectionType, pageNumber: nil, userId: nil) { items, _ in
             self.clothingItems.append(contentsOf: items)
             for item in items {
                 self.clothingCardManagers.append(CardManager(item: item))
