@@ -66,6 +66,7 @@ struct ActivityView: View {
                                         .overlay {
                                             Text("\(activityManager.activityItems[index].profile.getInitials())")
                                                 .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.04, relativeTo: .caption))
+                                                .foregroundColor(Color("DarkFontColor"))
                                         }
                                         .frame(width: reader.size.width * 0.15, height: reader.size.height * 0.06)
                                         .position(x: reader.frame(in: .local).minX + reader.size.width * 0.02, y: reader.frame(in: .local).minY + reader.size.height * 0.01)

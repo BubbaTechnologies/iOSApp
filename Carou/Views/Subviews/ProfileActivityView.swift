@@ -130,7 +130,7 @@ struct ProfileActivityView: View {
                                                 case .success(let empty):
                                                     if empty {
                                                         if clothingManager.clothingItems.count == 0 {
-                                                            errorMessage = "Start liking clothing!"
+                                                            errorMessage = "No likes!"
                                                         }
                                                     }
                                                 case .failure(let error):
@@ -144,10 +144,10 @@ struct ProfileActivityView: View {
                                         }
                                     }
                             } else {
-                                Spacer(minLength: reader.size.height * GeneralDesignVariables.errorMessageHeightRatio)
                                 Text("\(errorMessage)")
                                     .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.07, relativeTo: .body))
                                     .foregroundColor(.red)
+                                    .padding(.top, reader.size.height * 0.2)
                                     .multilineTextAlignment(.center)
                             }
                         } else if profileInformation!.privateAccount && profileInformation!.followingStatus != .following {
@@ -170,7 +170,7 @@ struct ProfileActivityView: View {
                             .resizable()
                             .scaledToFit()
                             .padding(.leading, reader.size.width * 0.05)
-                            .padding(.top, reader.size.height * 0.03)
+                            .padding(.top, reader.size.height * 0.017)
                             .foregroundColor(Color("DarkFontColor"))
                             .frame(width: reader.size.width * 0.075)
                         Spacer()

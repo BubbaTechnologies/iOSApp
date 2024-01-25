@@ -133,7 +133,7 @@ struct SignUpView: View {
                             .resizable()
                             .scaledToFit()
                             .padding(.leading, reader.size.width * 0.05)
-                            .padding(.top, reader.size.height * 0.03)
+                            .padding(.top, reader.size.height * 0.017)
                             .foregroundColor(Color("DarkFontColor"))
                             .frame(width: reader.size.width * 0.075)
                         Spacer()
