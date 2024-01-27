@@ -44,11 +44,14 @@ struct NavigationButtonView: View {
                     Circle()
                         .fill(Color("DarkBackgroundColor"))
                         .overlay(
-                            Image(systemName: "person.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .foregroundColor(.black)
-                                .frame(height: reader.size.height * (scaleFactor - 0.25))
+                            GeometryReader { reader in
+                                Image(systemName: "person.2.fill")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .foregroundColor(.black)
+                                    .frame(height: reader.size.height * 0.6)
+                                    .position(x: reader.frame(in: .local).midX * 1.035, y: reader.frame(in: .local).midY * 1.034)
+                            }
                         )
                 }.frame(height: reader.size.height * scaleFactor)
                     .padding(.horizontal, padding)

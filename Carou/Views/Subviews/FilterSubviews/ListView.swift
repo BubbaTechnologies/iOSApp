@@ -13,13 +13,14 @@ struct ListView: View {
     
     let selectedAction: (String, Bool) -> Void
     
-    @State var selectedList: [Bool]
+    @State var selectedListBuffer: [Bool] = Array(repeating: false, count: ListView.bufferSize)
     @State var isSelectection: Bool = false
+    
+    static let bufferSize: Int = 30
     
     init(list: [String], multipleSelections: Bool, selectedAction: @escaping(String, Bool)->Void) {
         self.list = list
         self.multipleSelections = multipleSelections
-        self.selectedList = Array(repeating: false, count: list.count)
         self.selectedAction = selectedAction
     }
     
@@ -27,18 +28,30 @@ struct ListView: View {
         GeometryReader { reader in
             VStack (alignment: .leading){
                 ForEach(list.indices, id: \.self) { index in
-                    if (isSelectection && selectedList[index]) || !isSelectection {
+                    if (isSelectection && selectedListBuffer[index]) || !isSelectection {
                         ListButtonView(selected: Binding<Bool>(
-                            get: {self.selectedList[index]},
+                            get: {
+                                if index < ListView.bufferSize {
+                                    self.selectedListBuffer[index]
+                                } else {
+                                    fatalError("Out of bounds index in get ListButtonView")
+                                }
+                            },
                             set: {value in
-                                self.selectedList[index] = value
-                                isSelectection = value && !multipleSelections
+                                if index < ListView.bufferSize {
+                                    self.selectedListBuffer[index] = value
+                                    isSelectection = value && !multipleSelections
+                                }
                             }
                         ), item: list[index]){ value, isSelected in
                             if !self.multipleSelections && isSelected {
                                 for i in 0...list.count - 1 {
                                     if list[i] != value {
-                                        selectedList[i] = false
+                                        if index < ListView.bufferSize {
+                                            selectedListBuffer[i] = false
+                                        } else {
+                                            fatalError("Out of bounds index in set ListButtonView")
+                                        }
                                     }
                                 }
                             }

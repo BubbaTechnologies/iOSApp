@@ -30,8 +30,9 @@ struct MiniCardView: View {
                                     .scaledToFill()
                                     .clipped()
                             case .failure:
-                                Text("This is taking longer than normal...")
+                                Text("Just tap?")
                                     .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.08, relativeTo: .caption))
+                                    .foregroundColor(Color("DarkFontColor"))
                             @unknown default:
                                 EmptyView()
                             }

@@ -24,13 +24,13 @@ struct CardImageView: View {
                         .scaledToFill()
                         .clipped()
                 case .failure:
-                    Text("This is taking longer than normal...")
-                        .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.04, relativeTo: .caption))
+                    Text("No image? Must be practicing the art of invisibility!")
                         .foregroundColor(Color("DarkFontColor"))
+                        .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.04, relativeTo: .caption))
                 @unknown default:
                     Text("This is taking longer than normal...")
-                        .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.04, relativeTo: .caption))
                         .foregroundColor(Color("DarkFontColor"))
+                        .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.04, relativeTo: .caption))
                 }
             }
             .padding(.horizontal, 20)

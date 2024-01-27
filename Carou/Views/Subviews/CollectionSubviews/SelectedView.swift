@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SelectedView: View {
     @Binding public var selected: Bool
-    private let scale: Double = 0.5
+    private let scale: Double = 0.48
     
     var body: some View {
         GeometryReader { reader in
@@ -24,7 +24,7 @@ struct SelectedView: View {
                                     .scaledToFill()
                                     .foregroundColor(Color("DarkFontColor"))
                                     .frame(width:abs(reader.size.width * scale), height: reader.size.height * scale)
-                                    .offset(x: reader.size.width * -0.0035)
+                                    .offset(x: reader.size.width * -0.0045)
                             }
                         }
                     }

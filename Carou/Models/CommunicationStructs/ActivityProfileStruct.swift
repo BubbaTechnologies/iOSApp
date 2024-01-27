@@ -42,6 +42,8 @@ struct ActivityProfileStruct: Decodable {
         
         let followingStatusInt = try container.decode(Int.self, forKey: .followingStatus)
         self.followingStatus = FollowingStatus.intToFollowingStatus(followingStatusInt)
+        
+        print("\(self.id), status: \(self.followingStatus)")
     }
     
     func getInitials() -> String {

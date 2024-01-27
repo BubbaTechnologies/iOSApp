@@ -85,6 +85,31 @@
 		92F137232A16F508000C0546 /* ListButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92F137222A16F508000C0546 /* ListButtonView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXBuildRule section */
+		92AB49D92B61EEA600CDDA94 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = pattern.proxy;
+			inputFiles = (
+			);
+			isEditable = 1;
+			outputFiles = (
+			);
+			script = "# Type a script or drag a script file from your workspace to insert its path.\n";
+		};
+		92AB49DA2B61EEA600CDDA94 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = pattern.proxy;
+			inputFiles = (
+			);
+			isEditable = 1;
+			outputFiles = (
+			);
+			script = "# Type a script or drag a script file from your workspace to insert its path.\n";
+		};
+/* End PBXBuildRule section */
+
 /* Begin PBXContainerItemProxy section */
 		9234A9882A0B245A00EC036A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -169,7 +194,7 @@
 		92B937202A8C6F3F0025DCB1 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		92C623D42A0EB1AB006B5940 /* LikeStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeStruct.swift; sourceTree = "<group>"; };
 		92C623D62A0EE53C006B5940 /* CollectionStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionStruct.swift; sourceTree = "<group>"; };
-		92C623D82A0EECB5006B5940 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		92C623D82A0EECB5006B5940 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.crashreport; };
 		92DB4DAB2AFEE01700DB6F27 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		92DB4DAD2AFEF07500DB6F27 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		92E445382B0C294300662AE8 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -465,6 +490,8 @@
 				9234A9752A0B245600EC036A /* Resources */,
 			);
 			buildRules = (
+				92AB49DA2B61EEA600CDDA94 /* PBXBuildRule */,
+				92AB49D92B61EEA600CDDA94 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);

@@ -35,6 +35,7 @@ struct CardScrollView: View {
                     Text(editing ? "Editing \(name)" : "\(name)")
                         .font(CustomFontFactory.getFont(style: "Bold", size: reader.size.width * 0.075, relativeTo: .title3))
                         .foregroundColor(Color("DarkFontColor"))
+                        .padding(.bottom, reader.size.height * 0.025)
                     if errorMessage.isEmpty && clothingManager.attemptedLoad {
                         CardCollectionView(items: $clothingManager.clothingItems) { index in
                             if selectionDict[index] == nil {
@@ -81,7 +82,7 @@ struct CardScrollView: View {
                                     }
                                 ))
                                 .frame(width: reader.size.width * 0.15, height: reader.size.height * 0.06)
-                                .position(x: reader.frame(in: .local).minX + reader.size.width * 0.02, y: reader.frame(in: .local).minY + reader.size.height * 0.01)
+                                .position(x: reader.frame(in: .local).minX + reader.size.width * 0.04, y: reader.frame(in: .local).minY + reader.size.height * 0.01)
                                 .onDisappear{
                                     selectionDict[index] = false
                                 }
@@ -215,5 +216,5 @@ struct CardScrollView: View {
 }
 
 #Preview {
-    CardScrollView(name: "Likes", clothingManager: ClothingPageManager(clothingItems: ClothingItem.sampleItems), likeStore: LikeStore(), selectedClothingItems: .constant([]), editing: .constant(false))
+    CardScrollView(name: "Likes", clothingManager: ClothingPageManager(clothingItems: ClothingItem.sampleItems), likeStore: LikeStore(), selectedClothingItems: .constant([]), editing: .constant(true))
 }

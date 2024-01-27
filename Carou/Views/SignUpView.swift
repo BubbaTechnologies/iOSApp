@@ -58,7 +58,7 @@ struct SignUpView: View {
                                 Spacer()
                             }
                             ButtonView(text: "Sign Up") {
-                                if userClass.username.isEmpty || userClass.password.isEmpty || userClass.gender.isEmpty || confirmPassword.isEmpty {
+                                if userClass.username.isEmpty || userClass.password.isEmpty || userClass.gender.isEmpty || confirmPassword.isEmpty || userClass.email.isEmpty {
                                     errorMessage = "Please fill in all fields."
                                     return
                                 }
