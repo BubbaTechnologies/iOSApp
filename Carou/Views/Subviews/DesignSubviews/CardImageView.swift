@@ -24,7 +24,7 @@ struct CardImageView: View {
                         .scaledToFill()
                         .clipped()
                 case .failure:
-                    Text("No image? Must be practicing the art of invisibility!")
+                    Text("Something isn't right...")
                         .foregroundColor(Color("DarkFontColor"))
                         .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.04, relativeTo: .caption))
                 @unknown default:

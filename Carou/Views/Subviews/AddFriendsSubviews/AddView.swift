@@ -12,7 +12,7 @@ struct AddView: View {
     var buttonAction: (Bool)->Void
     var usernameTapAction: ()->Void
     
-    @State var confirmed: Bool = true
+    @State var confirmed: Bool = false
     
     var body: some View {
         GeometryReader { reader in

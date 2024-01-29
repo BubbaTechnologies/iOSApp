@@ -850,8 +850,8 @@
 				INFOPLIST_FILE = Carou/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Carou;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "To help us better recommend clothing.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "To help us better recommend clothing.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Location will provide a better recommending experience through seasonal weather adjustment, local fashion trends, etc. For example, summer clothing in Arizona is recommended differently than summer clothing in the Illinois.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location will provide a better recommending experience through seasonal weather adjustment, local fashion trends, etc. For example, summer clothing in Arizona is recommended differently than summer clothing in the Illinois.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
@@ -891,8 +891,8 @@
 				INFOPLIST_FILE = Carou/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Carou;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "To help us better recommend clothing.";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "To help us better recommend clothing.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Location will provide a better recommending experience through seasonal weather adjustment, local fashion trends, etc. For example, summer clothing in Arizona is recommended differently than summer clothing in the Illinois.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Location will provide a better recommending experience through seasonal weather adjustment, local fashion trends, etc. For example, summer clothing in Arizona is recommended differently than summer clothing in the Illinois.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
