@@ -94,9 +94,9 @@ struct MainView: View {
                     Spacer()
                 }
             }
-        }.onChange(of: scenePhase) { phase in
+        }.onChange(of: scenePhase) { oldPhase, newPhase in
             //Persists likes when user is inactive
-            if phase == .inactive {
+            if newPhase == .inactive {
                 Task {
                     do {
                         try await self.store.save()
@@ -154,5 +154,4 @@ struct MainView_Previews: PreviewProvider {
                 .previewDisplayName("iPhone 13 Pro")
     }
 }
-
 

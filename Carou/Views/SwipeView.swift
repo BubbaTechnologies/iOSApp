@@ -134,16 +134,17 @@ extension SwipeView {
         }
         
         clothingManager.removeFirst()
-        
-        do {
-            try clothingManager.loadNext()
-        } catch Api.ApiError.httpError(let message) {
-            if clothingManager.clothingItems.count < maximumLoadingCount {
-                errorMessage = message
-            }
-        } catch {
-            if clothingManager.clothingItems.count < maximumLoadingCount {
-                errorMessage = "Something isn't right. Error Message: \(error)"
+        DispatchQueue.global(qos: .userInteractive).async {
+            do {
+                try clothingManager.loadNext()
+            } catch Api.ApiError.httpError(let message) {
+                if clothingManager.clothingItems.count < maximumLoadingCount {
+                    errorMessage = message
+                }
+            } catch {
+                if clothingManager.clothingItems.count < maximumLoadingCount {
+                    errorMessage = "Something isn't right. Error Message: \(error)"
+                }
             }
         }
     }

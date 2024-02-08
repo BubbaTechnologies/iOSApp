@@ -10,10 +10,11 @@ import SwiftUI
 @main
 struct CarouApp: App {
     @State var appStage: Stage = .loading
-    @ObservedObject var api: Api = Api()
     @ObservedObject var swipeClothingManager: ClothingListManager = ClothingListManager()
     @ObservedObject var likeStore: LikeStore = LikeStore()
     @ObservedObject var locationManager: LocationManager = LocationManager()
+    @ObservedObject var api: Api = Api()
+    @ObservedObject var sessionData: SessionData = SessionData()
     
     @State var errorMessage: String = ""
     @State var errorPresent: Bool = false
@@ -52,10 +53,24 @@ struct CarouApp: App {
                             print("\(error)")
                         }
                     }
+                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
+                        sessionData.switchActiveState()
+                    }
+                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
+                        sessionData.switchActiveState()
+                    }
+                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.willTerminateNotification)) { _ in
+                        do {
+                            try api.sendSessionData(sessionData: sessionData)
+                        } catch {
+                            print("\(error)")
+                        }
+                    }
             } else if appStage == .preview {
                 PreviewView(swipeClothingManager: swipeClothingManager, likeStore: likeStore, appStage: $appStage)
             }
         }
+        
     }
 }
 

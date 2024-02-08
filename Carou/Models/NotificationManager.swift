@@ -9,7 +9,7 @@ import Foundation
 import UserNotifications
 import UIKit
 
-class NotificationManager: NSObject, ObservableObject {
+class NotificationManager: NSObject, ObservableObject, UNUserNotificationCenterDelegate, UIApplicationDelegate {
     static let shared = NotificationManager()
     static var deviceId = ""
     
@@ -30,12 +30,5 @@ class NotificationManager: NSObject, ObservableObject {
     }
 }
 
-extension NotificationManager: UNUserNotificationCenterDelegate {
-    
-}
-
-extension NotificationManager: UIApplicationDelegate {
-    
-}
 
 
