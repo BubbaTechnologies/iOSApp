@@ -11,6 +11,7 @@ struct CardImageView: View {
     static let widthFactor: Double = 0.9
     
     @EnvironmentObject var api: Api
+    @State var sentError = false
     
     var itemId: Int
     var imageUrl: String
@@ -35,10 +36,15 @@ struct CardImageView: View {
                         .multilineTextAlignment(.center)
                         .multilineTextAlignment(.center)
                         .onAppear{
-                            do {
-                                try api.sendImageError(clothingId: itemId)
-                            } catch {
-                                print("\(error)")
+                            if !sentError {
+                                DispatchQueue.global(qos: .background).async {
+                                    do {
+                                        try api.sendImageError(clothingId: itemId)
+                                    } catch {
+                                        print("\(error)")
+                                    }
+                                }
+                                sentError = true
                             }
                         }
                 @unknown default:

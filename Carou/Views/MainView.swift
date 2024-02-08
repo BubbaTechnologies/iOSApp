@@ -98,6 +98,7 @@ struct MainView: View {
         }.onChange(of: scenePhase) { oldPhase, newPhase in
             //Persists likes when user is inactive
             if newPhase == .inactive {
+                instanceDataStore.save()
                 Task {
                     do {
                         try await self.store.save()

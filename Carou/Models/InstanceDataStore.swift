@@ -34,7 +34,7 @@ class InstanceDataStore: ObservableObject {
         } catch {
             // Handle any errors that occur during file loading or decoding
             print("Error loading or decoding data: \(error)")
-            
+            self.displayInstructions = true
         }
     }
     
@@ -45,7 +45,8 @@ class InstanceDataStore: ObservableObject {
             try data.write(to: outfile)
         } catch {
             // Handle any errors that occur during encoding or writing to file
-            print("\(error)")
+            print("Error saving or encoding data: \(error)")
+            self.displayInstructions = false
         }
     }
 

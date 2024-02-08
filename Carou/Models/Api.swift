@@ -545,11 +545,11 @@ class Api:ObservableObject {
         //Configures data for completion
         if responseStatusCode == 200 {
             if let responseData = responseData {
+                var itemCollection = responseData.getItems()
+                if (collectionType == CollectionStruct.CollectionRequestType.cardList) {
+                    itemCollection.reverse()
+                }
                 DispatchQueue.main.async {
-                    var itemCollection = responseData.getItems()
-                    if (collectionType == CollectionStruct.CollectionRequestType.cardList) {
-                        itemCollection.reverse()
-                    }
                     completion(itemCollection, responseData.getTotalPageCount())
                 }
                 return

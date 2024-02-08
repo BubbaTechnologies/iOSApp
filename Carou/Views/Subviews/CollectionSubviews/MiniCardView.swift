@@ -37,10 +37,12 @@ struct MiniCardView: View {
                                     .foregroundColor(Color("DarkFontColor"))
                                     .multilineTextAlignment(.center)
                                     .onAppear{
-                                        do {
-                                            try api.sendImageError(clothingId: item.id)
-                                        } catch {
-                                            print("\(error)")
+                                        DispatchQueue.global(qos: .background).async {
+                                            do {
+                                                try api.sendImageError(clothingId: item.id)
+                                            } catch {
+                                                print("\(error)")
+                                            }
                                         }
                                     }
                             @unknown default:

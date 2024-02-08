@@ -150,9 +150,9 @@ extension SwipeView {
             }
         }
         
-        clothingManager.removeFirst()
         DispatchQueue.global(qos: .userInteractive).async {
             do {
+                clothingManager.removeFirst()
                 try clothingManager.loadNext()
             } catch Api.ApiError.httpError(let message) {
                 if clothingManager.clothingItems.count < maximumLoadingCount {

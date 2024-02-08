@@ -65,8 +65,10 @@ class ClothingListManager: ObservableObject, ClothingManager {
     }
     
     func removeFirst() {
-        self.clothingItems.removeFirst()
-        self.clothingCardManagers.removeFirst()
+        DispatchQueue.main.sync{
+            self.clothingItems.removeFirst()
+            self.clothingCardManagers.removeFirst()
+        }
     }
     
     func reset() {
