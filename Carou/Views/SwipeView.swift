@@ -14,12 +14,15 @@ struct SwipeView: View {
     @ObservedObject var clothingManager: ClothingListManager
     @ObservedObject var likeStore: LikeStore
     
+//    @EnvironmentObject var instanceDataStore: InstanceDataStore
+    
+    @ObservedObject var instanceDataStore: InstanceDataStore = InstanceDataStore()  
+    
     var initials: String
     
     @Binding var pageState:PageState
     var customCardFunction:((ClothingItem, Int, Bool)->Void)?
     var changeFunction: (PageState)->Void
-    
     
     @State var errorMessage: String = ""
     
@@ -58,6 +61,17 @@ struct SwipeView: View {
                                 }
                                 Spacer()
                             }
+                        } else if instanceDataStore.displayInstructions {
+                            Rectangle()
+                                .padding(.horizontal, 20)
+                                .foregroundColor(Color("LightFontColor"))
+                                .background(Color("LightFontColor"))
+                                .cornerRadius(CardView.heightFactor * 30.5)
+                                .frame(height: reader.size.height * 0.75)
+                                .padding(.horizontal, 20)
+                            Rectangle()
+                                .opacity(0)
+                                .frame(width: reader.size.width * 0.9, height: reader.size.height * 0.1, alignment: .top)
                         } else {
                             ZStack{
                                 //Creates card for each clothing item in list
@@ -100,7 +114,7 @@ struct SwipeView: View {
                                             .resizable()
                                             .scaledToFit()
                                             .foregroundColor(.black)
-                                            .frame(width: reader.size.width * 0.06)
+                                            .frame(width: reader.size.width * 0.053)
                                     }
                                 }
                         }
@@ -110,6 +124,12 @@ struct SwipeView: View {
                     }
                     Spacer()
                 }
+                
+                VStack{
+                    if instanceDataStore.displayInstructions {
+                        InstructionsView(isPresent: $instanceDataStore.displayInstructions)
+                    }
+                }.frame(width: reader.size.width, height: reader.size.height)
             }
         }
     }

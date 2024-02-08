@@ -12,6 +12,7 @@ struct CarouApp: App {
     @State var appStage: Stage = .loading
     @ObservedObject var swipeClothingManager: ClothingListManager = ClothingListManager()
     @ObservedObject var likeStore: LikeStore = LikeStore()
+    @ObservedObject var instanceDataStore: InstanceDataStore = InstanceDataStore()
     @ObservedObject var locationManager: LocationManager = LocationManager()
     @ObservedObject var api: Api = Api()
     @ObservedObject var sessionData: SessionData = SessionData()
@@ -59,18 +60,22 @@ struct CarouApp: App {
                     .onReceive(NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)) { _ in
                         sessionData.switchActiveState()
                     }
-                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.willTerminateNotification)) { _ in
+                    .onReceive(NotificationCenter.default.publisher(for: UIApplication.willTerminateNotification)) { _ in                        
                         do {
                             try api.sendSessionData(sessionData: sessionData)
+                            instanceDataStore.save()
                         } catch {
                             print("\(error)")
                         }
                     }
             } else if appStage == .preview {
                 PreviewView(swipeClothingManager: swipeClothingManager, likeStore: likeStore, appStage: $appStage)
+                    .onAppear{
+                        instanceDataStore.displayInstructions = false
+                    }
             }
         }
-        
+        .environmentObject(instanceDataStore)
     }
 }
 
@@ -88,7 +93,9 @@ extension CarouApp {
                 if try api.loadToken() {
                     DispatchQueue.main.sync {
                         self.swipeClothingManager.changeCollectionType(collectionType: .cardList)
+                        instanceDataStore.load()
                     }
+                    
                     try self.api.loadBrowsing()
                     try self.loadDataAsync()
                     appStage = .main

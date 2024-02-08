@@ -49,7 +49,7 @@ struct NavigationButtonView: View {
                                     .resizable()
                                     .scaledToFit()
                                     .foregroundColor(.black)
-                                    .frame(height: reader.size.height * 0.6)
+                                    .frame(height: reader.size.height * 0.55)
                                     .position(x: reader.frame(in: .local).midX * 1.035, y: reader.frame(in: .local).midY * 1.034)
                             }
                         )

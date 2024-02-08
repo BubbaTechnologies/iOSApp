@@ -68,6 +68,7 @@ class Api:ObservableObject {
                 }
             }
         }
+        
         self.jwt = nil
         return false
     }

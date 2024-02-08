@@ -13,6 +13,8 @@ struct MainView: View {
      */
     @Environment(\.scenePhase) private var scenePhase
     
+    @EnvironmentObject var instanceDataStore: InstanceDataStore
+    
     @ObservedObject var api:Api
     @ObservedObject var swipeClothingManager: ClothingListManager
     @ObservedObject var store: LikeStore

@@ -69,6 +69,8 @@
 		92C623D52A0EB1AB006B5940 /* LikeStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C623D42A0EB1AB006B5940 /* LikeStruct.swift */; };
 		92C623D72A0EE53C006B5940 /* CollectionStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C623D62A0EE53C006B5940 /* CollectionStruct.swift */; };
 		92DAB0C72B747F53004B331F /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DAB0C62B747F53004B331F /* MainView.swift */; };
+		92DAB0CC2B749839004B331F /* InstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DAB0CB2B749839004B331F /* InstructionsView.swift */; };
+		92DAB0CE2B74A54B004B331F /* InstanceDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DAB0CD2B74A54B004B331F /* InstanceDataStore.swift */; };
 		92DB4DAC2AFEE01700DB6F27 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB4DAB2AFEE01700DB6F27 /* LocationManager.swift */; };
 		92DB4DAE2AFEF07500DB6F27 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DB4DAD2AFEF07500DB6F27 /* DatePickerView.swift */; };
 		92E445392B0C294300662AE8 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92E445382B0C294300662AE8 /* ProfileView.swift */; };
@@ -197,6 +199,8 @@
 		92C623D42A0EB1AB006B5940 /* LikeStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeStruct.swift; sourceTree = "<group>"; };
 		92C623D62A0EE53C006B5940 /* CollectionStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionStruct.swift; sourceTree = "<group>"; };
 		92DAB0C62B747F53004B331F /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		92DAB0CB2B749839004B331F /* InstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsView.swift; sourceTree = "<group>"; };
+		92DAB0CD2B74A54B004B331F /* InstanceDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstanceDataStore.swift; sourceTree = "<group>"; };
 		92DB4DAB2AFEE01700DB6F27 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		92DB4DAD2AFEF07500DB6F27 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		92E445382B0C294300662AE8 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -379,6 +383,7 @@
 				927E8E5C2B002DC80007853E /* NotificationManager.swift */,
 				927E8E642B003B260007853E /* AppDelegate.swift */,
 				92EA1CD92B57721100AABD43 /* PageStateManager.swift */,
+				92DAB0CD2B74A54B004B331F /* InstanceDataStore.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -442,6 +447,7 @@
 			isa = PBXGroup;
 			children = (
 				9214DEC62A0B741F000A5A2D /* CardView.swift */,
+				92DAB0CB2B749839004B331F /* InstructionsView.swift */,
 			);
 			path = SwipeSubviews;
 			sourceTree = "<group>";
@@ -629,6 +635,7 @@
 				9266D3952A0E03A200976757 /* UserClass.swift in Sources */,
 				920494C72B60289D00F34CDF /* DynamicButtonView.swift in Sources */,
 				927E8E652B003B260007853E /* AppDelegate.swift in Sources */,
+				92DAB0CE2B74A54B004B331F /* InstanceDataStore.swift in Sources */,
 				92EDF6282B60C6EA00DFE98F /* AddView.swift in Sources */,
 				9227FCFF2B5631F000345ABD /* ProfileStruct.swift in Sources */,
 				92524A7B2A14A45F00CE0FD4 /* SelectedView.swift in Sources */,
@@ -636,6 +643,7 @@
 				9214DEB92A0B5D33000A5A2D /* TitleView.swift in Sources */,
 				9277F8842AC52FFB001E7110 /* CardImageView.swift in Sources */,
 				92A7A1912ACB38D20070C26E /* LikeStore.swift in Sources */,
+				92DAB0CC2B749839004B331F /* InstructionsView.swift in Sources */,
 				9235C6262B5F3C4500D7605D /* GeneralDesignVariables.swift in Sources */,
 				927E8E5D2B002DC80007853E /* NotificationManager.swift in Sources */,
 				9234A9A72A0B278200EC036A /* CustomFontFactory.swift in Sources */,
@@ -867,7 +875,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "Bubba-Technologies-Inc.Carou";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -909,7 +917,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.3.0;
+				MARKETING_VERSION = 0.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "Bubba-Technologies-Inc.Carou";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

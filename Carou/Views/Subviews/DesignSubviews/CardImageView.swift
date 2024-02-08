@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CardImageView: View {
     static let widthFactor: Double = 0.9
+    
     var imageUrl: String
     var body: some View {
         GeometryReader { reader in
@@ -24,9 +25,10 @@ struct CardImageView: View {
                         .scaledToFill()
                         .clipped()
                 case .failure:
-                    Text("Something isn't right...")
+                    Text("Something isn't right.\n We've taken note...")
                         .foregroundColor(Color("DarkFontColor"))
                         .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.04, relativeTo: .caption))
+                        .multilineTextAlignment(.center)
                 @unknown default:
                     Text("This is taking longer than normal...")
                         .foregroundColor(Color("DarkFontColor"))
