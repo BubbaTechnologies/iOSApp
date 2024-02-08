@@ -39,7 +39,7 @@ struct CarouApp: App {
             } else if appStage == .authentication {
                 LoginView(api: api, completionFunction: {appStage = .loading})
             } else if appStage == .main {
-                MainView(api: self.api, swipeClothingManager: self.swipeClothingManager, store: self.likeStore)
+                MainView(api: self.api, swipeClothingManager: self.swipeClothingManager, store: self.likeStore, instanceDataStore: self.instanceDataStore)
                     .task{
                         do {
                             //Trys to load persisted like data and send it to server
@@ -75,7 +75,7 @@ struct CarouApp: App {
                     }
             }
         }
-        .environmentObject(instanceDataStore)
+        .environmentObject(self.api)
     }
 }
 

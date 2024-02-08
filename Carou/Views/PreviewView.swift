@@ -23,7 +23,7 @@ struct PreviewView: View {
             Color("BackgroundColor").ignoresSafeArea()
             ZStack {
                 Text("\(swipeClothingManager.clothingItems.count)")
-                SwipeView(api: swipeClothingManager.api, clothingManager: swipeClothingManager, likeStore: likeStore, initials: "", pageState: .constant(.swipe), customCardFunction: previewCardAction){ newState in
+                SwipeView(api: swipeClothingManager.api, clothingManager: swipeClothingManager, likeStore: likeStore, instanceDataStore: InstanceDataStore(displayInstructions: false), initials: "", pageState: .constant(.swipe), customCardFunction: previewCardAction){ newState in
                     appStage = .authentication
                 }
                 .frame(width: reader.size.width, height: reader.size.height)

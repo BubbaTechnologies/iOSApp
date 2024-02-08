@@ -16,6 +16,14 @@ class InstanceDataStore: ObservableObject {
             .appendingPathComponent("carouInstance.data")
     }
     
+    init() {
+        self.displayInstructions = true
+    }
+    
+    init(displayInstructions: Bool) {
+        self.displayInstructions = displayInstructions
+    }
+    
     func load()  {
         do {
             let fileURL = try Self.fileURL()

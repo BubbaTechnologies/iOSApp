@@ -932,7 +932,7 @@ class Api:ObservableObject {
     }
     
     /**
-        - Description: Sends sessiond data to API.
+        - Description: Sends session data to API.
         - Parameters:
             - sessionData: Structure holding the sesssion data to be sent.
         - Throws: `ApiError.httpError` if the return value is not 200. Check README.md for clarification on codes.
@@ -947,6 +947,35 @@ class Api:ObservableObject {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.httpBody = try JSONEncoder().encode(sessionData)
+            request.allHTTPHeaderFields = getHeaders(requestType: .post_auth, jwt: jwt)
+            
+            responseStatusCode = sendRequest(request: request)
+            
+            if responseStatusCode == 200 {
+                return
+            }
+        }
+        
+        throw Api.getApiError(statusCode: responseStatusCode)
+    }
+    
+    /**
+        - Description: Sends image loading error data to API.
+        - Parameters:
+                - clothingId : A int representing the api's id for the clothing.
+        - Throws: `ApiError.httpError` if the return value is not 200. Check README.md for clarification on codes.
+     */
+    func sendImageError(clothingId: Int) throws {
+        var responseStatusCode = -3
+        
+        if let jwt = jwt {
+            let url = URL(string: "https://" + baseUrl + "/app/imageError")!
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.httpBody = try JSONEncoder().encode([
+                "clothingId" : clothingId
+            ])
             request.allHTTPHeaderFields = getHeaders(requestType: .post_auth, jwt: jwt)
             
             responseStatusCode = sendRequest(request: request)

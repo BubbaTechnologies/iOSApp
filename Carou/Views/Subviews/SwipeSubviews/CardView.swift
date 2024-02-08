@@ -26,11 +26,11 @@ struct CardView: View {
                 if preloadImages {
                     //Creates cards with
                     ForEach(Array(cardManager.getItem().imageURL.enumerated()), id:\.offset) { index, image in
-                        CardImageView(imageUrl: image)
+                        CardImageView(itemId:cardManager.getItem().id ,imageUrl: image)
                             .zIndex(Double(cardManager.cardValues[index].zIndex))
                     }
                 } else {
-                    CardImageView(imageUrl: cardManager.getItem().imageURL[currentImageIndex])
+                    CardImageView(itemId: cardManager.getItem().id, imageUrl: cardManager.getItem().imageURL[currentImageIndex])
                 }
             }
             .overlay{

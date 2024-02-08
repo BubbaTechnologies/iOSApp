@@ -10,7 +10,11 @@ import SwiftUI
 struct CardImageView: View {
     static let widthFactor: Double = 0.9
     
+    @EnvironmentObject var api: Api
+    
+    var itemId: Int
     var imageUrl: String
+
     var body: some View {
         GeometryReader { reader in
             CustomAsyncImage(url: URL(string: imageUrl)) { phase in
@@ -29,6 +33,14 @@ struct CardImageView: View {
                         .foregroundColor(Color("DarkFontColor"))
                         .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.04, relativeTo: .caption))
                         .multilineTextAlignment(.center)
+                        .multilineTextAlignment(.center)
+                        .onAppear{
+                            do {
+                                try api.sendImageError(clothingId: itemId)
+                            } catch {
+                                print("\(error)")
+                            }
+                        }
                 @unknown default:
                     Text("This is taking longer than normal...")
                         .foregroundColor(Color("DarkFontColor"))

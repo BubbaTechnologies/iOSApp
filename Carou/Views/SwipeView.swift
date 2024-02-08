@@ -13,10 +13,7 @@ struct SwipeView: View {
     @ObservedObject var api:Api
     @ObservedObject var clothingManager: ClothingListManager
     @ObservedObject var likeStore: LikeStore
-    
-//    @EnvironmentObject var instanceDataStore: InstanceDataStore
-    
-    @ObservedObject var instanceDataStore: InstanceDataStore = InstanceDataStore()  
+    @ObservedObject var instanceDataStore: InstanceDataStore
     
     var initials: String
     
@@ -172,6 +169,6 @@ extension SwipeView {
 
 struct SwipeView_Previews: PreviewProvider {
     static var previews: some View {
-        SwipeView(api: Api(), clothingManager: ClothingListManager(clothingItems: ClothingItem.sampleItems), likeStore: LikeStore(), initials: "", pageState: .constant(.swipe), changeFunction: {_ in return})
+        SwipeView(api: Api(), clothingManager: ClothingListManager(clothingItems: ClothingItem.sampleItems), likeStore: LikeStore(), instanceDataStore: InstanceDataStore(displayInstructions: true), initials: "", pageState: .constant(.swipe), changeFunction: {_ in return})
     }
 }

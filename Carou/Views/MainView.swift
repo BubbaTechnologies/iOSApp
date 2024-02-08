@@ -13,11 +13,10 @@ struct MainView: View {
      */
     @Environment(\.scenePhase) private var scenePhase
     
-    @EnvironmentObject var instanceDataStore: InstanceDataStore
-    
     @ObservedObject var api:Api
     @ObservedObject var swipeClothingManager: ClothingListManager
     @ObservedObject var store: LikeStore
+    @ObservedObject var instanceDataStore: InstanceDataStore
         
     @State var pageState:PageState = .swipe
     @State var previousPageState: PageState = .swipe
@@ -58,7 +57,7 @@ struct MainView: View {
                             .frame(width: reader.size.width, height: reader.size.height)
                         }
                     } else if pageState == .swipe {
-                        SwipeView(api: api, clothingManager: swipeClothingManager, likeStore: store, initials: api.profileInformation.getInitials(), pageState: $pageState) { newState in
+                        SwipeView(api: api, clothingManager: swipeClothingManager, likeStore: store, instanceDataStore: instanceDataStore, initials: api.profileInformation.getInitials(), pageState: $pageState) { newState in
                             previousPageState = pageState
                             pageState = newState
                             switchFunction(newState: newState)
@@ -150,8 +149,8 @@ extension MainView {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(api: Api(), swipeClothingManager: ClothingListManager(), store: LikeStore())
-        MainView(api: Api(), swipeClothingManager: ClothingListManager(), store: LikeStore())
+        MainView(api: Api(), swipeClothingManager: ClothingListManager(), store: LikeStore(), instanceDataStore: InstanceDataStore(displayInstructions: false))
+        MainView(api: Api(), swipeClothingManager: ClothingListManager(), store: LikeStore(), instanceDataStore: InstanceDataStore(displayInstructions: false))
                 .previewDevice(PreviewDevice(rawValue: "iPhone 13 Pro"))
                 .previewDisplayName("iPhone 13 Pro")
     }

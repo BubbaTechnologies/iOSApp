@@ -14,6 +14,8 @@ struct MiniCardView: View {
     private let widthFactor: Double = 0.35
     private let heightFactor: Double = 0.3
     
+    @EnvironmentObject var api: Api
+    
     var body: some View {
         GeometryReader { reader in
             ZStack{
@@ -30,9 +32,17 @@ struct MiniCardView: View {
                                     .scaledToFill()
                                     .clipped()
                             case .failure:
-                                Text("Just tap?")
+                                Text("Just tap?\n We've taken note...")
                                     .font(CustomFontFactory.getFont(style: "Regular", size: reader.size.width * 0.08, relativeTo: .caption))
                                     .foregroundColor(Color("DarkFontColor"))
+                                    .multilineTextAlignment(.center)
+                                    .onAppear{
+                                        do {
+                                            try api.sendImageError(clothingId: item.id)
+                                        } catch {
+                                            print("\(error)")
+                                        }
+                                    }
                             @unknown default:
                                 EmptyView()
                             }
