@@ -15,11 +15,23 @@ struct InstructionsView: View {
     
     var body: some View {
         GeometryReader { reader in
-            Color(Color("DarkFontColor")).opacity(0.45).ignoresSafeArea()
+            Color(.gray).opacity(0.4).ignoresSafeArea()
                 .onTapGesture {
                     self.isPresent = false
                 }
             ZStack {
+                VStack{
+                    Spacer()
+                    HStack{
+                        Spacer()
+                        Text("Tap to Dismiss")
+                            .font(CustomFontFactory.getFont(style: "Bold", size: reader.size.width * InstructionsView.bottomFontSizeRatio, relativeTo: .caption))
+                            .foregroundColor(Color("DarkFontColor"))
+                            .offset(y: reader.size.height * -0.2)
+                        Spacer()
+                    }
+                    Spacer()
+                }
                 VStack {
                     Spacer()
                     HStack {
