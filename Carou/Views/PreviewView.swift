@@ -38,7 +38,9 @@ extension PreviewView {
         let likeStruct: LikeStruct = LikeStruct(clothingId: item.id, imageTaps: imageTaps, likeType: userLiked ? .like : .dislike)
         self.likeStore.likes.append(likeStruct)
         
-        swipeClothingManager.removeFirst()
+        DispatchQueue.global(qos: .background).async {
+            swipeClothingManager.removeFirst()
+        }
         
         if cardCount >= PREVIEW_COUNT {
             appStage = .authentication
